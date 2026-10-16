@@ -50,7 +50,7 @@ Clip resolution order per sign: embedded clip by name → clip generated from th
 
 ## Adding or editing signs
 
-Add an entry to `src/data/islVocabulary.json`:
+Most signs are generated from location + handshape templates by `scripts/generateVocabulary.py` (`python3 scripts/generateVocabulary.py` rewrites the JSON). Hand-authored entries can also be added directly to `src/data/islVocabulary.json`:
 
 ```json
 {
@@ -72,6 +72,18 @@ Add an entry to `src/data/islVocabulary.json`:
 - Mannequin conventions: `Arm X-` raise forward · `Arm Z` (right −, left +) raise sideways · `ForeArm X-` bend elbow · `Hand X` flex wrist · `Finger X+` curl · `Head X+` nod · `Brows X-` raise eyebrows.
 
 Entries with `"kind": "marker"` (e.g. `QUESTION`) are non-manual markers inserted by the grammar rules, never matched from words.
+
+## Slang, abbreviations and Hinglish
+
+`src/translation/slang.js` rewrites informal input before vocabulary matching and reports every rewrite in the result (shown as “Understood: wassup → how are you” chips):
+
+- texting: `thx`, `pls`, `u`, `ur`, `r`, `idk`, `brb`, `gtg`, `omg`, `lol`, `tmrw`, `l8r`, `b4`, `nvm`, `asap`…
+- speech: `gonna`, `wanna`, `gotta`, `lemme`, `gimme`, `kinda`, `ain't`, `cuz`…
+- slang: `bro`/`dude`/`yaar` → friend, `lit`/`dope` → awesome, `chill` → relax, `fam` → family, `bae` → love…
+- Hinglish: `mujhe`, `tum`, `kya`, `kyun`, `kahan`, `chahiye`, `paani`, `chai`, `bhai`, `theek hai`, `kya haal hai`…
+- numbers: 0–10 are single signs (`NUM-0`…`NUM-10`); larger numbers are signed digit by digit.
+
+Add a rule by appending `[regex, replacement]` to `RULES`; order matters (phrases before single words).
 
 ## Translation rules (MVP)
 

@@ -8,7 +8,7 @@ describe('validateInput', () => {
     expect(validateInput('')).toMatch(/type a sentence/i)
     expect(validateInput('   ')).toMatch(/type a sentence/i)
     expect(validateInput('a'.repeat(MAX_INPUT_LENGTH + 1))).toMatch(/under/i)
-    expect(validateInput('123 !!!')).toMatch(/letters/i)
+    expect(validateInput('!!! ???')).toMatch(/word or number/i)
     expect(validateInput('hello')).toBeNull()
   })
 })
@@ -53,6 +53,29 @@ describe('translate', () => {
     const r = translate('the a an', { fingerspell: false })
     expect(r.ok).toBe(false)
     expect(r.error).toMatch(/vocabulary/i)
+  })
+
+  it('normalises slang and texting abbreviations and reports the rewrites', () => {
+    const r = translate('wassup bro?')
+    expect(glosses(r)).toEqual(['YOU', 'FRIEND', 'HOW', 'QUESTION'])
+    expect(r.rewrites).toEqual(expect.arrayContaining([{ from: 'wassup', to: 'how are you' }, { from: 'bro', to: 'friend' }]))
+    expect(r.notes.join(' ')).toMatch(/understood/i)
+    expect(glosses(translate('thx, gonna grab chai brb'))).toEqual(['THANK-YOU', 'GO', 'TAKE', 'TEA', 'WAIT', 'ME', 'COME'])
+    expect(glosses(translate('idk tbh'))).toEqual(['ME', 'UNDERSTAND', 'NO'])
+    // comma clauses keep their own word order and question marker
+    expect(glosses(translate('wassup bro, call me pls'))).toEqual(['YOU', 'FRIEND', 'HOW', 'QUESTION', 'PHONE', 'ME', 'PLEASE'])
+  })
+
+  it('understands Hinglish words', () => {
+    expect(glosses(translate('mujhe paani chahiye'))).toEqual(['ME', 'WATER', 'NEED'])
+    expect(glosses(translate('kya haal hai?'))).toEqual(['YOU', 'HOW', 'QUESTION'])
+  })
+
+  it('signs numbers: 0–10 as one sign, larger numbers digit by digit', () => {
+    expect(glosses(translate('I need 2 books'))).toEqual(['ME', 'NEED', 'NUM-2', 'BOOK'])
+    expect(glosses(translate('call 108'))).toEqual(['PHONE', 'NUM-1', 'NUM-0', 'NUM-8'])
+    const r = translate('ten')
+    expect(r.items[0]).toMatchObject({ gloss: 'NUM-10', label: '10' })
   })
 
   it('returns an error for invalid input', () => {

@@ -233,3 +233,8 @@ button { font-family: inherit; }
   html { scroll-behavior: auto; }
   .progress-fill { transition: none; }
 }
+
+/* ---------- Slang rewrites ---------- */
+.rewrites { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 10px; }
+.rewrite-chip { font-size: 0.8rem; padding: 3px 9px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); }
+.rewrite-chip s { color: var(--muted); }

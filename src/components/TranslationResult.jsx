@@ -14,9 +14,21 @@ export function TranslationResult({ result, sourceText }) {
           <span key={it.id} className={`gloss kind-${it.kind}`}>{it.kind === 'fingerspell' ? `fs-${it.gloss}` : it.gloss}</span>
         ))}
       </p>
-      {result.notes.map((n, i) => (
-        <p key={i} className="note">{n}</p>
-      ))}
+      {result.rewrites?.length > 0 && (
+        <p className="rewrites" aria-label="Slang and abbreviations understood">
+          <span className="muted small">Understood:</span>
+          {result.rewrites.map((r, i) => (
+            <span key={i} className="rewrite-chip" title={`“${r.from}” was read as “${r.to}”`}>
+              <s>{r.from}</s> → {r.to}
+            </span>
+          ))}
+        </p>
+      )}
+      {result.notes
+        .filter((n) => !n.startsWith('Understood'))
+        .map((n, i) => (
+          <p key={i} className="note">{n}</p>
+        ))}
       <details className="result-details">
         <summary>How each sign is made</summary>
         <ul className="sign-list">

@@ -8,19 +8,21 @@
 // The ordering rules are deliberately small and documented in README.md.
 
 import vocabulary from '../data/islVocabulary.json'
+import { normaliseSlang } from './slang.js'
 
 export const MAX_INPUT_LENGTH = 300
 
 // English words with no standalone ISL sign in this MVP (articles, copulas, auxiliaries…).
 const FILLER_WORDS = new Set([
   'a', 'an', 'the', 'is', 'am', 'are', 'was', 'were', 'be', 'been', 'being',
-  'to', 'of', 'do', 'does', 'did', 'will', 'would', 'shall', 'should', 'can',
-  'could', 'may', 'might', 'it', 'this', 'that', 'there', 'some', 'any', 'very',
+  'to', 'of', 'do', 'does', 'did', 'will', 'would', 'shall', 'should',
+  'could', 'may', 'might', 'this', 'that', 'there', 'some', 'any', 'very',
   'really', 'just', 'so', 'and', 'but', 'or', 'for', 'with', 'at', 'in', 'on',
 ])
 
 // WH-words whose gloss is moved to the end of the sentence (common ISL pattern).
-const WH_GLOSSES = new Set(['WHAT', 'WHERE', 'WHEN', 'WHO', 'WHY', 'HOW', 'WHICH'])
+const WH_GLOSSES = new Set(['WHAT', 'WHERE', 'WHEN', 'WHO', 'WHY', 'HOW', 'WHICH', 'HOW-MANY'])
+const QUESTION_START = /^(how|what|where|when|who|why|which|are|is|do|does|can|could|will|should|would|did|have|has)\b/
 
 const CONTRACTIONS = [
   [/\bi'm\b/g, 'i am'], [/\bi've\b/g, 'i have'], [/\bi'll\b/g, 'i will'],
@@ -66,8 +68,8 @@ export function validateInput(text) {
   if (text.length > MAX_INPUT_LENGTH) {
     return `Please keep your text under ${MAX_INPUT_LENGTH} characters (currently ${text.length}).`
   }
-  if (!/[a-z]/i.test(text)) {
-    return 'The text needs at least one word made of letters (A–Z). Numbers and symbols alone cannot be signed yet.'
+  if (!/[a-z0-9]/i.test(text)) {
+    return 'The text needs at least one word or number. Symbols alone cannot be signed.'
   }
   return null
 }
@@ -75,7 +77,10 @@ export function validateInput(text) {
 function normalise(sentence) {
   let s = sentence.toLowerCase().replace(/[’‘]/g, "'")
   for (const [re, rep] of CONTRACTIONS) s = s.replace(re, rep)
-  return s.replace(/[^a-z'\s-]/g, ' ').replace(/['-]/g, '').split(/\s+/).filter(Boolean)
+  const slang = normaliseSlang(s)
+  s = slang.text
+  const tokens = s.replace(/[^a-z0-9'\s-]/g, ' ').replace(/['-]/g, '').split(/\s+/).filter(Boolean)
+  return { tokens, rewrites: slang.rewrites, text: s }
 }
 
 function matchPhrase(tokens, pos) {
@@ -91,8 +96,9 @@ function matchPhrase(tokens, pos) {
   return null
 }
 
-function translateSentence(sentence, isQuestion, options) {
-  const tokens = normalise(sentence)
+function translateSentence(sentence, options) {
+  const { tokens, rewrites, text } = normalise(sentence)
+  const isQuestion = /\?\s*$/.test(sentence) || QUESTION_START.test(text)
   const items = []
   const unsupported = []
   let i = 0
@@ -108,6 +114,12 @@ function translateSentence(sentence, isQuestion, options) {
       continue
     }
     const word = tokens[i]
+    if (/^\d+$/.test(word)) {
+      // Numbers above ten are signed digit by digit.
+      for (const digit of word) items.push({ gloss: `NUM-${digit}`, kind: 'sign', source: word })
+      i += 1
+      continue
+    }
     if (!FILLER_WORDS.has(word)) {
       unsupported.push(word)
       if (options.fingerspell) {
@@ -122,6 +134,10 @@ function translateSentence(sentence, isQuestion, options) {
   }
 
   // Ordering rule: WH question words go to the end of the sentence.
+  // Collapse immediate repeats ("omg ... lit" → WOW WOW).
+  const deduped = items.filter((it, idx) => idx === 0 || it.kind === 'fingerspell' || it.gloss !== items[idx - 1].gloss || items[idx - 1].kind === 'fingerspell')
+  items.length = 0
+  items.push(...deduped)
   const whItems = items.filter((it) => it.kind === 'sign' && WH_GLOSSES.has(it.gloss))
   const rest = items.filter((it) => !(it.kind === 'sign' && WH_GLOSSES.has(it.gloss)))
   const ordered = [...rest, ...whItems]
@@ -129,7 +145,7 @@ function translateSentence(sentence, isQuestion, options) {
   if (isQuestion && ordered.length) {
     ordered.push({ gloss: 'QUESTION', kind: 'marker', source: '?' })
   }
-  return { items: ordered, unsupported }
+  return { items: ordered, unsupported, rewrites }
 }
 
 /**
@@ -139,24 +155,28 @@ function translateSentence(sentence, isQuestion, options) {
 export function translate(text, options = {}) {
   const opts = { fingerspell: true, ...options }
   const error = validateInput(text)
-  if (error) return { ok: false, error, items: [], unsupported: [], notes: [], glossString: '' }
+  if (error) return { ok: false, error, items: [], unsupported: [], notes: [], rewrites: [], glossString: '' }
 
   const sentences = text
-    .split(/(?<=[.!?])\s+|\n+/)
+    .split(/(?<=[.!?,;])\s+|\n+/) // clauses are ordered independently
     .map((s) => s.trim())
     .filter(Boolean)
 
   const items = []
   const unsupported = []
+  const rewrites = []
   for (const sentence of sentences) {
-    const isQuestion = /\?\s*$/.test(sentence) || /^(how|what|where|when|who|why|which|are|is|do|does|can|could|will)\b/i.test(sentence)
-    const r = translateSentence(sentence, isQuestion, opts)
+    const r = translateSentence(sentence, opts)
     items.push(...r.items)
     unsupported.push(...r.unsupported)
+    rewrites.push(...r.rewrites)
   }
 
   const uniqueUnsupported = [...new Set(unsupported)]
   const notes = []
+  if (rewrites.length) {
+    notes.push(`Understood ${rewrites.map((r) => `“${r.from}” as “${r.to}”`).join(', ')}.`)
+  }
   if (uniqueUnsupported.length) {
     notes.push(
       opts.fingerspell
@@ -171,6 +191,7 @@ export function translate(text, options = {}) {
       items: [],
       unsupported: uniqueUnsupported,
       notes,
+      rewrites,
       glossString: '',
     }
   }
@@ -180,7 +201,7 @@ export function translate(text, options = {}) {
     return {
       id: `${idx}-${it.gloss}`,
       ...it,
-      label: it.kind === 'fingerspell' ? `${it.gloss} (fingerspell "${it.source}")` : it.gloss,
+      label: it.kind === 'fingerspell' ? `${it.gloss} (fingerspell "${it.source}")` : entry?.kind === 'number' ? `${entry.value}` : it.gloss,
       description: entry?.description || (it.kind === 'fingerspell' ? `Fingerspelled letter ${it.gloss}` : ''),
       expression: entry?.expression || 'neutral',
     }
@@ -191,6 +212,7 @@ export function translate(text, options = {}) {
     items: enriched,
     unsupported: uniqueUnsupported,
     notes,
+    rewrites,
     glossString: enriched.map((e) => (e.kind === 'fingerspell' ? `fs-${e.gloss}` : e.gloss)).join(' '),
   }
 }
