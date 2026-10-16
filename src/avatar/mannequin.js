@@ -11,7 +11,7 @@
 //   Finger X+ : curl toward the palm   Head X+ / Y     : nod down / turn
 //   Brows X-  : raise eyebrows
 
-import { BoxGeometry, CapsuleGeometry, CylinderGeometry, Group, Mesh, MeshToonMaterial, SphereGeometry } from 'three'
+import { CapsuleGeometry, CylinderGeometry, Group, Mesh, MeshToonMaterial, QuadraticBezierCurve3, SphereGeometry, TubeGeometry, Vector3 } from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 
 const COLORS = {
@@ -23,9 +23,13 @@ const COLORS = {
   sock: 0xf7f7f7,
   shoe: 0xf2a72a,
   hair: 0x161616,
-  eye: 0x111111,
+  eyeWhite: 0xfafafa,
+  iris: 0x4a2c1c,
+  pupil: 0x0b0806,
   highlight: 0xffffff,
-  mouth: 0x7d3a4a,
+  lip: 0xc9706a,
+  mouth: 0x5a2630,
+  blush: 0xf2a8a0,
   nail: 0xfbe0cc,
 }
 
@@ -151,40 +155,114 @@ function buildLeg(x, skin, shorts, sock, shoe) {
   return leg
 }
 
+/** Facial expression targets: smile in [-1, 1], open in [0, 1]. */
+const EXPRESSIONS = {
+  neutral: { smile: 0.15, open: 0 },
+  smile: { smile: 1, open: 0.25 },
+  frown: { smile: -0.8, open: 0 },
+  question: { smile: 0.05, open: 0.55 },
+}
+
+function lipCurve(smile, open, lower) {
+  const y = 0.14
+  const cornerY = y + smile * 0.03
+  const midY = lower ? y - smile * 0.02 - open * 0.05 : y - smile * 0.018 + open * 0.012
+  return new QuadraticBezierCurve3(
+    new Vector3(-0.052, cornerY, 0.276),
+    new Vector3(0, midY, 0.294),
+    new Vector3(0.052, cornerY, 0.276),
+  )
+}
+
 function buildHead(skin, skinDark) {
   const head = joint('mixamorigHead', [0, 0.05, 0])
   const hair = mat(COLORS.hair)
-  const eyeMat = mat(COLORS.eye)
+  const white = mat(COLORS.eyeWhite)
+  const iris = mat(COLORS.iris)
+  const pupil = mat(COLORS.pupil)
   const highlight = mat(COLORS.highlight)
+  const lip = mat(COLORS.lip)
+  const mouthInner = mat(COLORS.mouth)
+  const blush = mat(COLORS.blush)
   const R = 0.3
 
   head.add(mesh(new SphereGeometry(R, 40, 28), skin, [0, R, 0], [1.02, 0.97, 0.95])) // skull
   head.add(mesh(new SphereGeometry(1, 32, 20), skin, [0, 0.21, 0.02], [0.33, 0.2, 0.27])) // wide jaw
-  for (const x of [-0.2, 0.2]) head.add(mesh(new SphereGeometry(0.14, 24, 18), skin, [x, 0.19, 0.1])) // cheeks
+  for (const x of [-0.2, 0.2]) {
+    head.add(mesh(new SphereGeometry(0.14, 24, 18), skin, [x, 0.19, 0.1])) // cheeks
+    head.add(mesh(new SphereGeometry(1, 16, 12), blush, [x * 0.9, 0.21, 0.235], [0.045, 0.026, 0.014])) // blush
+  }
   // Hair: flat black cap with a soft fringe line
   head.add(mesh(new SphereGeometry(R + 0.012, 40, 20, 0, Math.PI * 2, 0, Math.PI * 0.27), hair, [0, R, -0.005], [1.02, 0.97, 0.95]))
   head.add(mesh(new SphereGeometry(1, 20, 12), hair, [0, 0.5, 0.2], [0.2, 0.03, 0.09]))
-  // Ears
-  for (const x of [-0.3, 0.3]) head.add(mesh(new SphereGeometry(0.04, 14, 10), skinDark, [x, 0.27, 0.02], [0.5, 1, 0.8]))
-  // Eyes: big dark ovals with a white highlight (joints so the avatar can blink)
+  // Ears: outer shell + inner hollow
+  for (const x of [-0.3, 0.3]) {
+    head.add(mesh(new SphereGeometry(0.045, 16, 12), skin, [x, 0.27, 0.01], [0.45, 1, 0.8]))
+    head.add(mesh(new SphereGeometry(0.03, 14, 10), skinDark, [x * 1.02, 0.265, 0.015], [0.3, 0.8, 0.6]))
+  }
+
+  // Eyes: eyeball, iris, pupil, highlight, upper/lower lids (lids rotate to blink)
+  const lids = []
   for (const [i, x] of [-0.11, 0.11].entries()) {
-    const eye = joint(i === 0 ? 'EyeRight' : 'EyeLeft', [x, 0.33, 0.265])
-    eye.add(mesh(new SphereGeometry(0.062, 24, 18), eyeMat, [0, 0, 0], [0.85, 1, 0.45]))
-    eye.add(mesh(new SphereGeometry(0.03, 14, 12), highlight, [0, 0.004, 0.02], [1, 1, 0.5]))
+    const eye = joint(i === 0 ? 'EyeRight' : 'EyeLeft', [x, 0.33, 0.262])
+    eye.add(mesh(new SphereGeometry(0.058, 28, 20), white))
+    eye.add(mesh(new SphereGeometry(0.03, 24, 16), iris, [0, 0, 0.052], [1, 1, 0.4]))
+    eye.add(mesh(new SphereGeometry(0.015, 16, 12), pupil, [0, 0, 0.061], [1, 1, 0.35]))
+    eye.add(mesh(new SphereGeometry(0.0065, 10, 8), highlight, [0.011, 0.012, 0.067]))
+    // Lids are hemispheres hinged at the eye centre: tilted back = open, swung forward = closed
+    const upper = mesh(new SphereGeometry(0.062, 28, 14, 0, Math.PI * 2, 0, Math.PI * 0.5), skin)
+    const lower = mesh(new SphereGeometry(0.061, 28, 14, 0, Math.PI * 2, Math.PI * 0.5, Math.PI * 0.5), skin)
+    lower.rotation.x = 0.85
+    eye.add(upper, lower)
+    lids.push(upper)
     head.add(eye)
   }
   // Thick brows (animated for expressions)
-  const brows = joint('Brows', [0, 0.44, 0.235])
+  const brows = joint('Brows', [0, 0.43, 0.235])
   for (const x of [-0.105, 0.105]) {
-    const b = mesh(new BoxGeometry(0.125, 0.034, 0.03), hair, [x, 0, 0])
-    b.rotation.z = x < 0 ? -0.18 : 0.18
+    const b = mesh(new CapsuleGeometry(0.015, 0.1, 4, 12), hair, [x, 0, 0])
+    b.rotation.z = Math.PI / 2 + (x < 0 ? -0.18 : 0.18)
     brows.add(b)
   }
   head.add(brows)
-  // Small open mouth
-  const mouth = mesh(new SphereGeometry(1, 16, 12), mat(COLORS.mouth), [0.02, 0.13, 0.25], [0.035, 0.05, 0.02])
-  mouth.name = 'Mouth'
-  head.add(mouth)
+  // Nose: bridge, tip, nostrils
+  head.add(mesh(new CapsuleGeometry(0.012, 0.04, 4, 10), skin, [0, 0.27, 0.295]))
+  head.add(mesh(new SphereGeometry(0.021, 16, 12), skin, [0, 0.235, 0.305], [1, 0.85, 0.9]))
+  for (const x of [-0.014, 0.014]) head.add(mesh(new SphereGeometry(0.007, 10, 8), skinDark, [x, 0.222, 0.312]))
+
+  // Mouth: upper lip line, lower lip line, dark interior (visible when open)
+  const upperLip = mesh(new TubeGeometry(lipCurve(0.15, 0, false), 16, 0.006, 8, false), lip)
+  const lowerLip = mesh(new TubeGeometry(lipCurve(0.15, 0, true), 16, 0.0075, 8, false), lip)
+  const inner = mesh(new SphereGeometry(1, 16, 12), mouthInner, [0, 0.135, 0.28], [0.04, 0.001, 0.015])
+  upperLip.name = 'UpperLip'
+  lowerLip.name = 'LowerLip'
+  head.add(upperLip, lowerLip, inner)
+
+  // Expression controller (blink + lip morphs), driven per frame by the avatar component.
+  const state = { smile: 0.15, open: 0, target: { ...EXPRESSIONS.neutral }, lastBuilt: { smile: -99, open: -99 } }
+  const face = {
+    setExpression(name) {
+      state.target = EXPRESSIONS[name] || EXPRESSIONS.neutral
+    },
+    update(dt, time) {
+      const k = Math.min(1, dt * 8)
+      state.smile += (state.target.smile - state.smile) * k
+      state.open += (state.target.open - state.open) * k
+      if (Math.abs(state.smile - state.lastBuilt.smile) > 0.01 || Math.abs(state.open - state.lastBuilt.open) > 0.01) {
+        upperLip.geometry.dispose()
+        lowerLip.geometry.dispose()
+        upperLip.geometry = new TubeGeometry(lipCurve(state.smile, state.open, false), 16, 0.006, 8, false)
+        lowerLip.geometry = new TubeGeometry(lipCurve(state.smile, state.open, true), 16, 0.0075, 8, false)
+        inner.position.y = 0.138 - state.smile * 0.01 - state.open * 0.024
+        inner.scale.y = 0.001 + state.open * 0.028 + Math.max(0, state.smile) * 0.006
+        state.lastBuilt = { smile: state.smile, open: state.open }
+      }
+      const phase = time % 4.2
+      const blink = phase < 0.18 ? Math.sin((phase / 0.18) * Math.PI) : 0
+      for (const lid of lids) lid.rotation.x = -0.8 + blink * 2.35
+    },
+  }
+  head.userData.face = face
   return head
 }
 
@@ -225,6 +303,7 @@ export function createMannequin() {
   spine.add(spine1)
   hips.add(spine)
   root.add(hips)
+  root.userData.face = root.getObjectByName('mixamorigHead').userData.face
 
   root.traverse((n) => {
     if (n.isMesh) {

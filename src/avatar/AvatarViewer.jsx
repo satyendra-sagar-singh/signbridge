@@ -15,24 +15,25 @@ function PlayerDriver({ update }) {
   return null
 }
 
-function MannequinAvatar({ onReady }) {
+function MannequinAvatar({ onReady, expression = 'neutral' }) {
   const root = useMemo(() => createMannequin(), [])
   const parts = useMemo(() => {
     const spine1 = root.getObjectByName('mixamorigSpine1')
-    return { spine1, spineY: spine1.position.y, eyes: [root.getObjectByName('EyeLeft'), root.getObjectByName('EyeRight')] }
+    return { spine1, spineY: spine1.position.y, face: root.userData.face }
   }, [root])
   useEffect(() => {
     captureRestPose(root)
     onReady({ type: 'mannequin', root, getClip: createClipResolver(root) })
   }, [root, onReady])
+  useEffect(() => {
+    parts.face?.setExpression(expression)
+  }, [parts, expression])
   // Idle life: gentle breathing (position only, so it never fights the
-  // mixer's rotation tracks) and a blink every ~4 s.
-  useFrame(({ clock }) => {
+  // mixer's rotation tracks), blinking and lip expressions.
+  useFrame(({ clock }, delta) => {
     const t = clock.elapsedTime
     parts.spine1.position.y = parts.spineY + Math.sin(t * 1.4) * 0.003
-    const phase = t % 4.2
-    const blink = phase < 0.16 ? 1 - Math.sin((phase / 0.16) * Math.PI) : 1
-    for (const eye of parts.eyes) eye.scale.y = Math.max(0.08, blink)
+    parts.face?.update(Math.min(delta, 0.1), t)
   })
   return <primitive object={root} />
 }
@@ -82,7 +83,7 @@ async function probeModel(url) {
   }
 }
 
-function AvatarModel({ onReady, onModelError, modelUrl }) {
+function AvatarModel({ onReady, onModelError, modelUrl, expression }) {
   const [available, setAvailable] = useState(null) // null = probing
   useEffect(() => {
     let cancelled = false
@@ -98,9 +99,9 @@ function AvatarModel({ onReady, onModelError, modelUrl }) {
   const handleGltfError = useCallback((err) => onModelError?.(err), [onModelError])
 
   if (available === null) return null
-  if (available === false) return <MannequinAvatar onReady={onReady} />
+  if (available === false) return <MannequinAvatar onReady={onReady} expression={expression} />
   return (
-    <ModelErrorBoundary onError={handleGltfError} fallback={<MannequinAvatar onReady={onReady} />}>
+    <ModelErrorBoundary onError={handleGltfError} fallback={<MannequinAvatar onReady={onReady} expression={expression} />}>
       <Suspense fallback={null}>
         <GltfAvatar url={modelUrl} onReady={onReady} />
       </Suspense>
@@ -160,6 +161,7 @@ export function AvatarViewer({ onAvatarReady, update, playerState, items, modelU
   }
 
   const current = playerState.current
+  const activeExpression = current && (playerState.status === 'playing' || playerState.status === 'paused') ? current.expression : 'neutral'
 
   return (
     <>
@@ -200,7 +202,7 @@ export function AvatarViewer({ onAvatarReady, update, playerState, items, modelU
           <hemisphereLight args={[0xffffff, 0xd9e2ff, 0.5]} />
           <directionalLight position={[2, 4, 3]} intensity={1.6} castShadow shadow-mapSize={[1024, 1024]} />
           <directionalLight position={[-2, 2, -1]} intensity={0.4} />
-          <AvatarModel onReady={handleReady} onModelError={handleModelError} modelUrl={modelUrl} />
+          <AvatarModel onReady={handleReady} onModelError={handleModelError} modelUrl={modelUrl} expression={activeExpression} />
           <ContactShadows position={[0, 0.001, 0]} opacity={0.45} scale={3} blur={2.2} far={2} />
           <OrbitControls
             ref={controlsRef}
