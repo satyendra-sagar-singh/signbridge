@@ -12,6 +12,7 @@
 //   Brows X-  : raise eyebrows
 
 import { BoxGeometry, CapsuleGeometry, CylinderGeometry, Group, Mesh, MeshToonMaterial, SphereGeometry } from 'three'
+import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 
 const COLORS = {
   skin: 0xf7c9a3,
@@ -25,15 +26,18 @@ const COLORS = {
   eye: 0x111111,
   highlight: 0xffffff,
   mouth: 0x7d3a4a,
+  nail: 0xfbe0cc,
 }
 
-const FINGER_SEGMENTS = {
-  Index: [0.028, 0.022, 0.017],
-  Middle: [0.03, 0.024, 0.018],
-  Ring: [0.028, 0.022, 0.017],
-  Pinky: [0.022, 0.017, 0.014],
+// Finger segment lengths (proximal → distal), base width, rest splay (rad).
+// Index sits next to the thumb on the medial side (palms face back at rest).
+const FINGERS = {
+  Index: { lengths: [0.034, 0.024, 0.019], width: 0.0165, x: 0.028, splay: -0.1 },
+  Middle: { lengths: [0.037, 0.026, 0.02], width: 0.0165, x: 0.0095, splay: -0.02 },
+  Ring: { lengths: [0.034, 0.024, 0.019], width: 0.0155, x: -0.0095, splay: 0.05 },
+  Pinky: { lengths: [0.026, 0.018, 0.015], width: 0.0135, x: -0.028, splay: 0.14 },
 }
-const FINGER_X = { Index: 0.027, Middle: 0.009, Ring: -0.009, Pinky: -0.027 }
+const REST_CURL = [0.12, 0.16, 0.1] // relaxed hand: slight curl per segment
 
 function mat(color) {
   return new MeshToonMaterial({ color })
@@ -55,14 +59,29 @@ function joint(name, position = [0, 0, 0]) {
   return g
 }
 
-/** One finger as a chain of segment joints: <side>Hand<Finger>1 → 2 → 3. */
-function buildFinger(side, finger, position, lengths, width, material) {
+/**
+ * One finger as a chain of segment joints: <side>Hand<Finger>1 → 2 → 3.
+ * Segments taper toward a rounded tip with a nail on the back of the hand
+ * (the +Z side, since palms face back in the rest pose).
+ */
+function buildFinger(side, finger, { position, lengths, width, splay = 0, curl = REST_CURL, baseRotation = null }, skin, nail) {
   let parent = null
   let first = null
   lengths.forEach((len, i) => {
     const seg = joint(`mixamorig${side}Hand${finger}${i + 1}`, i === 0 ? position : [0, -lengths[i - 1], 0])
-    seg.add(mesh(new SphereGeometry(width * 0.55, 10, 8), material))
-    seg.add(mesh(new CapsuleGeometry(width * 0.5, Math.max(0.001, len - width), 3, 10), material, [0, -len / 2, 0]))
+    const rTop = width * (0.5 - i * 0.06)
+    const rBottom = width * (0.44 - i * 0.06)
+    seg.add(mesh(new SphereGeometry(rTop * (i === 0 ? 1.15 : 1), 12, 10), skin)) // knuckle
+    seg.add(mesh(new CylinderGeometry(rTop, rBottom, len, 12), skin, [0, -len / 2, 0]))
+    if (i === lengths.length - 1) {
+      seg.add(mesh(new SphereGeometry(rBottom * 1.05, 12, 10), skin, [0, -len, 0], [1, 1.1, 0.9])) // fingertip
+      seg.add(mesh(new SphereGeometry(rBottom * 0.8, 10, 8), nail, [0, -len + rBottom * 0.5, rBottom * 0.55], [0.9, 1.1, 0.35]))
+    }
+    seg.rotation.x = curl[i] || 0
+    if (i === 0) {
+      seg.rotation.z = splay
+      if (baseRotation) seg.rotation.set(...baseRotation)
+    }
     if (parent) parent.add(seg)
     else first = seg
     parent = seg
@@ -70,21 +89,41 @@ function buildFinger(side, finger, position, lengths, width, material) {
   return first
 }
 
-function buildHand(side, skin) {
-  const sign = side === 'Left' ? 1 : -1
+function buildHand(side, skin, skinDark, nail) {
+  const sign = side === 'Left' ? 1 : -1 // +x is the lateral (outer) side of the left hand
   const hand = joint(`mixamorig${side}Hand`, [0, -0.22, 0])
-  hand.add(mesh(new SphereGeometry(1, 16, 12), skin, [0, -0.04, 0], [0.04, 0.05, 0.017]))
-  hand.add(mesh(new BoxGeometry(0.068, 0.05, 0.026), skin, [0, -0.05, 0]))
-  for (const finger of Object.keys(FINGER_SEGMENTS)) {
-    hand.add(buildFinger(side, finger, [sign * FINGER_X[finger], -0.075, 0], FINGER_SEGMENTS[finger], 0.016, skin))
+  // Palm: rounded slab, slightly narrower at the wrist, with a heel and thumb pad
+  const palm = mesh(new RoundedBoxGeometry(0.08, 0.092, 0.027, 3, 0.011), skin, [0, -0.046, 0])
+  hand.add(palm)
+  hand.add(mesh(new SphereGeometry(1, 16, 12), skin, [0, -0.012, 0], [0.034, 0.02, 0.014])) // heel/wrist blend
+  hand.add(mesh(new SphereGeometry(1, 16, 12), skinDark, [-sign * 0.03, -0.038, -0.004], [0.026, 0.038, 0.014])) // thenar pad
+  hand.add(mesh(new SphereGeometry(1, 16, 12), skin, [sign * 0.03, -0.066, -0.004], [0.02, 0.03, 0.013])) // hypothenar pad
+  for (const [finger, spec] of Object.entries(FINGERS)) {
+    hand.add(
+      buildFinger(
+        side,
+        finger,
+        { position: [-sign * spec.x, -0.09, 0], lengths: spec.lengths, width: spec.width, splay: -sign * spec.splay },
+        skin,
+        nail,
+      ),
+    )
   }
-  const thumb = buildFinger(side, 'Thumb', [sign * 0.038, -0.025, 0.012], [0.028, 0.022], 0.018, skin)
-  thumb.rotation.set(0.35, 0, sign * -0.75)
-  hand.add(thumb)
+  // Thumb: metacarpal angled off the medial edge, slightly toward the palm side
+  hand.add(
+    buildFinger(
+      side,
+      'Thumb',
+      { position: [-sign * 0.042, -0.022, -0.002], lengths: [0.034, 0.026], width: 0.019, curl: [0.1, 0.25], baseRotation: [0.45, -sign * 0.35, -sign * 0.95] },
+      skin,
+      nail,
+    ),
+  )
+  hand.scale.setScalar(1.3) // slightly oversized so signing stays legible
   return hand
 }
 
-function buildArm(side, skin, shirt) {
+function buildArm(side, skin, skinDark, nail, shirt) {
   const sign = side === 'Left' ? 1 : -1
   const shoulder = joint(`mixamorig${side}Shoulder`, [sign * 0.12, 0.09, 0])
   const arm = joint(`mixamorig${side}Arm`, [sign * 0.075, 0, 0])
@@ -97,7 +136,7 @@ function buildArm(side, skin, shirt) {
   foreArm.add(mesh(new CapsuleGeometry(0.037, 0.14, 4, 14), skin, [0, -0.11, 0]))
   foreArm.add(mesh(new SphereGeometry(0.032, 14, 10), skin, [0, -0.22, 0])) // wrist
 
-  foreArm.add(buildHand(side, skin))
+  foreArm.add(buildHand(side, skin, skinDark, nail))
   arm.add(foreArm)
   shoulder.add(arm)
   return shoulder
@@ -158,6 +197,7 @@ export function createMannequin() {
   const shorts = mat(COLORS.shorts)
   const sock = mat(COLORS.sock)
   const shoe = mat(COLORS.shoe)
+  const nail = mat(COLORS.nail)
 
   const root = new Group()
   root.name = 'SignBridgeMannequin'
@@ -179,8 +219,8 @@ export function createMannequin() {
 
   neck.add(buildHead(skin, skinDark))
   spine2.add(neck)
-  spine2.add(buildArm('Left', skin, shirt))
-  spine2.add(buildArm('Right', skin, shirt))
+  spine2.add(buildArm('Left', skin, skinDark, nail, shirt))
+  spine2.add(buildArm('Right', skin, skinDark, nail, shirt))
   spine1.add(spine2)
   spine.add(spine1)
   hips.add(spine)
