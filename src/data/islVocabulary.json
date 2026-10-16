@@ -1,0 +1,458 @@
+{
+  "meta": {
+    "language": "Indian Sign Language (ISL)",
+    "version": "0.1.0",
+    "note": "MVP vocabulary. 'description' summarises the real ISL sign in words. 'keyframes' are placeholder poses for the procedural mannequin (and Mixamo-named rigs); they approximate hand placement only and must not be presented as authentic ISL. 'clipName' is the animation clip to look for inside a real avatar GLB.",
+    "poseFormat": "keyframes[].pose maps a bone name (without the 'mixamorig' prefix) to [x, y, z] rotation in degrees relative to the bone's rest pose. 'RightFingers'/'LeftFingers' curl all four fingers. Conventions on the mannequin: Arm X negative = raise forward, Arm Z (right negative / left positive) = raise sideways, ForeArm X negative = bend elbow, Head X positive = nod down, Brows X negative = raise eyebrows."
+  },
+  "signs": [
+    {
+      "gloss": "HELLO",
+      "words": ["hello", "hi", "hey", "namaste", "greetings", "good morning", "good afternoon", "good evening"],
+      "description": "Open right hand raised beside the forehead, then moved outward in a small salute-like arc.",
+      "expression": "smile",
+      "clipName": "HELLO",
+      "keyframes": [
+        { "t": 0.45, "pose": { "RightArm": [-115, 0, -35], "RightForeArm": [-115, 0, 0], "Brows": [-15, 0, 0] } },
+        { "t": 0.95, "pose": { "RightArm": [-100, 0, -75], "RightForeArm": [-60, 0, 0], "Brows": [-15, 0, 0] } },
+        { "t": 1.25, "pose": { "RightArm": [-95, 0, -80], "RightForeArm": [-50, 0, 0], "Brows": [-10, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "THANK-YOU",
+      "words": ["thank you", "thanks", "thank", "thankyou", "dhanyavad"],
+      "description": "Fingertips of the flat right hand touch the chin, then the hand moves forward and down toward the listener.",
+      "expression": "smile",
+      "clipName": "THANK_YOU",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-80, 0, -10], "RightForeArm": [-135, 0, 0], "RightHand": [-20, 0, 0], "Head": [6, 0, 0] } },
+        { "t": 0.9, "pose": { "RightArm": [-75, 0, -15], "RightForeArm": [-80, 0, 0], "RightHand": [25, 0, 0], "Head": [10, 0, 0] } },
+        { "t": 1.2, "pose": { "RightArm": [-70, 0, -15], "RightForeArm": [-70, 0, 0], "RightHand": [25, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "ME",
+      "words": ["i", "me", "my", "mine", "myself"],
+      "description": "Index finger points to the signer's own chest.",
+      "expression": "neutral",
+      "clipName": "ME",
+      "keyframes": [
+        { "t": 0.35, "pose": { "RightArm": [-50, 0, -20], "RightForeArm": [-110, 0, 35], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHandThumb1": [40, 0, 0] } },
+        { "t": 0.6, "pose": { "RightArm": [-50, 0, -20], "RightForeArm": [-118, 0, 35], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHandThumb1": [40, 0, 0] } },
+        { "t": 0.85, "pose": { "RightArm": [-50, 0, -20], "RightForeArm": [-110, 0, 35], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHandThumb1": [40, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "YOU",
+      "words": ["you", "your", "yours", "yourself"],
+      "description": "Index finger points forward toward the person being addressed.",
+      "expression": "neutral",
+      "clipName": "YOU",
+      "keyframes": [
+        { "t": 0.35, "pose": { "RightArm": [-70, 0, -10], "RightForeArm": [-35, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHandThumb1": [40, 0, 0] } },
+        { "t": 0.65, "pose": { "RightArm": [-80, 0, -10], "RightForeArm": [-20, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHandThumb1": [40, 0, 0] } },
+        { "t": 0.9, "pose": { "RightArm": [-78, 0, -10], "RightForeArm": [-22, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHandThumb1": [40, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "NEED",
+      "words": ["need", "needs", "needed", "want", "wants", "wanted", "require", "must"],
+      "description": "Both hands, fingers bent like claws and palms up, pull sharply down and in toward the body.",
+      "expression": "neutral",
+      "clipName": "NEED",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-70, 0, -20], "LeftArm": [-70, 0, 20], "RightForeArm": [-50, 0, 0], "LeftForeArm": [-50, 0, 0], "RightFingers": [55, 0, 0], "LeftFingers": [55, 0, 0] } },
+        { "t": 0.75, "pose": { "RightArm": [-55, 0, -20], "LeftArm": [-55, 0, 20], "RightForeArm": [-65, 0, 0], "LeftForeArm": [-65, 0, 0], "RightHand": [35, 0, 0], "LeftHand": [35, 0, 0], "RightFingers": [70, 0, 0], "LeftFingers": [70, 0, 0] } },
+        { "t": 1.05, "pose": { "RightArm": [-70, 0, -20], "LeftArm": [-70, 0, 20], "RightForeArm": [-50, 0, 0], "LeftForeArm": [-50, 0, 0], "RightFingers": [55, 0, 0], "LeftFingers": [55, 0, 0] } },
+        { "t": 1.4, "pose": { "RightArm": [-55, 0, -20], "LeftArm": [-55, 0, 20], "RightForeArm": [-65, 0, 0], "LeftForeArm": [-65, 0, 0], "RightHand": [35, 0, 0], "LeftHand": [35, 0, 0], "RightFingers": [70, 0, 0], "LeftFingers": [70, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "HELP",
+      "words": ["help", "helps", "assist", "assistance", "support"],
+      "description": "Right fist rests on the open left palm; both hands lift upward together.",
+      "expression": "neutral",
+      "clipName": "HELP",
+      "keyframes": [
+        { "t": 0.45, "pose": { "LeftArm": [-60, 0, 15], "LeftForeArm": [-75, 0, 0], "RightArm": [-60, 0, -25], "RightForeArm": [-85, 0, 0], "RightFingers": [95, 0, 0], "RightHandThumb1": [50, 0, 0] } },
+        { "t": 1.0, "pose": { "LeftArm": [-85, 0, 15], "LeftForeArm": [-75, 0, 0], "RightArm": [-85, 0, -25], "RightForeArm": [-85, 0, 0], "RightFingers": [95, 0, 0], "RightHandThumb1": [50, 0, 0] } },
+        { "t": 1.3, "pose": { "LeftArm": [-85, 0, 15], "LeftForeArm": [-75, 0, 0], "RightArm": [-85, 0, -25], "RightForeArm": [-85, 0, 0], "RightFingers": [95, 0, 0], "RightHandThumb1": [50, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "WATER",
+      "words": ["water", "paani", "pani", "thirsty"],
+      "description": "Right hand with index, middle and ring fingers extended (W shape) taps near the mouth twice.",
+      "expression": "neutral",
+      "clipName": "WATER",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-70, 0, -20], "RightForeArm": [-130, 0, 10], "RightHandPinky1": [90, 0, 0], "RightHandThumb1": [60, 0, 0] } },
+        { "t": 0.65, "pose": { "RightArm": [-70, 0, -20], "RightForeArm": [-140, 0, 10], "RightHandPinky1": [90, 0, 0], "RightHandThumb1": [60, 0, 0] } },
+        { "t": 0.9, "pose": { "RightArm": [-70, 0, -20], "RightForeArm": [-130, 0, 10], "RightHandPinky1": [90, 0, 0], "RightHandThumb1": [60, 0, 0] } },
+        { "t": 1.15, "pose": { "RightArm": [-70, 0, -20], "RightForeArm": [-140, 0, 10], "RightHandPinky1": [90, 0, 0], "RightHandThumb1": [60, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "HOW",
+      "words": ["how"],
+      "description": "Both hands curled with knuckles touching, then rotated open so the palms face up.",
+      "expression": "question",
+      "clipName": "HOW",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-60, 0, -15], "LeftArm": [-60, 0, 15], "RightForeArm": [-90, 0, 0], "LeftForeArm": [-90, 0, 0], "RightFingers": [80, 0, 0], "LeftFingers": [80, 0, 0], "RightHand": [0, 0, -40], "LeftHand": [0, 0, 40], "Brows": [-20, 0, 0] } },
+        { "t": 0.9, "pose": { "RightArm": [-60, 0, -25], "LeftArm": [-60, 0, 25], "RightForeArm": [-90, 0, 0], "LeftForeArm": [-90, 0, 0], "RightFingers": [10, 0, 0], "LeftFingers": [10, 0, 0], "RightHand": [0, 0, 40], "LeftHand": [0, 0, -40], "Brows": [-20, 0, 0], "Head": [-5, 0, 0] } },
+        { "t": 1.2, "pose": { "RightArm": [-60, 0, -25], "LeftArm": [-60, 0, 25], "RightForeArm": [-90, 0, 0], "LeftForeArm": [-90, 0, 0], "RightHand": [0, 0, 40], "LeftHand": [0, 0, -40], "Brows": [-20, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "WHAT",
+      "words": ["what"],
+      "description": "Both open hands, palms up, move slightly side to side with a questioning expression.",
+      "expression": "question",
+      "clipName": "WHAT",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-50, 0, -30], "LeftArm": [-50, 0, 30], "RightForeArm": [-75, 60, 0], "LeftForeArm": [-75, -60, 0], "Brows": [-20, 0, 0] } },
+        { "t": 0.7, "pose": { "RightArm": [-50, 0, -40], "LeftArm": [-50, 0, 40], "RightForeArm": [-75, 60, 0], "LeftForeArm": [-75, -60, 0], "Brows": [-20, 0, 0], "Head": [0, 8, 0] } },
+        { "t": 1.0, "pose": { "RightArm": [-50, 0, -30], "LeftArm": [-50, 0, 30], "RightForeArm": [-75, 60, 0], "LeftForeArm": [-75, -60, 0], "Brows": [-20, 0, 0], "Head": [0, -8, 0] } },
+        { "t": 1.3, "pose": { "RightArm": [-50, 0, -40], "LeftArm": [-50, 0, 40], "RightForeArm": [-75, 60, 0], "LeftForeArm": [-75, -60, 0], "Brows": [-20, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "WHERE",
+      "words": ["where"],
+      "description": "Right index finger extended upward, wagging from side to side.",
+      "expression": "question",
+      "clipName": "WHERE",
+      "keyframes": [
+        { "t": 0.35, "pose": { "RightArm": [-80, 0, -10], "RightForeArm": [-100, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHand": [0, 0, -25], "Brows": [-20, 0, 0] } },
+        { "t": 0.6, "pose": { "RightArm": [-80, 0, -10], "RightForeArm": [-100, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHand": [0, 0, 25], "Brows": [-20, 0, 0] } },
+        { "t": 0.85, "pose": { "RightArm": [-80, 0, -10], "RightForeArm": [-100, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHand": [0, 0, -25], "Brows": [-20, 0, 0] } },
+        { "t": 1.1, "pose": { "RightArm": [-80, 0, -10], "RightForeArm": [-100, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHand": [0, 0, 25], "Brows": [-20, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "WHEN",
+      "words": ["when", "time", "what time"],
+      "description": "Right index finger taps the back of the left wrist, as if pointing at a watch.",
+      "expression": "question",
+      "clipName": "WHEN",
+      "keyframes": [
+        { "t": 0.4, "pose": { "LeftArm": [-60, 0, 20], "LeftForeArm": [-70, 0, 0], "RightArm": [-50, 0, -30], "RightForeArm": [-100, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "Brows": [-15, 0, 0] } },
+        { "t": 0.65, "pose": { "LeftArm": [-60, 0, 20], "LeftForeArm": [-70, 0, 0], "RightArm": [-50, 0, -30], "RightForeArm": [-108, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "Brows": [-15, 0, 0] } },
+        { "t": 0.9, "pose": { "LeftArm": [-60, 0, 20], "LeftForeArm": [-70, 0, 0], "RightArm": [-50, 0, -30], "RightForeArm": [-100, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "Brows": [-15, 0, 0] } },
+        { "t": 1.15, "pose": { "LeftArm": [-60, 0, 20], "LeftForeArm": [-70, 0, 0], "RightArm": [-50, 0, -30], "RightForeArm": [-108, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "Brows": [-15, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "WHO",
+      "words": ["who", "whom"],
+      "description": "Right index finger circles in front of the chin.",
+      "expression": "question",
+      "clipName": "WHO",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-75, 0, -10], "RightForeArm": [-130, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHand": [0, 0, -15], "Brows": [-20, 0, 0] } },
+        { "t": 0.65, "pose": { "RightArm": [-75, 0, -15], "RightForeArm": [-135, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHand": [0, 0, 15], "Brows": [-20, 0, 0] } },
+        { "t": 0.9, "pose": { "RightArm": [-75, 0, -10], "RightForeArm": [-125, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHand": [0, 0, -15], "Brows": [-20, 0, 0] } },
+        { "t": 1.15, "pose": { "RightArm": [-75, 0, -5], "RightForeArm": [-130, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "RightHand": [0, 0, 15], "Brows": [-20, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "WHY",
+      "words": ["why"],
+      "description": "Right hand touches the side of the forehead, then moves down into a Y-hand shape.",
+      "expression": "question",
+      "clipName": "WHY",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-110, 0, -35], "RightForeArm": [-120, 0, 0], "Brows": [-20, 0, 0] } },
+        { "t": 0.95, "pose": { "RightArm": [-80, 0, -20], "RightForeArm": [-70, 0, 0], "RightHandIndex1": [90, 0, 0], "RightHandMiddle1": [90, 0, 0], "RightHandRing1": [90, 0, 0], "Brows": [-20, 0, 0] } },
+        { "t": 1.2, "pose": { "RightArm": [-80, 0, -20], "RightForeArm": [-70, 0, 0], "RightHandIndex1": [90, 0, 0], "RightHandMiddle1": [90, 0, 0], "RightHandRing1": [90, 0, 0], "Brows": [-20, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "GOOD",
+      "words": ["good", "fine", "well", "ok", "okay", "great", "nice", "alright"],
+      "description": "Right fist with the thumb extended upward, pushed slightly forward.",
+      "expression": "smile",
+      "clipName": "GOOD",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-55, 0, -15], "RightForeArm": [-95, 0, 0], "RightFingers": [95, 0, 0] } },
+        { "t": 0.75, "pose": { "RightArm": [-70, 0, -15], "RightForeArm": [-80, 0, 0], "RightFingers": [95, 0, 0], "Head": [5, 0, 0] } },
+        { "t": 1.0, "pose": { "RightArm": [-70, 0, -15], "RightForeArm": [-80, 0, 0], "RightFingers": [95, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "BAD",
+      "words": ["bad", "terrible", "awful"],
+      "description": "Flat hand at the chin flips forward and down, palm ending face down.",
+      "expression": "frown",
+      "clipName": "BAD",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-70, 0, -10], "RightForeArm": [-135, 0, 0], "Brows": [12, 0, 0] } },
+        { "t": 0.9, "pose": { "RightArm": [-60, 0, -15], "RightForeArm": [-70, 0, 0], "RightHand": [55, 0, 0], "Brows": [12, 0, 0] } },
+        { "t": 1.15, "pose": { "RightArm": [-60, 0, -15], "RightForeArm": [-70, 0, 0], "RightHand": [55, 0, 0], "Brows": [12, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "PLEASE",
+      "words": ["please", "kindly"],
+      "description": "Flat right hand circles on the chest.",
+      "expression": "smile",
+      "clipName": "PLEASE",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-55, 0, -15], "RightForeArm": [-120, 0, 25] } },
+        { "t": 0.7, "pose": { "RightArm": [-62, 0, -10], "RightForeArm": [-118, 0, 35] } },
+        { "t": 1.0, "pose": { "RightArm": [-55, 0, -20], "RightForeArm": [-125, 0, 25] } },
+        { "t": 1.3, "pose": { "RightArm": [-48, 0, -15], "RightForeArm": [-118, 0, 15] } },
+        { "t": 1.6, "pose": { "RightArm": [-55, 0, -15], "RightForeArm": [-120, 0, 25] } }
+      ]
+    },
+    {
+      "gloss": "SORRY",
+      "words": ["sorry", "apologize", "apologise", "apologies", "pardon"],
+      "description": "Right fist circles on the chest.",
+      "expression": "frown",
+      "clipName": "SORRY",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-55, 0, -15], "RightForeArm": [-120, 0, 25], "RightFingers": [95, 0, 0], "Brows": [10, 0, 0], "Head": [8, 0, 0] } },
+        { "t": 0.7, "pose": { "RightArm": [-62, 0, -10], "RightForeArm": [-118, 0, 35], "RightFingers": [95, 0, 0], "Brows": [10, 0, 0], "Head": [8, 0, 0] } },
+        { "t": 1.0, "pose": { "RightArm": [-55, 0, -20], "RightForeArm": [-125, 0, 25], "RightFingers": [95, 0, 0], "Brows": [10, 0, 0], "Head": [8, 0, 0] } },
+        { "t": 1.3, "pose": { "RightArm": [-48, 0, -15], "RightForeArm": [-118, 0, 15], "RightFingers": [95, 0, 0], "Brows": [10, 0, 0], "Head": [8, 0, 0] } },
+        { "t": 1.6, "pose": { "RightArm": [-55, 0, -15], "RightForeArm": [-120, 0, 25], "RightFingers": [95, 0, 0], "Brows": [10, 0, 0], "Head": [8, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "YES",
+      "words": ["yes", "yeah", "yep", "haan", "sure"],
+      "description": "Right fist nods up and down at the wrist, like a head nodding.",
+      "expression": "smile",
+      "clipName": "YES",
+      "keyframes": [
+        { "t": 0.35, "pose": { "RightArm": [-60, 0, -15], "RightForeArm": [-75, 0, 0], "RightFingers": [95, 0, 0], "RightHand": [-30, 0, 0], "Head": [-4, 0, 0] } },
+        { "t": 0.6, "pose": { "RightArm": [-60, 0, -15], "RightForeArm": [-75, 0, 0], "RightFingers": [95, 0, 0], "RightHand": [30, 0, 0], "Head": [8, 0, 0] } },
+        { "t": 0.85, "pose": { "RightArm": [-60, 0, -15], "RightForeArm": [-75, 0, 0], "RightFingers": [95, 0, 0], "RightHand": [-30, 0, 0], "Head": [-4, 0, 0] } },
+        { "t": 1.1, "pose": { "RightArm": [-60, 0, -15], "RightForeArm": [-75, 0, 0], "RightFingers": [95, 0, 0], "RightHand": [30, 0, 0], "Head": [8, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "NO",
+      "words": ["no", "not", "never", "nope", "nahi", "nahin"],
+      "description": "Index and middle fingers snap closed against the thumb, with a small head shake.",
+      "expression": "frown",
+      "clipName": "NO",
+      "keyframes": [
+        { "t": 0.35, "pose": { "RightArm": [-70, 0, -15], "RightForeArm": [-65, 0, 0], "RightHandRing1": [95, 0, 0], "RightHandPinky1": [95, 0, 0], "Head": [0, 10, 0] } },
+        { "t": 0.6, "pose": { "RightArm": [-70, 0, -15], "RightForeArm": [-65, 0, 0], "RightHandIndex1": [65, 0, 0], "RightHandMiddle1": [65, 0, 0], "RightHandRing1": [95, 0, 0], "RightHandPinky1": [95, 0, 0], "RightHandThumb1": [40, 0, 0], "Head": [0, -10, 0] } },
+        { "t": 0.85, "pose": { "RightArm": [-70, 0, -15], "RightForeArm": [-65, 0, 0], "RightHandRing1": [95, 0, 0], "RightHandPinky1": [95, 0, 0], "Head": [0, 10, 0] } },
+        { "t": 1.1, "pose": { "RightArm": [-70, 0, -15], "RightForeArm": [-65, 0, 0], "RightHandIndex1": [65, 0, 0], "RightHandMiddle1": [65, 0, 0], "RightHandRing1": [95, 0, 0], "RightHandPinky1": [95, 0, 0], "RightHandThumb1": [40, 0, 0], "Head": [0, -10, 0] } }
+      ]
+    },
+    {
+      "gloss": "NAME",
+      "words": ["name", "named", "called", "naam"],
+      "description": "Both index fingers extended; the right taps on top of the left twice.",
+      "expression": "neutral",
+      "clipName": "NAME",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-65, 0, -15], "LeftArm": [-60, 0, 15], "RightForeArm": [-70, 0, 25], "LeftForeArm": [-70, 0, -25], "RightFingers": [90, 0, 0], "LeftFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "LeftHandIndex1": [0, 0, 0] } },
+        { "t": 0.65, "pose": { "RightArm": [-60, 0, -15], "LeftArm": [-60, 0, 15], "RightForeArm": [-70, 0, 25], "LeftForeArm": [-70, 0, -25], "RightFingers": [90, 0, 0], "LeftFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "LeftHandIndex1": [0, 0, 0] } },
+        { "t": 0.9, "pose": { "RightArm": [-65, 0, -15], "LeftArm": [-60, 0, 15], "RightForeArm": [-70, 0, 25], "LeftForeArm": [-70, 0, -25], "RightFingers": [90, 0, 0], "LeftFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "LeftHandIndex1": [0, 0, 0] } },
+        { "t": 1.15, "pose": { "RightArm": [-60, 0, -15], "LeftArm": [-60, 0, 15], "RightForeArm": [-70, 0, 25], "LeftForeArm": [-70, 0, -25], "RightFingers": [90, 0, 0], "LeftFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "LeftHandIndex1": [0, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "EAT",
+      "words": ["eat", "eats", "eating", "food", "hungry", "meal", "lunch", "dinner", "breakfast", "khana"],
+      "description": "Bunched fingertips of the right hand tap the mouth twice.",
+      "expression": "neutral",
+      "clipName": "EAT",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-70, 0, -10], "RightForeArm": [-135, 0, 5], "RightFingers": [50, 0, 0], "RightHandThumb1": [40, 0, 0] } },
+        { "t": 0.65, "pose": { "RightArm": [-70, 0, -10], "RightForeArm": [-145, 0, 5], "RightFingers": [50, 0, 0], "RightHandThumb1": [40, 0, 0] } },
+        { "t": 0.9, "pose": { "RightArm": [-70, 0, -10], "RightForeArm": [-135, 0, 5], "RightFingers": [50, 0, 0], "RightHandThumb1": [40, 0, 0] } },
+        { "t": 1.15, "pose": { "RightArm": [-70, 0, -10], "RightForeArm": [-145, 0, 5], "RightFingers": [50, 0, 0], "RightHandThumb1": [40, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "DRINK",
+      "words": ["drink", "drinks", "drinking"],
+      "description": "Right hand shaped like holding a glass tilts toward the mouth.",
+      "expression": "neutral",
+      "clipName": "DRINK",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-65, 0, -15], "RightForeArm": [-120, 0, 0], "RightFingers": [60, 0, 0], "RightHandThumb1": [20, 0, 0] } },
+        { "t": 0.9, "pose": { "RightArm": [-70, 0, -15], "RightForeArm": [-140, 0, 0], "RightHand": [-40, 0, 0], "RightFingers": [60, 0, 0], "RightHandThumb1": [20, 0, 0], "Head": [-8, 0, 0] } },
+        { "t": 1.2, "pose": { "RightArm": [-70, 0, -15], "RightForeArm": [-140, 0, 0], "RightHand": [-40, 0, 0], "RightFingers": [60, 0, 0], "RightHandThumb1": [20, 0, 0], "Head": [-8, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "HOME",
+      "words": ["home", "house", "ghar"],
+      "description": "Both flat hands meet at the fingertips to form a roof shape, then separate downward.",
+      "expression": "neutral",
+      "clipName": "HOME",
+      "keyframes": [
+        { "t": 0.45, "pose": { "RightArm": [-110, 0, -30], "LeftArm": [-110, 0, 30], "RightForeArm": [-80, 0, 0], "LeftForeArm": [-80, 0, 0], "RightHand": [0, 0, 40], "LeftHand": [0, 0, -40] } },
+        { "t": 1.0, "pose": { "RightArm": [-90, 0, -60], "LeftArm": [-90, 0, 60], "RightForeArm": [-60, 0, 0], "LeftForeArm": [-60, 0, 0], "RightHand": [0, 0, 40], "LeftHand": [0, 0, -40] } },
+        { "t": 1.3, "pose": { "RightArm": [-90, 0, -60], "LeftArm": [-90, 0, 60], "RightForeArm": [-60, 0, 0], "LeftForeArm": [-60, 0, 0], "RightHand": [0, 0, 40], "LeftHand": [0, 0, -40] } }
+      ]
+    },
+    {
+      "gloss": "FRIEND",
+      "words": ["friend", "friends", "dost", "buddy"],
+      "description": "Both index fingers hook together, then swap positions.",
+      "expression": "smile",
+      "clipName": "FRIEND",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-65, 0, -20], "LeftArm": [-60, 0, 20], "RightForeArm": [-70, 0, 20], "LeftForeArm": [-70, 0, -20], "RightFingers": [90, 0, 0], "LeftFingers": [90, 0, 0], "RightHandIndex1": [45, 0, 0], "LeftHandIndex1": [45, 0, 0] } },
+        { "t": 0.9, "pose": { "RightArm": [-60, 0, -20], "LeftArm": [-65, 0, 20], "RightForeArm": [-70, 0, 20], "LeftForeArm": [-70, 0, -20], "RightFingers": [90, 0, 0], "LeftFingers": [90, 0, 0], "RightHandIndex1": [45, 0, 0], "LeftHandIndex1": [45, 0, 0] } },
+        { "t": 1.2, "pose": { "RightArm": [-60, 0, -20], "LeftArm": [-65, 0, 20], "RightForeArm": [-70, 0, 20], "LeftForeArm": [-70, 0, -20], "RightFingers": [90, 0, 0], "LeftFingers": [90, 0, 0], "RightHandIndex1": [45, 0, 0], "LeftHandIndex1": [45, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "LOVE",
+      "words": ["love", "loves", "like", "likes", "pyar"],
+      "description": "Both fists cross over the chest, as if hugging.",
+      "expression": "smile",
+      "clipName": "LOVE",
+      "keyframes": [
+        { "t": 0.5, "pose": { "RightArm": [-70, 0, -35], "LeftArm": [-70, 0, 35], "RightForeArm": [-130, 0, 45], "LeftForeArm": [-130, 0, -45], "RightFingers": [95, 0, 0], "LeftFingers": [95, 0, 0], "Head": [6, 0, 0] } },
+        { "t": 1.2, "pose": { "RightArm": [-70, 0, -35], "LeftArm": [-70, 0, 35], "RightForeArm": [-130, 0, 45], "LeftForeArm": [-130, 0, -45], "RightFingers": [95, 0, 0], "LeftFingers": [95, 0, 0], "Head": [6, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "GO",
+      "words": ["go", "goes", "going", "went", "leave", "leaving"],
+      "description": "Right index finger points and moves away from the body.",
+      "expression": "neutral",
+      "clipName": "GO",
+      "keyframes": [
+        { "t": 0.35, "pose": { "RightArm": [-60, 0, -10], "RightForeArm": [-60, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0] } },
+        { "t": 0.85, "pose": { "RightArm": [-85, 0, -30], "RightForeArm": [-15, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0] } },
+        { "t": 1.1, "pose": { "RightArm": [-85, 0, -30], "RightForeArm": [-15, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "COME",
+      "words": ["come", "comes", "coming", "aao"],
+      "description": "Right index finger beckons toward the body.",
+      "expression": "neutral",
+      "clipName": "COME",
+      "keyframes": [
+        { "t": 0.35, "pose": { "RightArm": [-75, 0, -10], "RightForeArm": [-40, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0] } },
+        { "t": 0.7, "pose": { "RightArm": [-65, 0, -10], "RightForeArm": [-105, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0] } },
+        { "t": 1.0, "pose": { "RightArm": [-75, 0, -10], "RightForeArm": [-40, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0] } },
+        { "t": 1.35, "pose": { "RightArm": [-65, 0, -10], "RightForeArm": [-105, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "DOCTOR",
+      "words": ["doctor", "doctors", "physician", "nurse"],
+      "description": "Fingertips of the right hand tap the inside of the left wrist, like taking a pulse.",
+      "expression": "neutral",
+      "clipName": "DOCTOR",
+      "keyframes": [
+        { "t": 0.4, "pose": { "LeftArm": [-60, 0, 20], "LeftForeArm": [-60, 90, 0], "RightArm": [-50, 0, -30], "RightForeArm": [-100, 0, 0], "RightFingers": [30, 0, 0] } },
+        { "t": 0.65, "pose": { "LeftArm": [-60, 0, 20], "LeftForeArm": [-60, 90, 0], "RightArm": [-50, 0, -30], "RightForeArm": [-108, 0, 0], "RightFingers": [30, 0, 0] } },
+        { "t": 0.9, "pose": { "LeftArm": [-60, 0, 20], "LeftForeArm": [-60, 90, 0], "RightArm": [-50, 0, -30], "RightForeArm": [-100, 0, 0], "RightFingers": [30, 0, 0] } },
+        { "t": 1.15, "pose": { "LeftArm": [-60, 0, 20], "LeftForeArm": [-60, 90, 0], "RightArm": [-50, 0, -30], "RightForeArm": [-108, 0, 0], "RightFingers": [30, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "SICK",
+      "words": ["sick", "ill", "unwell", "pain", "hurt", "hurts", "fever"],
+      "description": "Right middle finger touches the forehead while the left touches the stomach.",
+      "expression": "frown",
+      "clipName": "SICK",
+      "keyframes": [
+        { "t": 0.5, "pose": { "RightArm": [-115, 0, -30], "RightForeArm": [-120, 0, 0], "RightFingers": [70, 0, 0], "RightHandMiddle1": [0, 0, 0], "LeftArm": [-40, 0, 20], "LeftForeArm": [-100, 0, -30], "LeftFingers": [70, 0, 0], "LeftHandMiddle1": [0, 0, 0], "Brows": [12, 0, 0], "Head": [8, 0, 0] } },
+        { "t": 1.2, "pose": { "RightArm": [-115, 0, -30], "RightForeArm": [-120, 0, 0], "RightFingers": [70, 0, 0], "RightHandMiddle1": [0, 0, 0], "LeftArm": [-40, 0, 20], "LeftForeArm": [-100, 0, -30], "LeftFingers": [70, 0, 0], "LeftHandMiddle1": [0, 0, 0], "Brows": [12, 0, 0], "Head": [8, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "STOP",
+      "words": ["stop", "halt", "wait", "ruko"],
+      "description": "Open right palm pushed forward toward the listener and held.",
+      "expression": "neutral",
+      "clipName": "STOP",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-85, 0, -10], "RightForeArm": [-25, 0, 0], "RightHand": [-70, 0, 0], "Brows": [5, 0, 0] } },
+        { "t": 0.6, "pose": { "RightArm": [-92, 0, -10], "RightForeArm": [-15, 0, 0], "RightHand": [-75, 0, 0], "Brows": [5, 0, 0] } },
+        { "t": 1.1, "pose": { "RightArm": [-92, 0, -10], "RightForeArm": [-15, 0, 0], "RightHand": [-75, 0, 0], "Brows": [5, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "MORNING",
+      "words": ["morning", "subah"],
+      "description": "Left forearm held horizontally; the right flat hand rises from behind it like the sun.",
+      "expression": "neutral",
+      "clipName": "MORNING",
+      "keyframes": [
+        { "t": 0.4, "pose": { "LeftArm": [-50, 0, 10], "LeftForeArm": [-90, 0, -45], "RightArm": [-40, 0, -10], "RightForeArm": [-20, 0, 0], "RightHand": [-40, 0, 0] } },
+        { "t": 1.1, "pose": { "LeftArm": [-50, 0, 10], "LeftForeArm": [-90, 0, -45], "RightArm": [-95, 0, -10], "RightForeArm": [-20, 0, 0], "RightHand": [-40, 0, 0] } },
+        { "t": 1.4, "pose": { "LeftArm": [-50, 0, 10], "LeftForeArm": [-90, 0, -45], "RightArm": [-95, 0, -10], "RightForeArm": [-20, 0, 0], "RightHand": [-40, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "NIGHT",
+      "words": ["night", "evening", "tonight", "raat"],
+      "description": "Right hand arches down over the horizontal left forearm, like the sun setting.",
+      "expression": "neutral",
+      "clipName": "NIGHT",
+      "keyframes": [
+        { "t": 0.4, "pose": { "LeftArm": [-50, 0, 15], "LeftForeArm": [-80, 0, -30], "RightArm": [-85, 0, -30], "RightForeArm": [-60, 0, 0], "RightHand": [10, 0, 0] } },
+        { "t": 1.0, "pose": { "LeftArm": [-50, 0, 15], "LeftForeArm": [-80, 0, -30], "RightArm": [-60, 0, -20], "RightForeArm": [-80, 0, 0], "RightHand": [60, 0, 0] } },
+        { "t": 1.3, "pose": { "LeftArm": [-50, 0, 15], "LeftForeArm": [-80, 0, -30], "RightArm": [-60, 0, -20], "RightForeArm": [-80, 0, 0], "RightHand": [60, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "SCHOOL",
+      "words": ["school", "class", "college", "study", "learn"],
+      "description": "Right flat hand claps twice on the upturned left palm.",
+      "expression": "neutral",
+      "clipName": "SCHOOL",
+      "keyframes": [
+        { "t": 0.4, "pose": { "LeftArm": [-60, 0, 15], "LeftForeArm": [-75, 0, 0], "RightArm": [-75, 0, -20], "RightForeArm": [-85, 0, 0] } },
+        { "t": 0.65, "pose": { "LeftArm": [-60, 0, 15], "LeftForeArm": [-75, 0, 0], "RightArm": [-62, 0, -20], "RightForeArm": [-85, 0, 0] } },
+        { "t": 0.9, "pose": { "LeftArm": [-60, 0, 15], "LeftForeArm": [-75, 0, 0], "RightArm": [-75, 0, -20], "RightForeArm": [-85, 0, 0] } },
+        { "t": 1.15, "pose": { "LeftArm": [-60, 0, 15], "LeftForeArm": [-75, 0, 0], "RightArm": [-62, 0, -20], "RightForeArm": [-85, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "WORK",
+      "words": ["work", "works", "working", "job", "office", "kaam"],
+      "description": "Right fist taps on top of the left fist twice.",
+      "expression": "neutral",
+      "clipName": "WORK",
+      "keyframes": [
+        { "t": 0.4, "pose": { "LeftArm": [-60, 0, 15], "LeftForeArm": [-70, 0, 0], "LeftFingers": [95, 0, 0], "RightArm": [-75, 0, -20], "RightForeArm": [-80, 0, 0], "RightFingers": [95, 0, 0] } },
+        { "t": 0.65, "pose": { "LeftArm": [-60, 0, 15], "LeftForeArm": [-70, 0, 0], "LeftFingers": [95, 0, 0], "RightArm": [-64, 0, -20], "RightForeArm": [-80, 0, 0], "RightFingers": [95, 0, 0] } },
+        { "t": 0.9, "pose": { "LeftArm": [-60, 0, 15], "LeftForeArm": [-70, 0, 0], "LeftFingers": [95, 0, 0], "RightArm": [-75, 0, -20], "RightForeArm": [-80, 0, 0], "RightFingers": [95, 0, 0] } },
+        { "t": 1.15, "pose": { "LeftArm": [-60, 0, 15], "LeftForeArm": [-70, 0, 0], "LeftFingers": [95, 0, 0], "RightArm": [-64, 0, -20], "RightForeArm": [-80, 0, 0], "RightFingers": [95, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "UNDERSTAND",
+      "words": ["understand", "understood", "understands", "know", "knows", "get it", "samajh"],
+      "description": "Right index finger flicks up beside the temple.",
+      "expression": "neutral",
+      "clipName": "UNDERSTAND",
+      "keyframes": [
+        { "t": 0.4, "pose": { "RightArm": [-110, 0, -40], "RightForeArm": [-120, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [70, 0, 0] } },
+        { "t": 0.7, "pose": { "RightArm": [-110, 0, -40], "RightForeArm": [-120, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0], "Head": [-5, 0, 0] } },
+        { "t": 1.0, "pose": { "RightArm": [-110, 0, -40], "RightForeArm": [-120, 0, 0], "RightFingers": [90, 0, 0], "RightHandIndex1": [0, 0, 0] } }
+      ]
+    },
+    {
+      "gloss": "QUESTION",
+      "kind": "marker",
+      "words": [],
+      "description": "Non-manual question marker: eyebrows raised and head tilted slightly forward, held at the end of the sentence.",
+      "expression": "question",
+      "clipName": "QUESTION",
+      "keyframes": [
+        { "t": 0.25, "pose": { "Brows": [-25, 0, 0], "Head": [10, 0, 0] } },
+        { "t": 0.75, "pose": { "Brows": [-25, 0, 0], "Head": [10, 0, 0] } }
+      ]
+    }
+  ]
+}

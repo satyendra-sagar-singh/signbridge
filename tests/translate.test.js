@@ -1,0 +1,68 @@
+import { describe, expect, it } from 'vitest'
+import { translate, validateInput, MAX_INPUT_LENGTH } from '../src/translation/translate.js'
+
+const glosses = (r) => r.items.map((i) => i.gloss)
+
+describe('validateInput', () => {
+  it('rejects empty, too long and letter-less input', () => {
+    expect(validateInput('')).toMatch(/type a sentence/i)
+    expect(validateInput('   ')).toMatch(/type a sentence/i)
+    expect(validateInput('a'.repeat(MAX_INPUT_LENGTH + 1))).toMatch(/under/i)
+    expect(validateInput('123 !!!')).toMatch(/letters/i)
+    expect(validateInput('hello')).toBeNull()
+  })
+})
+
+describe('translate', () => {
+  it('translates the example phrases', () => {
+    expect(glosses(translate('Hello.'))).toEqual(['HELLO'])
+    expect(glosses(translate('Thank you.'))).toEqual(['THANK-YOU'])
+    expect(glosses(translate('I need help.'))).toEqual(['ME', 'NEED', 'HELP'])
+    expect(glosses(translate('I need water.'))).toEqual(['ME', 'NEED', 'WATER'])
+  })
+
+  it('moves WH-words to the end and adds the question marker', () => {
+    expect(glosses(translate('How are you?'))).toEqual(['YOU', 'HOW', 'QUESTION'])
+    expect(glosses(translate('What is your name?'))).toEqual(['YOU', 'NAME', 'WHAT', 'QUESTION'])
+  })
+
+  it('drops filler words and handles contractions', () => {
+    expect(glosses(translate("I'm going home"))).toEqual(['ME', 'GO', 'HOME'])
+    expect(glosses(translate("I don't understand."))).toEqual(['ME', 'NO', 'UNDERSTAND'])
+  })
+
+  it('handles multiple sentences', () => {
+    expect(glosses(translate('Hello. I need water.'))).toEqual(['HELLO', 'ME', 'NEED', 'WATER'])
+  })
+
+  it('fingerspells unknown words and reports them', () => {
+    const r = translate('I need xyz')
+    expect(r.ok).toBe(true)
+    expect(r.unsupported).toEqual(['xyz'])
+    expect(glosses(r)).toEqual(['ME', 'NEED', 'X', 'Y', 'Z'])
+    expect(r.items[2].kind).toBe('fingerspell')
+    expect(r.notes[0]).toMatch(/fingerspelled/i)
+  })
+
+  it('skips unknown words when fingerspelling is off', () => {
+    const r = translate('I need xyz', { fingerspell: false })
+    expect(glosses(r)).toEqual(['ME', 'NEED'])
+  })
+
+  it('fails gracefully when nothing is translatable', () => {
+    const r = translate('the a an', { fingerspell: false })
+    expect(r.ok).toBe(false)
+    expect(r.error).toMatch(/vocabulary/i)
+  })
+
+  it('returns an error for invalid input', () => {
+    expect(translate('').ok).toBe(false)
+  })
+
+  it('enriches items with labels and descriptions', () => {
+    const r = translate('hello')
+    expect(r.items[0]).toMatchObject({ gloss: 'HELLO', label: 'HELLO', expression: 'smile' })
+    expect(r.items[0].description.length).toBeGreaterThan(10)
+    expect(r.glossString).toBe('HELLO')
+  })
+})
