@@ -14,7 +14,12 @@ const FINGER_MACROS = {
 
 const DEFAULT_PREFIXES = ['', 'mixamorig', 'mixamorig:']
 
-/** Expands RightFingers/LeftFingers macros; explicit finger keys win. */
+// A finger's base joint ("…Index1") stands for the whole finger: the curl is
+// propagated down the chain so multi-segment rigs bend naturally.
+const SEGMENT_FALLOFF = { Index: [1, 0.85, 0.65], Middle: [1, 0.85, 0.65], Ring: [1, 0.85, 0.65], Pinky: [1, 0.85, 0.65], Thumb: [1, 0.7] }
+const FINGER_BASE_RE = /^(Right|Left)Hand(Index|Middle|Ring|Pinky|Thumb)1$/
+
+/** Expands RightFingers/LeftFingers macros and finger chains; explicit keys win. */
 export function expandPose(pose = {}) {
   const out = {}
   for (const [key, value] of Object.entries(pose)) {
@@ -22,6 +27,16 @@ export function expandPose(pose = {}) {
   }
   for (const [key, value] of Object.entries(pose)) {
     if (!FINGER_MACROS[key]) out[key] = value
+  }
+  for (const [key, value] of Object.entries(out)) {
+    const m = FINGER_BASE_RE.exec(key)
+    if (!m) continue
+    const [, side, finger] = m
+    SEGMENT_FALLOFF[finger].forEach((factor, i) => {
+      if (i === 0) return
+      const seg = `${side}Hand${finger}${i + 1}`
+      if (!(seg in pose)) out[seg] = [(value[0] || 0) * factor, 0, 0]
+    })
   }
   return out
 }

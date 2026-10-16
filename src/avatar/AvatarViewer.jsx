@@ -17,10 +17,23 @@ function PlayerDriver({ update }) {
 
 function MannequinAvatar({ onReady }) {
   const root = useMemo(() => createMannequin(), [])
+  const parts = useMemo(() => {
+    const spine1 = root.getObjectByName('mixamorigSpine1')
+    return { spine1, spineY: spine1.position.y, eyes: [root.getObjectByName('EyeLeft'), root.getObjectByName('EyeRight')] }
+  }, [root])
   useEffect(() => {
     captureRestPose(root)
     onReady({ type: 'mannequin', root, getClip: createClipResolver(root) })
   }, [root, onReady])
+  // Idle life: gentle breathing (position only, so it never fights the
+  // mixer's rotation tracks) and a blink every ~4 s.
+  useFrame(({ clock }) => {
+    const t = clock.elapsedTime
+    parts.spine1.position.y = parts.spineY + Math.sin(t * 1.4) * 0.003
+    const phase = t % 4.2
+    const blink = phase < 0.16 ? 1 - Math.sin((phase / 0.16) * Math.PI) : 1
+    for (const eye of parts.eyes) eye.scale.y = Math.max(0.08, blink)
+  })
   return <primitive object={root} />
 }
 
