@@ -1,7 +1,8 @@
 // Procedural development mannequin — a PLACEHOLDER rig used when no avatar GLB
-// is available. Its joints are named with Mixamo conventions
-// (mixamorigRightArm, mixamorigLeftHandIndex1..3, …) so that keyframes authored
-// against it also bind to a Mixamo-rigged GLB.
+// is available. Styled as a chibi cartoon kid (big round head, small body,
+// red tee, yellow shorts) with cel shading. Its joints are named with Mixamo
+// conventions (mixamorigRightArm, mixamorigLeftHandIndex1..3, …) so that
+// keyframes authored against it also bind to a Mixamo-rigged GLB.
 //
 // Rest pose: standing, facing +Z, arms hanging at the sides, palms facing back.
 // Rotation conventions (degrees, applied relative to rest):
@@ -10,31 +11,32 @@
 //   Finger X+ : curl toward the palm   Head X+ / Y     : nod down / turn
 //   Brows X-  : raise eyebrows
 
-import { BoxGeometry, CapsuleGeometry, Group, Mesh, MeshStandardMaterial, SphereGeometry, TorusGeometry } from 'three'
+import { BoxGeometry, CapsuleGeometry, CylinderGeometry, Group, Mesh, MeshToonMaterial, SphereGeometry } from 'three'
 
 const COLORS = {
-  skin: 0xe9b795,
-  skinDark: 0xd9a383,
-  shirt: 0x3f63e6,
-  shirtDark: 0x3253c7,
-  trousers: 0x2b2f44,
-  shoe: 0x1b1d2a,
-  hair: 0x2a1b14,
-  eyeWhite: 0xffffff,
-  pupil: 0x23170f,
-  mouth: 0xb3675a,
+  skin: 0xf7c9a3,
+  skinDark: 0xe9b48c,
+  shirt: 0xe5322b,
+  shirtDark: 0xc9261f,
+  shorts: 0xf9e13b,
+  sock: 0xf7f7f7,
+  shoe: 0xf2a72a,
+  hair: 0x161616,
+  eye: 0x111111,
+  highlight: 0xffffff,
+  mouth: 0x7d3a4a,
 }
 
 const FINGER_SEGMENTS = {
-  Index: [0.032, 0.026, 0.02],
-  Middle: [0.035, 0.028, 0.021],
-  Ring: [0.032, 0.026, 0.02],
-  Pinky: [0.025, 0.02, 0.016],
+  Index: [0.028, 0.022, 0.017],
+  Middle: [0.03, 0.024, 0.018],
+  Ring: [0.028, 0.022, 0.017],
+  Pinky: [0.022, 0.017, 0.014],
 }
-const FINGER_X = { Index: 0.03, Middle: 0.01, Ring: -0.01, Pinky: -0.03 }
+const FINGER_X = { Index: 0.027, Middle: 0.009, Ring: -0.009, Pinky: -0.027 }
 
-function mat(color, extra = {}) {
-  return new MeshStandardMaterial({ color, roughness: 0.6, metalness: 0.02, ...extra })
+function mat(color) {
+  return new MeshToonMaterial({ color })
 }
 
 function mesh(geometry, material, position = [0, 0, 0], scale = null) {
@@ -70,14 +72,13 @@ function buildFinger(side, finger, position, lengths, width, material) {
 
 function buildHand(side, skin) {
   const sign = side === 'Left' ? 1 : -1
-  const hand = joint(`mixamorig${side}Hand`, [0, -0.25, 0])
-  // Palm: rounded slab
-  hand.add(mesh(new SphereGeometry(1, 16, 12), skin, [0, -0.045, 0], [0.043, 0.055, 0.017]))
-  hand.add(mesh(new BoxGeometry(0.075, 0.06, 0.026), skin, [0, -0.055, 0]))
+  const hand = joint(`mixamorig${side}Hand`, [0, -0.22, 0])
+  hand.add(mesh(new SphereGeometry(1, 16, 12), skin, [0, -0.04, 0], [0.04, 0.05, 0.017]))
+  hand.add(mesh(new BoxGeometry(0.068, 0.05, 0.026), skin, [0, -0.05, 0]))
   for (const finger of Object.keys(FINGER_SEGMENTS)) {
-    hand.add(buildFinger(side, finger, [sign * FINGER_X[finger], -0.085, 0], FINGER_SEGMENTS[finger], 0.016, skin))
+    hand.add(buildFinger(side, finger, [sign * FINGER_X[finger], -0.075, 0], FINGER_SEGMENTS[finger], 0.016, skin))
   }
-  const thumb = buildFinger(side, 'Thumb', [sign * 0.042, -0.03, 0.012], [0.032, 0.026], 0.018, skin)
+  const thumb = buildFinger(side, 'Thumb', [sign * 0.038, -0.025, 0.012], [0.028, 0.022], 0.018, skin)
   thumb.rotation.set(0.35, 0, sign * -0.75)
   hand.add(thumb)
   return hand
@@ -85,16 +86,16 @@ function buildHand(side, skin) {
 
 function buildArm(side, skin, shirt) {
   const sign = side === 'Left' ? 1 : -1
-  const shoulder = joint(`mixamorig${side}Shoulder`, [sign * 0.16, 0.12, 0])
-  const arm = joint(`mixamorig${side}Arm`, [sign * 0.085, 0, 0])
-  arm.add(mesh(new SphereGeometry(0.056, 18, 14), shirt)) // deltoid
-  arm.add(mesh(new CapsuleGeometry(0.047, 0.17, 4, 14), shirt, [0, -0.13, 0])) // sleeve
-  arm.add(mesh(new CapsuleGeometry(0.042, 0.06, 4, 14), skin, [0, -0.25, 0])) // skin above elbow
+  const shoulder = joint(`mixamorig${side}Shoulder`, [sign * 0.12, 0.09, 0])
+  const arm = joint(`mixamorig${side}Arm`, [sign * 0.075, 0, 0])
+  arm.add(mesh(new SphereGeometry(0.058, 18, 14), shirt)) // shoulder
+  arm.add(mesh(new CapsuleGeometry(0.048, 0.1, 4, 14), shirt, [0, -0.08, 0])) // sleeve
+  arm.add(mesh(new CapsuleGeometry(0.04, 0.1, 4, 14), skin, [0, -0.19, 0]))
 
-  const foreArm = joint(`mixamorig${side}ForeArm`, [0, -0.28, 0])
-  foreArm.add(mesh(new SphereGeometry(0.045, 16, 12), skin)) // elbow
-  foreArm.add(mesh(new CapsuleGeometry(0.038, 0.17, 4, 14), skin, [0, -0.125, 0]))
-  foreArm.add(mesh(new SphereGeometry(0.033, 14, 10), skin, [0, -0.25, 0])) // wrist
+  const foreArm = joint(`mixamorig${side}ForeArm`, [0, -0.25, 0])
+  foreArm.add(mesh(new SphereGeometry(0.042, 16, 12), skin)) // elbow
+  foreArm.add(mesh(new CapsuleGeometry(0.037, 0.14, 4, 14), skin, [0, -0.11, 0]))
+  foreArm.add(mesh(new SphereGeometry(0.032, 14, 10), skin, [0, -0.22, 0])) // wrist
 
   foreArm.add(buildHand(side, skin))
   arm.add(foreArm)
@@ -102,48 +103,47 @@ function buildArm(side, skin, shirt) {
   return shoulder
 }
 
-function buildLeg(x, trousers, shoe) {
+function buildLeg(x, skin, shorts, sock, shoe) {
   const leg = new Group()
-  leg.add(mesh(new SphereGeometry(0.08, 16, 12), trousers, [x, -0.02, 0]))
-  leg.add(mesh(new CapsuleGeometry(0.072, 0.32, 4, 14), trousers, [x, -0.24, 0]))
-  leg.add(mesh(new SphereGeometry(0.065, 16, 12), trousers, [x, -0.46, 0]))
-  leg.add(mesh(new CapsuleGeometry(0.06, 0.34, 4, 14), trousers, [x, -0.68, 0]))
-  leg.add(mesh(new SphereGeometry(0.075, 16, 12), shoe, [x, -0.93, 0.03], [1, 0.55, 1.5]))
+  leg.add(mesh(new CylinderGeometry(0.09, 0.095, 0.13, 20), shorts, [x, -0.1, 0])) // shorts leg
+  leg.add(mesh(new CapsuleGeometry(0.052, 0.18, 4, 14), skin, [x, -0.25, 0]))
+  leg.add(mesh(new CapsuleGeometry(0.056, 0.05, 4, 14), sock, [x, -0.38, 0]))
+  leg.add(mesh(new SphereGeometry(1, 18, 14), shoe, [x, -0.455, 0.035], [0.072, 0.045, 0.12]))
   return leg
 }
 
 function buildHead(skin, skinDark) {
-  const head = joint('mixamorigHead', [0, 0.07, 0])
-  const hair = mat(COLORS.hair, { roughness: 0.8 })
-  const white = mat(COLORS.eyeWhite, { roughness: 0.3 })
-  const pupil = mat(COLORS.pupil, { roughness: 0.3 })
+  const head = joint('mixamorigHead', [0, 0.05, 0])
+  const hair = mat(COLORS.hair)
+  const eyeMat = mat(COLORS.eye)
+  const highlight = mat(COLORS.highlight)
+  const R = 0.3
 
-  head.add(mesh(new SphereGeometry(0.105, 32, 24), skin, [0, 0.105, 0], [1, 1.12, 1])) // skull
-  head.add(mesh(new SphereGeometry(0.06, 16, 12), skin, [0, 0.03, 0.03], [1, 0.8, 1])) // jaw
-  // Hair cap
-  head.add(mesh(new SphereGeometry(0.11, 32, 24, 0, Math.PI * 2, 0, Math.PI * 0.5), hair, [0, 0.12, -0.01], [1, 1.05, 1]))
-  head.add(mesh(new SphereGeometry(1, 16, 12), hair, [0, 0.165, 0.07], [0.095, 0.025, 0.04])) // fringe
+  head.add(mesh(new SphereGeometry(R, 40, 28), skin, [0, R, 0], [1.02, 0.97, 0.95])) // skull
+  head.add(mesh(new SphereGeometry(1, 32, 20), skin, [0, 0.21, 0.02], [0.33, 0.2, 0.27])) // wide jaw
+  for (const x of [-0.2, 0.2]) head.add(mesh(new SphereGeometry(0.14, 24, 18), skin, [x, 0.19, 0.1])) // cheeks
+  // Hair: flat black cap with a soft fringe line
+  head.add(mesh(new SphereGeometry(R + 0.012, 40, 20, 0, Math.PI * 2, 0, Math.PI * 0.27), hair, [0, R, -0.005], [1.02, 0.97, 0.95]))
+  head.add(mesh(new SphereGeometry(1, 20, 12), hair, [0, 0.5, 0.2], [0.2, 0.03, 0.09]))
   // Ears
-  for (const x of [-0.105, 0.105]) head.add(mesh(new SphereGeometry(0.022, 12, 10), skinDark, [x, 0.1, 0], [0.5, 1, 0.8]))
-  // Eyes (named so the avatar component can blink them)
-  for (const [i, x] of [-0.038, 0.038].entries()) {
-    const eye = joint(i === 0 ? 'EyeRight' : 'EyeLeft', [x, 0.115, 0.088])
-    eye.add(mesh(new SphereGeometry(0.017, 14, 12), white, [0, 0, 0], [1, 0.8, 0.6]))
-    eye.add(mesh(new SphereGeometry(0.009, 12, 10), pupil, [0, 0, 0.011]))
+  for (const x of [-0.3, 0.3]) head.add(mesh(new SphereGeometry(0.04, 14, 10), skinDark, [x, 0.27, 0.02], [0.5, 1, 0.8]))
+  // Eyes: big dark ovals with a white highlight (joints so the avatar can blink)
+  for (const [i, x] of [-0.11, 0.11].entries()) {
+    const eye = joint(i === 0 ? 'EyeRight' : 'EyeLeft', [x, 0.33, 0.265])
+    eye.add(mesh(new SphereGeometry(0.062, 24, 18), eyeMat, [0, 0, 0], [0.85, 1, 0.45]))
+    eye.add(mesh(new SphereGeometry(0.03, 14, 12), highlight, [0, 0.004, 0.02], [1, 1, 0.5]))
     head.add(eye)
   }
-  // Brows (animated for expressions)
-  const brows = joint('Brows', [0, 0.145, 0.085])
-  for (const x of [-0.038, 0.038]) {
-    const b = mesh(new BoxGeometry(0.036, 0.007, 0.012), hair, [x, 0, 0.012])
-    b.rotation.z = x < 0 ? -0.12 : 0.12
+  // Thick brows (animated for expressions)
+  const brows = joint('Brows', [0, 0.44, 0.235])
+  for (const x of [-0.105, 0.105]) {
+    const b = mesh(new BoxGeometry(0.125, 0.034, 0.03), hair, [x, 0, 0])
+    b.rotation.z = x < 0 ? -0.18 : 0.18
     brows.add(b)
   }
   head.add(brows)
-  // Nose & mouth
-  head.add(mesh(new SphereGeometry(0.014, 12, 10), skinDark, [0, 0.085, 0.105], [0.8, 1, 0.9]))
-  const mouth = mesh(new TorusGeometry(0.018, 0.0035, 8, 16, Math.PI), mat(COLORS.mouth), [0, 0.055, 0.098])
-  mouth.rotation.set(Math.PI, 0, 0)
+  // Small open mouth
+  const mouth = mesh(new SphereGeometry(1, 16, 12), mat(COLORS.mouth), [0.02, 0.13, 0.25], [0.035, 0.05, 0.02])
   mouth.name = 'Mouth'
   head.add(mouth)
   return head
@@ -155,28 +155,27 @@ export function createMannequin() {
   const skinDark = mat(COLORS.skinDark)
   const shirt = mat(COLORS.shirt)
   const shirtDark = mat(COLORS.shirtDark)
-  const trousers = mat(COLORS.trousers)
-  const shoe = mat(COLORS.shoe, { roughness: 0.4 })
+  const shorts = mat(COLORS.shorts)
+  const sock = mat(COLORS.sock)
+  const shoe = mat(COLORS.shoe)
 
   const root = new Group()
   root.name = 'SignBridgeMannequin'
 
-  const hips = joint('mixamorigHips', [0, 0.98, 0])
-  hips.add(mesh(new SphereGeometry(1, 20, 14), trousers, [0, 0, 0], [0.15, 0.1, 0.1]))
-  hips.add(buildLeg(-0.085, trousers, shoe))
-  hips.add(buildLeg(0.085, trousers, shoe))
+  const hips = joint('mixamorigHips', [0, 0.52, 0])
+  hips.add(mesh(new SphereGeometry(1, 24, 16), shorts, [0, -0.02, 0], [0.21, 0.13, 0.14])) // shorts
+  hips.add(buildLeg(-0.085, skin, shorts, sock, shoe))
+  hips.add(buildLeg(0.085, skin, shorts, sock, shoe))
 
-  const spine = joint('mixamorigSpine', [0, 0.08, 0])
-  spine.add(mesh(new CapsuleGeometry(0.155, 0.2, 6, 24), shirt, [0, 0.2, 0], [1, 1, 0.66])) // torso
-  const spine1 = joint('mixamorigSpine1', [0, 0.12, 0])
-  const spine2 = joint('mixamorigSpine2', [0, 0.12, 0])
-  spine2.add(mesh(new SphereGeometry(1, 24, 16), shirt, [0, 0.11, 0], [0.21, 0.06, 0.1])) // shoulder line
-  const collar = mesh(new TorusGeometry(0.055, 0.012, 8, 20), shirtDark, [0, 0.165, 0.0])
-  collar.rotation.x = Math.PI / 2
-  spine2.add(collar)
+  const spine = joint('mixamorigSpine', [0, 0.06, 0])
+  spine.add(mesh(new CapsuleGeometry(0.165, 0.1, 6, 24), shirt, [0, 0.16, 0], [1, 1, 0.72])) // tee
+  const spine1 = joint('mixamorigSpine1', [0, 0.1, 0])
+  const spine2 = joint('mixamorigSpine2', [0, 0.1, 0])
+  spine2.add(mesh(new SphereGeometry(1, 24, 16), shirt, [0, 0.08, 0], [0.19, 0.055, 0.1])) // shoulder line
+  spine2.add(mesh(new CylinderGeometry(0.06, 0.07, 0.03, 20), shirtDark, [0, 0.14, 0])) // collar
 
-  const neck = joint('mixamorigNeck', [0, 0.16, 0])
-  neck.add(mesh(new CapsuleGeometry(0.04, 0.05, 4, 12), skin, [0, 0.03, 0]))
+  const neck = joint('mixamorigNeck', [0, 0.13, 0])
+  neck.add(mesh(new CylinderGeometry(0.045, 0.05, 0.07, 16), skin, [0, 0.03, 0]))
 
   neck.add(buildHead(skin, skinDark))
   spine2.add(neck)
