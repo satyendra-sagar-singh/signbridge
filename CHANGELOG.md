@@ -27,3 +27,4 @@ Initial release.
 **App**
 
 - Single-screen React + Vite UI with examples, character counter, validation messages and a per-sign explanation of how each sign is made.
+- Mobile layout: square stage, 44px touch targets, grid transport controls, auto-scroll to the avatar after translating, and a fixed-position fullscreen fallback for browsers without the Fullscreen API (iOS Safari). Desktop layout is unchanged.

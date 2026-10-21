@@ -34,6 +34,13 @@ export default function App() {
     setResult(r);
     setTranslatedText(text);
     autoplayRef.current = true;
+    // On a phone the stage sits below the input: bring it into view so the
+    // signing is visible as soon as it starts.
+    if (window.matchMedia('(max-width: 960px)').matches) {
+      document
+        .getElementById('avatar-stage')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, [text, fingerspell]);
 
   const handleClear = () => {

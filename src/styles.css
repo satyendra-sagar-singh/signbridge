@@ -757,3 +757,131 @@ button {
   border-color: transparent;
   color: var(--danger);
 }
+
+/* ---------- Mobile (desktop layout untouched above 720px) ---------- */
+@media (max-width: 720px) {
+  .hero {
+    padding: 22px 0 12px;
+  }
+  .hero .lead {
+    font-size: 0.95rem;
+  }
+  .workspace {
+    gap: 14px;
+    padding-bottom: 24px;
+  }
+  .card {
+    padding: 14px;
+    border-radius: 12px;
+  }
+  .text-input {
+    min-height: 110px;
+  }
+  .btn-row .btn {
+    flex: 1 1 auto;
+    min-height: 44px;
+  }
+  .chip {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+  }
+  /* Taller, square stage so the whole avatar fits a portrait phone. */
+  .avatar-viewer {
+    aspect-ratio: 1 / 1;
+    min-height: 0;
+  }
+  .avatar-tools {
+    top: 8px;
+    right: 8px;
+  }
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+  }
+  .avatar-badges {
+    top: 8px;
+    left: 8px;
+    right: 148px; /* stay clear of the three icon buttons */
+  }
+  .badge {
+    font-size: 0.74rem;
+    padding: 4px 9px;
+  }
+  .view-presets {
+    left: 8px;
+    bottom: 8px;
+    gap: 3px;
+  }
+  .view-presets .chip {
+    min-height: 34px;
+    padding: 4px 10px;
+  }
+  /* Transport: prev | play | next on one row, replay | stop on the next. */
+  .control-row {
+    display: grid;
+    grid-template-columns: 48px repeat(4, 1fr) 48px;
+    gap: 8px;
+  }
+  .control-row .btn {
+    min-height: 46px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .control-row .btn-icon:first-child {
+    grid-column: 1;
+  }
+  .control-row .btn-play {
+    grid-column: 2 / 6;
+    min-width: 0;
+  }
+  .control-row .btn-icon:nth-child(3) {
+    grid-column: 6;
+  }
+  .control-row .btn-ghost:nth-of-type(4) {
+    grid-column: 1 / 4;
+  }
+  .control-row .btn-ghost:nth-of-type(5) {
+    grid-column: 4 / 7;
+  }
+  .speed-row .chip-small {
+    min-height: 36px;
+    padding: 4px 12px;
+  }
+  .playback-status {
+    font-size: 0.88rem;
+    gap: 8px;
+  }
+  .timeline-track {
+    gap: 6px;
+  }
+  .tl-item {
+    min-width: 64px;
+  }
+  .tl-item button {
+    min-height: 46px;
+  }
+  .site-footer {
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Fullscreen fallback for browsers without the Fullscreen API (iOS Safari). */
+.avatar-viewer.is-pseudo-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  width: 100vw;
+  height: 100dvh;
+  aspect-ratio: auto;
+  min-height: 0;
+  border-radius: 0;
+  border: 0;
+}
+body.stage-fullscreen {
+  overflow: hidden;
+}
+
+#avatar-stage {
+  scroll-margin-top: 76px;
+}

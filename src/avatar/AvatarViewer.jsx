@@ -159,17 +159,42 @@ export function AvatarViewer({
     setModelError(err);
   }, []);
 
+  // iOS Safari has no element Fullscreen API: fall back to a fixed, full-viewport stage.
+  const [pseudoFullscreen, setPseudoFullscreen] = useState(false);
+  const canUseFullscreenApi = useMemo(
+    () => typeof document !== 'undefined' && Boolean(document.fullscreenEnabled),
+    [],
+  );
+  const isFullscreen = fullscreen || pseudoFullscreen;
+
   useEffect(() => {
     const onChange = () => setFullscreen(Boolean(document.fullscreenElement));
     document.addEventListener('fullscreenchange', onChange);
     return () => document.removeEventListener('fullscreenchange', onChange);
   }, []);
 
+  useEffect(() => {
+    if (!pseudoFullscreen) return undefined;
+    document.body.classList.add('stage-fullscreen');
+    const onKey = (e) => {
+      if (e.key === 'Escape') setPseudoFullscreen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.classList.remove('stage-fullscreen');
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [pseudoFullscreen]);
+
   const toggleFullscreen = () => {
     const el = wrapperRef.current;
     if (!el) return;
+    if (!canUseFullscreenApi) {
+      setPseudoFullscreen((v) => !v);
+      return;
+    }
     if (document.fullscreenElement) document.exitFullscreen?.();
-    else el.requestFullscreen?.().catch(() => {});
+    else el.requestFullscreen?.().catch(() => setPseudoFullscreen(true));
   };
 
   const [autoRotate, setAutoRotate] = useState(false);
@@ -224,7 +249,8 @@ export function AvatarViewer({
     <>
       <div
         ref={wrapperRef}
-        className={`avatar-viewer ${fullscreen ? 'is-fullscreen' : ''}`}
+        id="avatar-stage"
+        className={`avatar-viewer ${fullscreen ? 'is-fullscreen' : ''} ${pseudoFullscreen ? 'is-pseudo-fullscreen' : ''}`}
         tabIndex={0}
         aria-label="3D avatar stage: drag to rotate, right-drag to move, scroll to zoom"
       >
@@ -283,10 +309,10 @@ export function AvatarViewer({
             type="button"
             className="icon-btn"
             onClick={toggleFullscreen}
-            title={fullscreen ? 'Exit full screen' : 'Full screen'}
-            aria-label={fullscreen ? 'Exit full screen' : 'View full screen'}
+            title={isFullscreen ? 'Exit full screen' : 'Full screen'}
+            aria-label={isFullscreen ? 'Exit full screen' : 'View full screen'}
           >
-            {fullscreen ? '🡼' : '⛶'}
+            {isFullscreen ? '🡼' : '⛶'}
           </button>
         </div>
 
