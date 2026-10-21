@@ -78,27 +78,24 @@ describe('translate', () => {
     expect(r.items[0]).toMatchObject({ gloss: 'NUM-10', label: '10' })
   })
 
-  it('censors swear words by default and reports them', () => {
+  it('spells out swear words by default, without censoring, and reports them', () => {
     const r = translate('what the f*ck, this is shit')
-    expect(glosses(r)).toEqual(['CENSORED', 'WHAT', 'QUESTION', 'CENSORED'])
-    expect(r.items[0]).toMatchObject({ kind: 'marker', label: '■■■' })
-    expect(r.profanity.map((m) => m.action)).toEqual(['censored', 'censored'])
-    expect(r.notes.join(' ')).toMatch(/Bad words: 2 censored/)
-    expect(r.unsupported).toEqual([])
+    expect(glosses(r)).toEqual(['F', 'U', 'C', 'K', 'WHAT', 'QUESTION', 'S', 'H', 'I', 'T'])
+    expect(r.profanity.map((m) => m.action)).toEqual(['spelled', 'spelled'])
+    expect(r.notes.join(' ')).toMatch(/Bad words: 2 spelled out/)
+    expect(r.notes.join(' ')).not.toMatch(/No sign in the vocabulary/)
+    expect(r.items.find((i) => i.gloss === 'CENSORED')).toBeUndefined()
   })
 
-  it('softens or spells out swear words when asked', () => {
+  it('softens swear words when asked', () => {
     expect(glosses(translate('wtf is this shit', { profanity: 'soften' }))).toEqual(['BAD', 'WHAT', 'QUESTION'])
     expect(glosses(translate('shut up you idiot', { profanity: 'soften' }))).toEqual(['QUIET', 'YOU', 'STUPID'])
-    const spelled = translate('shit', { profanity: 'spell' })
-    expect(glosses(spelled)).toEqual(['S', 'H', 'I', 'T'])
-    expect(spelled.profanity[0].action).toBe('spelled')
   })
 
-  it('always softens mild words and handles Hinglish insults', () => {
+  it('always maps mild words to real signs and handles Hinglish insults', () => {
     expect(glosses(translate('this damn phone sucks'))).toEqual(['BAD', 'PHONE', 'BAD'])
     expect(glosses(translate('tu pagal hai'))).toEqual(['YOU', 'STUPID'])
-    expect(glosses(translate('bhenchod kya kar raha hai?'))).toEqual(['CENSORED', 'DO', 'WHAT', 'QUESTION'])
+    expect(glosses(translate('bhenchod kya kar raha hai?'))).toEqual(['B', 'H', 'E', 'N', 'C', 'H', 'O', 'D', 'DO', 'WHAT', 'QUESTION'])
   })
 
   it('returns an error for invalid input', () => {

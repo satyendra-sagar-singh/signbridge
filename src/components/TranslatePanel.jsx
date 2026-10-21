@@ -44,9 +44,8 @@ export function TranslatePanel({ text, onChange, onTranslate, onClear, error, fi
           <label className="toggle">
             Bad words
             <select className="select-small" value={profanity} onChange={(e) => onChangeProfanity(e.target.value)} aria-label="How to handle swear words">
-              <option value="censor">Censor</option>
-              <option value="soften">Soften</option>
               <option value="spell">Spell out</option>
+              <option value="soften">Soften</option>
             </select>
           </label>
         </span>

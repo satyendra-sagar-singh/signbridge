@@ -17577,68 +17577,6 @@
       ]
     },
     {
-      "gloss": "CENSORED",
-      "words": [
-        "censoredword"
-      ],
-      "description": "Marker for a censored swear word: the hand covers the mouth and the eyes glance away.",
-      "expression": "frown",
-      "clipName": "CENSORED",
-      "keyframes": [
-        {
-          "t": 0.3,
-          "pose": {
-            "RightArm": [
-              -70,
-              0,
-              -10
-            ],
-            "RightForeArm": [
-              -127,
-              0,
-              5
-            ],
-            "Brows": [
-              12,
-              0,
-              0
-            ],
-            "Head": [
-              5,
-              15,
-              0
-            ]
-          }
-        },
-        {
-          "t": 0.9,
-          "pose": {
-            "RightArm": [
-              -70,
-              0,
-              -10
-            ],
-            "RightForeArm": [
-              -127,
-              0,
-              5
-            ],
-            "Brows": [
-              12,
-              0,
-              0
-            ],
-            "Head": [
-              5,
-              15,
-              0
-            ]
-          }
-        }
-      ],
-      "kind": "marker"
-    },
-    {
       "gloss": "DO",
       "words": [
         "doing",

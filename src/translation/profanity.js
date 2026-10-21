@@ -1,13 +1,13 @@
 // Profanity handling. Detects English and Hinglish swear words (including
-// common asterisk / leetspeak spellings) and applies one of three policies
-// chosen by the user:
-//   censor  – replace with the CENSORED marker sign (avatar covers its mouth)
+// common asterisk / leetspeak spellings) and applies the policy chosen by
+// the user — nothing is ever censored:
+//   spell   – (default) normalise the spelling so the word is fingerspelled
+//             letter by letter, exactly as said
 //   soften  – replace with the nearest neutral meaning (or drop intensifiers)
-//   spell   – keep the word so it is fingerspelled letter by letter
+// Mild words always map to their real sign (damn → BAD, idiot → STUPID).
 // Every match is reported so the UI can say what happened.
 
-export const PROFANITY_POLICIES = ['censor', 'soften', 'spell']
-export const CENSOR_TOKEN = 'censoredword'
+export const PROFANITY_POLICIES = ['spell', 'soften']
 
 // [pattern, softened replacement]. '' drops the word (pure intensifiers).
 const STRONG = [
@@ -54,12 +54,26 @@ const MILD = [
   [/\bnikal\b|\bbhaag\b|\bget\s+lost\b|\bgo\s+away\b|\bbugger\s+off\b|\bchal\s+hat\b/g, 'go'],
 ]
 
+// Masked / leet spellings → the word as it would be fingerspelled.
+const UNMASK = [
+  [/^f[\W_]*u?[\W_]*c?[\W_]*k/, 'fuck'], [/^fck/, 'fuck'], [/^fuk/, 'fuck'],
+  [/^sh[\W_1]+t/, 'shit'], [/^b[\W_1]+tch/, 'bitch'], [/^@ss/, 'ass'], [/^a[\W_]+hole/, 'asshole'],
+  [/^c[\W_]+nt/, 'cunt'], [/^d[\W_]+ck/, 'dick'], [/^chu[\W_]+/, 'chutiya'],
+]
+
+function unmask(word) {
+  for (const [re, base] of UNMASK) {
+    if (re.test(word)) return base + word.replace(re, '').replace(/[^a-z]/g, '')
+  }
+  return word.replace(/[^a-z]/g, '') || word
+}
+
 /**
  * @param {string} text lowercased sentence
- * @param {'censor'|'soften'|'spell'} policy
+ * @param {'spell'|'soften'} policy
  * @returns {{ text: string, matches: Array<{word: string, action: string, replacement: string}> }}
  */
-export function applyProfanityPolicy(text, policy = 'censor') {
+export function applyProfanityPolicy(text, policy = 'spell') {
   const matches = []
   let out = ` ${text} `
   const run = (rules, strength) => {
@@ -70,16 +84,12 @@ export function applyProfanityPolicy(text, policy = 'censor') {
         if (!word) return m
         let replacement
         let action
-        if (policy === 'spell') {
-          replacement = word.replace(/[^a-z]/g, '') || word
-          action = 'spelled'
-        } else if (policy === 'soften' || strength === 'mild') {
-          // mild words are always softened: a bleep for "damn" is overkill
+        if (policy === 'soften' || strength === 'mild') {
           replacement = soft
           action = soft ? 'softened' : 'dropped'
         } else {
-          replacement = CENSOR_TOKEN
-          action = 'censored'
+          replacement = unmask(word)
+          action = 'spelled'
         }
         matches.push({ word, action, replacement: replacement || '(dropped)' })
         return ` ${replacement} `

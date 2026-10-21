@@ -16,7 +16,7 @@ export default function App() {
   const [result, setResult] = useState(null)
   const [translatedText, setTranslatedText] = useState('')
   const [fingerspell, setFingerspell] = useState(true)
-  const [profanity, setProfanity] = useState('censor')
+  const [profanity, setProfanity] = useState('spell')
   const [avatar, setAvatar] = useState(null)
 
   const items = result?.items ?? EMPTY_ITEMS
