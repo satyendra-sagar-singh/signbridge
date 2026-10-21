@@ -166,20 +166,45 @@ button {
 .workspace {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-areas:
+    'input stage'
+    'input controls';
   gap: 20px;
   padding-bottom: 40px;
   align-items: start;
 }
-.workspace-left,
-.workspace-right {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.workspace-left {
+  grid-area: input;
+}
+.workspace-stage {
+  grid-area: stage;
+  min-width: 0;
+}
+.workspace-controls {
+  grid-area: controls;
+  min-width: 0;
+}
+.workspace-left {
   min-width: 0;
 }
 @media (max-width: 960px) {
+  /* Phones and narrow tablets: avatar first so it stays in view while typing. */
   .workspace {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .avatar-hint {
+    display: none; /* would collide with the view presets at this width */
+  }
+  .workspace-stage {
+    order: 1;
+  }
+  .workspace-left {
+    order: 2;
+  }
+  .workspace-controls {
+    order: 3;
   }
 }
 
@@ -764,7 +789,10 @@ button {
     padding: 22px 0 12px;
   }
   .hero .lead {
-    font-size: 0.95rem;
+    display: none; /* keep the stage above the fold */
+  }
+  .hero h1 {
+    font-size: 1.45rem;
   }
   .workspace {
     gap: 14px;

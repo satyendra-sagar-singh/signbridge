@@ -98,17 +98,17 @@ export default function App() {
             />
             <TranslationResult result={result} sourceText={translatedText} />
           </div>
-          <div className="workspace-right">
+          <div className="workspace-stage">
             <AvatarViewer
               onAvatarReady={handleAvatarReady}
               update={update}
               playerState={state}
               items={items}
             />
-            <div className="card">
-              <PlaybackControls state={state} controls={controls} />
-              <Timeline state={state} controls={controls} />
-            </div>
+          </div>
+          <div className="card workspace-controls">
+            <PlaybackControls state={state} controls={controls} />
+            <Timeline state={state} controls={controls} />
           </div>
         </section>
       </main>
