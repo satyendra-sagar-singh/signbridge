@@ -23,16 +23,16 @@ text ──▶ validate ──▶ sentences ──▶ normalise ──▶ phrase
 gloss items ──▶ clip resolver ──▶ THREE.AnimationClip per sign ──▶ SignPlayer (AnimationMixer)
 ```
 
-| Area | File |
-| --- | --- |
-| Translation rules | `src/translation/translate.js` |
-| ISL vocabulary (JSON) | `src/data/islVocabulary.json` |
-| Keyframes → `AnimationClip` | `src/avatar/clipBuilder.js` |
-| Clip lookup for a rig | `src/avatar/clipSource.js` |
-| Sequence playback (mixer) | `src/avatar/SignPlayer.js` |
-| React state bridge | `src/hooks/useSignPlayer.js` |
-| 3D viewer, GLB loader, fallback | `src/avatar/AvatarViewer.jsx` |
-| Placeholder mannequin | `src/avatar/mannequin.js` |
+| Area                            | File                           |
+| ------------------------------- | ------------------------------ |
+| Translation rules               | `src/translation/translate.js` |
+| ISL vocabulary (JSON)           | `src/data/islVocabulary.json`  |
+| Keyframes → `AnimationClip`     | `src/avatar/clipBuilder.js`    |
+| Clip lookup for a rig           | `src/avatar/clipSource.js`     |
+| Sequence playback (mixer)       | `src/avatar/SignPlayer.js`     |
+| React state bridge              | `src/hooks/useSignPlayer.js`   |
+| 3D viewer, GLB loader, fallback | `src/avatar/AvatarViewer.jsx`  |
+| Placeholder mannequin           | `src/avatar/mannequin.js`      |
 
 Playback controls (play / pause / resume / replay / stop / prev / next / speed / timeline jump) all act on real `AnimationAction`s. Progress is read from `action.time`; when every action is stopped the mixer restores the rest pose.
 
@@ -60,8 +60,24 @@ Most signs are generated from location + handshape templates by `scripts/generat
   "expression": "neutral",
   "clipName": "BOOK",
   "keyframes": [
-    { "t": 0.4, "pose": { "RightArm": [-60, 0, -15], "LeftArm": [-60, 0, 15], "RightForeArm": [-90, 0, 0], "LeftForeArm": [-90, 0, 0] } },
-    { "t": 0.9, "pose": { "RightArm": [-60, 0, -35], "LeftArm": [-60, 0, 35], "RightForeArm": [-90, 0, 0], "LeftForeArm": [-90, 0, 0] } }
+    {
+      "t": 0.4,
+      "pose": {
+        "RightArm": [-60, 0, -15],
+        "LeftArm": [-60, 0, 15],
+        "RightForeArm": [-90, 0, 0],
+        "LeftForeArm": [-90, 0, 0]
+      }
+    },
+    {
+      "t": 0.9,
+      "pose": {
+        "RightArm": [-60, 0, -35],
+        "LeftArm": [-60, 0, 35],
+        "RightForeArm": [-90, 0, 0],
+        "LeftForeArm": [-90, 0, 0]
+      }
+    }
   ]
 }
 ```

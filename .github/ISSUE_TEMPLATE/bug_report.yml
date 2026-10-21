@@ -1,0 +1,70 @@
+name: Bug report
+description: A sentence translates wrongly, a sign plays wrongly, or the app breaks
+labels: [bug]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of problem?
+      options:
+        - A sentence is translated to the wrong signs or word order
+        - A word is not recognised (fingerspelled) when it should have a sign
+        - A sign animates wrongly, or the avatar does not move
+        - Playback controls, timeline or speed misbehave
+        - The 3D viewer does not render, or shows the fallback
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Input text
+      description: The exact text you typed, so the translation can be reproduced.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: The gloss sequence you got, what you expected instead, and what the avatar did. Screenshots or a screen recording help.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: SignBridge version or commit
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser, OS and device
+      placeholder: Chrome 140, macOS 15 / Android 15 phone
+    validations:
+      required: true
+  - type: dropdown
+    id: avatar
+    attributes:
+      label: Avatar in use
+      options:
+        - Built-in placeholder mannequin
+        - My own GLB in public/models/avatar.glb
+    validations:
+      required: true
+  - type: checkboxes
+    id: known-behaviour
+    attributes:
+      label: Documented behaviour check
+      description: These are design properties of the MVP, not defects — see the README's Honesty notes.
+      options:
+        - label: This is not about the placeholder mannequin's poses being approximate rather than verified ISL
+          required: true
+  - type: checkboxes
+    id: security
+    attributes:
+      label: Security check
+      options:
+        - label: This is not a security vulnerability (those go through [SECURITY.md](../blob/main/SECURITY.md), never public issues)
+          required: true

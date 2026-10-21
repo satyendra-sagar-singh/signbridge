@@ -6,7 +6,10 @@
 
 // [pattern, canonical word(s)]
 const RULES = [
-  [/\bf+u+c+k+(?:ing|in|ed|er|ers|s|off)?\b|\bf\*+(?:ck|k)\w*|\bfu\*+k\w*|\bfck\w*|\bfuk\w*|\bf[\W_]?u[\W_]?c[\W_]?k\w*|\beff\s+off\b|\bf\s+off\b/g, 'fuck'],
+  [
+    /\bf+u+c+k+(?:ing|in|ed|er|ers|s|off)?\b|\bf\*+(?:ck|k)\w*|\bfu\*+k\w*|\bfck\w*|\bfuk\w*|\bf[\W_]?u[\W_]?c[\W_]?k\w*|\beff\s+off\b|\bf\s+off\b/g,
+    'fuck',
+  ],
   [/\bwtf\b|\bwth\b/g, 'what fuck'],
   [/\bstfu\b/g, 'shut up fuck'],
   [/\bmotherf\w*\b|\bmf\b|\bmofo\b/g, 'motherfucker'],
@@ -26,13 +29,25 @@ const RULES = [
   [/\bdamn(?:ed|it)?\b|\bdammit\b|\bgoddamn\w*/g, 'damn'],
   [/\bhell\b(?!o)/g, 'hell'],
   [/\bcrap(?:py)?\b/g, 'crap'],
-  [/\bbloody\b|\bfreaking\b|\bfrigging\b|\bfricking\b|\bfriggin\b|\beffing\b|\bflipping\b/g, 'damn'],
+  [
+    /\bbloody\b|\bfreaking\b|\bfrigging\b|\bfricking\b|\bfriggin\b|\beffing\b|\bflipping\b/g,
+    'damn',
+  ],
   [/\bsucks?\b/g, 'sucks'],
-  [/\bjerks?\b|\bmorons?\b|\bidiots?\b|\bidiotic\b|\bdumb(?:ass)?\b|\bfools?\b|\blosers?\b|\bdumbo\b/g, 'idiot'],
+  [
+    /\bjerks?\b|\bmorons?\b|\bidiots?\b|\bidiotic\b|\bdumb(?:ass)?\b|\bfools?\b|\blosers?\b|\bdumbo\b/g,
+    'idiot',
+  ],
   [/\bshut\s*up\b|\bshaddup\b|\bchup\s*kar\b|\bchup\b/g, 'shut up'],
-  [/\bget\s+lost\b|\bgo\s+away\b|\bbugger\s+off\b|\bchal\s+hat\b|\bnikal\b|\bbhaag\s+yahan\s+se\b/g, 'get lost'],
+  [
+    /\bget\s+lost\b|\bgo\s+away\b|\bbugger\s+off\b|\bchal\s+hat\b|\bnikal\b|\bbhaag\s+yahan\s+se\b/g,
+    'get lost',
+  ],
   // Hinglish
-  [/\bbhen\s*chod\w*|\bbhenchod\w*|\bbehen\s*chod\w*|\bbehenchod\w*|\bbc\b|\bbkl\b|\bbehen\s+ke\s+lode\b/g, 'bhenchod'],
+  [
+    /\bbhen\s*chod\w*|\bbhenchod\w*|\bbehen\s*chod\w*|\bbehenchod\w*|\bbc\b|\bbkl\b|\bbehen\s+ke\s+lode\b/g,
+    'bhenchod',
+  ],
   [/\bmadar\s*chod\w*|\bmadarchod\w*|\bmc\b|\bmaa\s+ki\s+\w+\b/g, 'madarchod'],
   [/\bbhosdi\w*|\bbsdk\b|\bbhosad\w*/g, 'bhosdike'],
   [/\bchutiy[ae]\w*|\bchutiyap\w*|\bchu\*+\w*|\bchutia\w*/g, 'chutiya'],
@@ -46,26 +61,29 @@ const RULES = [
   [/\bsaal[aei]\b|\bsal[aei]\b|\bsaale\b/g, 'saala'],
   [/\bbakchod\w*|\bbakchodi\b/g, 'bakchod'],
   [/\btatti\b|\btatte\b/g, 'tatti'],
-  [/\bpagal\b|\bpaagal\b|\bullu\b|\bgadh[ae]\b|\bbewakoof\b|\bbevkoof\b|\bbuddhu\b|\bnalayak\b|\bbevakoof\b/g, 'pagal'],
+  [
+    /\bpagal\b|\bpaagal\b|\bullu\b|\bgadh[ae]\b|\bbewakoof\b|\bbevkoof\b|\bbuddhu\b|\bnalayak\b|\bbevakoof\b/g,
+    'pagal',
+  ],
   [/\bbakwaas\b|\bbakwas\b|\bfaltu\b/g, 'bakwaas'],
   [/\bghatiya\b|\bghatia\b/g, 'ghatiya'],
-]
+];
 
 /**
  * @param {string} text lowercased sentence
  * @returns {{ text: string, matches: Array<{word: string, to: string}> }}
  */
 export function normaliseProfanity(text) {
-  const matches = []
-  let out = ` ${text} `
+  const matches = [];
+  let out = ` ${text} `;
   for (const [re, canonical] of RULES) {
-    re.lastIndex = 0
+    re.lastIndex = 0;
     out = out.replace(re, (m) => {
-      const word = m.trim()
-      if (!word) return m
-      matches.push({ word, to: canonical })
-      return ` ${canonical} `
-    })
+      const word = m.trim();
+      if (!word) return m;
+      matches.push({ word, to: canonical });
+      return ` ${canonical} `;
+    });
   }
-  return { text: out.replace(/\s+/g, ' ').trim(), matches }
+  return { text: out.replace(/\s+/g, ' ').trim(), matches };
 }

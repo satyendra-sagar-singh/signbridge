@@ -1,10 +1,10 @@
-import React from 'react'
-
 /** Shown when WebGL is unavailable or the 3D canvas crashed. */
 export function AvatarFallback({ reason, error, items }) {
   return (
     <div className="avatar-fallback" role="region" aria-label="Avatar unavailable">
-      <div className="fallback-icon" aria-hidden="true">🧏</div>
+      <div className="fallback-icon" aria-hidden="true">
+        🧏
+      </div>
       <h3>3D avatar unavailable</h3>
       <p>
         {reason === 'webgl'
@@ -26,5 +26,5 @@ export function AvatarFallback({ reason, error, items }) {
         </>
       )}
     </div>
-  )
+  );
 }

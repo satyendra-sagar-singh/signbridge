@@ -1,24 +1,33 @@
-import React from 'react'
-import { MAX_INPUT_LENGTH } from '../translation/translate.js'
+import { MAX_INPUT_LENGTH } from '../translation/translate.js';
 
-export const EXAMPLE_PHRASES = ['Hello.', 'Thank you.', 'I need help.', 'How are you?', 'I need water.']
+const EXAMPLE_PHRASES = ['Hello.', 'Thank you.', 'I need help.', 'How are you?', 'I need water.'];
 
-export function TranslatePanel({ text, onChange, onTranslate, onClear, error, fingerspell, onToggleFingerspell }) {
-  const remaining = MAX_INPUT_LENGTH - text.length
-  const over = remaining < 0
+export function TranslatePanel({
+  text,
+  onChange,
+  onTranslate,
+  onClear,
+  error,
+  fingerspell,
+  onToggleFingerspell,
+}) {
+  const remaining = MAX_INPUT_LENGTH - text.length;
+  const over = remaining < 0;
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    onTranslate()
-  }
+    e.preventDefault();
+    onTranslate();
+  };
 
   const handleKeyDown = (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') onTranslate()
-  }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') onTranslate();
+  };
 
   return (
     <form className="translate-panel" onSubmit={handleSubmit} noValidate>
-      <label htmlFor="isl-input" className="field-label">Your text</label>
+      <label htmlFor="isl-input" className="field-label">
+        Your text
+      </label>
       <textarea
         id="isl-input"
         className={`text-input ${error ? 'has-error' : ''}`}
@@ -37,12 +46,18 @@ export function TranslatePanel({ text, onChange, onTranslate, onClear, error, fi
           {text.length} / {MAX_INPUT_LENGTH} characters
         </span>
         <label className="toggle">
-          <input type="checkbox" checked={fingerspell} onChange={(e) => onToggleFingerspell(e.target.checked)} />
+          <input
+            type="checkbox"
+            checked={fingerspell}
+            onChange={(e) => onToggleFingerspell(e.target.checked)}
+          />
           Fingerspell unknown words
         </label>
       </div>
       {error && (
-        <p id="input-error" className="error-msg" role="alert">{error}</p>
+        <p id="input-error" className="error-msg" role="alert">
+          {error}
+        </p>
       )}
 
       <div className="btn-row">
@@ -65,5 +80,5 @@ export function TranslatePanel({ text, onChange, onTranslate, onClear, error, fi
         </div>
       </div>
     </form>
-  )
+  );
 }

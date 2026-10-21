@@ -5,24 +5,39 @@
 
 const RULES = [
   // greetings & small talk
-  [/\b(wassup|whassup|wazzup|what'?s up|whats up|sup|howdy|how'?s it going|how are you doing|how do you do|how are things|how r u|hru|how u doin'?|kaise ho|kaisi ho|kya haal hai|kya haal)\b/g, 'how are you'],
+  [
+    /\b(wassup|whassup|wazzup|what'?s up|whats up|sup|howdy|how'?s it going|how are you doing|how do you do|how are things|how r u|hru|how u doin'?|kaise ho|kaisi ho|kya haal hai|kya haal)\b/g,
+    'how are you',
+  ],
   [/\b(hiya|heya|yo|hey there|hello there|hi there)\b/g, 'hello'],
   [/\b(nice to meet you|pleased to meet you|good to meet you)\b/g, 'good meet you'],
   [/\b(good night|gn|gud night|nighty night)\b/g, 'night good'],
-  [/\b(i'?m fine|i am fine|i'?m good|i am good|i'?m ok|i'?m okay|all good|im fine|im good|fine thanks|theek hoon|thik hoon|main theek hoon)\b/g, 'me good'],
+  [
+    /\b(i'?m fine|i am fine|i'?m good|i am good|i'?m ok|i'?m okay|all good|im fine|im good|fine thanks|theek hoon|thik hoon|main theek hoon)\b/g,
+    'me good',
+  ],
   [/\b(brb|be right back)\b/g, 'wait me come'],
   [/\b(ttyl|talk to you later)\b/g, 'later talk'],
   [/\b(gtg|g2g|got to go|gotta go|have to go)\b/g, 'me must go'],
   [/\b(idk|dunno|don'?t know|do not know|no idea|pata nahi|pata nahin)\b/g, 'me know no'],
   [/\b(ikr|i know right)\b/g, 'yes me know'],
-  [/\b(np|no problem|no worries|no prob|koi baat nahi|koi baat nahin|it'?s ok|its ok|it'?s okay|its okay|it'?s fine)\b/g, 'ok'],
+  [
+    /\b(np|no problem|no worries|no prob|koi baat nahi|koi baat nahin|it'?s ok|its ok|it'?s okay|its okay|it'?s fine)\b/g,
+    'ok',
+  ],
   [/\b(yw|you'?re welcome|ur welcome|you are welcome|most welcome)\b/g, 'welcome'],
-  [/\b(thx|thnx|thanx|tysm|tyvm|ty|thank u|thanks a lot|thanks so much|thank you so much|thanks a ton|shukriya|dhanyawad|dhanyavaad|many thanks|cheers)\b/g, 'thank you'],
+  [
+    /\b(thx|thnx|thanx|tysm|tyvm|ty|thank u|thanks a lot|thanks so much|thank you so much|thanks a ton|shukriya|dhanyawad|dhanyavaad|many thanks|cheers)\b/g,
+    'thank you',
+  ],
   [/\b(pls|plz|plzz|plss|please please|kripya)\b/g, 'please'],
   [/\b(sry|soz|my bad|apologies|maaf karo|maaf kijiye|maaf)\b/g, 'sorry'],
   [/\b(congratz|congratz|gz|gg)\b/g, 'congrats'],
   [/\b(hbd|happy birthday|happy bday|janamdin mubarak)\b/g, 'birthday happy'],
-  [/\b(k|kk|okie|okies|okay okay|alright then|theek hai|thik hai|thik h|theek h|acha|accha|achha|haanji|ji haan|ji)\b/g, 'ok'],
+  [
+    /\b(k|kk|okie|okies|okay okay|alright then|theek hai|thik hai|thik h|theek h|acha|accha|achha|haanji|ji haan|ji)\b/g,
+    'ok',
+  ],
   [/\b(ya|yah|yea|yass|yasss|yup|yupp|yeh|haa|haan ji|ha)\b/g, 'yes'],
   [/\b(nah|naah|nope|nopes|na|nahi ji|nay)\b/g, 'no'],
   // contractions of speech
@@ -68,7 +83,10 @@ const RULES = [
   [/\basap\b/g, 'fast'],
   [/\bnvm\b/g, 'never mind'],
   [/\bbff\b|\bbestie\b|\bbestfriend\b|\bbest friend\b/g, 'friend'],
-  [/\bbro\b|\bbruh\b|\bbruv\b|\bdude\b|\bmate\b|\bbuddy\b|\bpal\b|\byaar\b|\byar\b|\bbhai\b|\bbhaiya\b/g, 'friend'],
+  [
+    /\bbro\b|\bbruh\b|\bbruv\b|\bdude\b|\bmate\b|\bbuddy\b|\bpal\b|\byaar\b|\byar\b|\bbhai\b|\bbhaiya\b/g,
+    'friend',
+  ],
   [/\bbae\b|\bgf\b|\bbf\b|\bboyfriend\b|\bgirlfriend\b|\bhubby\b|\bwifey\b|\bjaan\b/g, 'love'],
   [/\bfam\b/g, 'family'],
   [/\bgrub\b|\bgrab a bite\b|\bbite to eat\b/g, 'food'],
@@ -102,32 +120,36 @@ const RULES = [
   [/\bhaan\b|\bhan\b/g, 'yes'],
   [/\bbahut\b|\bbohot\b|\bbohat\b/g, 'very'],
   [/\baur\b/g, 'and'],
-  [/\bhai\b|\bhain\b|\bho\b|\bhoon\b|\bhun\b|\bhu\b|\bhoga\b|\bhogi\b|\btha\b|\bthi\b|\bthe\b/g, ''],
-]
+  [
+    /\bhai\b|\bhain\b|\bho\b|\bhoon\b|\bhun\b|\bhu\b|\bhoga\b|\bhogi\b|\btha\b|\bthi\b|\bthe\b/g,
+    '',
+  ],
+];
 
 /**
  * @param {string} sentence lowercased sentence
  * @returns {{ text: string, rewrites: Array<{from: string, to: string}> }}
  */
 export function normaliseSlang(sentence) {
-  let text = ` ${sentence} `
-  const rewrites = []
+  let text = ` ${sentence} `;
+  const rewrites = [];
   for (const [re, replacement] of RULES) {
-    re.lastIndex = 0
+    re.lastIndex = 0;
     text = text.replace(re, (match) => {
-      const from = match.trim()
-      const to = replacement.trim()
-      if (from && from !== to && !/^(the|today|good|great)$/.test(from)) rewrites.push({ from, to: to || '(dropped)' })
-      return replacement ? ` ${replacement} ` : ' '
-    })
+      const from = match.trim();
+      const to = replacement.trim();
+      if (from && from !== to && !/^(the|today|good|great)$/.test(from))
+        rewrites.push({ from, to: to || '(dropped)' });
+      return replacement ? ` ${replacement} ` : ' ';
+    });
   }
   // de-duplicate rewrites
-  const seen = new Set()
+  const seen = new Set();
   const unique = rewrites.filter((r) => {
-    const key = `${r.from}→${r.to}`
-    if (seen.has(key)) return false
-    seen.add(key)
-    return true
-  })
-  return { text: text.replace(/\s+/g, ' ').trim(), rewrites: unique }
+    const key = `${r.from}→${r.to}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  return { text: text.replace(/\s+/g, ' ').trim(), rewrites: unique };
 }

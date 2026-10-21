@@ -1,13 +1,51 @@
 {
   "name": "signbridge",
-  "private": true,
   "version": "0.1.0",
+  "description": "Text to Indian Sign Language in the browser — a rule-based ISL translator with a 3D avatar that performs the signs, built on React, Vite and Three.js.",
+  "keywords": [
+    "indian-sign-language",
+    "isl",
+    "sign-language",
+    "accessibility",
+    "deaf",
+    "text-to-sign",
+    "3d-avatar",
+    "three",
+    "react-three-fiber",
+    "react",
+    "vite"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Satyendra Sagar Singh",
+    "email": "satyendra.sagar@icloud.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satyendra-sagar-singh/signbridge.git"
+  },
+  "homepage": "https://github.com/satyendra-sagar-singh/signbridge#readme",
+  "bugs": {
+    "url": "https://github.com/satyendra-sagar-singh/signbridge/issues"
+  },
+  "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{js,jsx,md,json,css,yml}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,md,json,css,yml}\"",
+    "vocab:generate": "python3 scripts/generateVocabulary.py",
+    "check": "npm run lint && npm run format:check && npm test && npm run build"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
@@ -17,8 +55,15 @@
     "three": "^0.180.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@vitejs/plugin-react": "^6.1.2",
+    "@vitest/coverage-v8": "^5.0.5",
+    "eslint": "^10.13.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.13.0",
     "playwright-core": "^1.64.1",
+    "prettier": "^3.9.10",
     "vite": "^8.3.4",
     "vitest": "^5.0.5"
   }

@@ -1,81 +1,95 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { PlayerStatus, SignPlayer } from '../avatar/SignPlayer.js'
+import { useCallback, useEffect, useMemo, useSyncExternalStore } from 'react';
+import { PlayerStatus, SignPlayer } from '../avatar/SignPlayer.js';
 
-const TICK_INTERVAL_MS = 80
+const TICK_INTERVAL_MS = 80;
+
+const EMPTY_SNAPSHOT = Object.freeze({
+  status: PlayerStatus.IDLE,
+  index: 0,
+  count: 0,
+  speed: 1,
+  elapsed: 0,
+  total: 0,
+  progress: 0,
+  current: null,
+  items: [],
+});
+
+const NO_PLAYER = {
+  player: null,
+  subscribe: () => () => {},
+  getSnapshot: () => EMPTY_SNAPSHOT,
+};
 
 /**
- * Owns a SignPlayer bound to the current avatar root and mirrors its state
- * into React. `avatar` is { root, getClip(item) } reported by the avatar
- * component once its model is ready.
+ * Wraps a SignPlayer as an external store: React reads an immutable snapshot
+ * that is replaced whenever the player emits, so playback state never has to
+ * be copied into React state from inside an effect.
+ */
+function createPlayerStore(root) {
+  const player = new SignPlayer(root);
+  const listeners = new Set();
+  let snapshot = readSnapshot(player);
+  let lastTick = 0;
+  player.subscribe((type) => {
+    if (type === 'tick') {
+      const now = performance.now();
+      if (now - lastTick < TICK_INTERVAL_MS) return;
+      lastTick = now;
+    }
+    snapshot = readSnapshot(player);
+    for (const listener of listeners) listener();
+  });
+  return {
+    player,
+    subscribe: (listener) => {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+    getSnapshot: () => snapshot,
+  };
+}
+
+/**
+ * Owns a SignPlayer bound to the current avatar root and exposes its state to
+ * React. `avatar` is { root, getClip(item) } reported by the avatar component
+ * once its model is ready.
  */
 export function useSignPlayer(avatar, items) {
-  const playerRef = useRef(null)
-  const [snapshot, setSnapshot] = useState(() => emptySnapshot())
-  const lastTick = useRef(0)
+  const store = useMemo(
+    () => (avatar?.root ? createPlayerStore(avatar.root) : NO_PLAYER),
+    [avatar],
+  );
+  const state = useSyncExternalStore(store.subscribe, store.getSnapshot, store.getSnapshot);
 
-  // (Re)create the player when the avatar root changes.
-  useEffect(() => {
-    if (!avatar?.root) {
-      playerRef.current?.dispose()
-      playerRef.current = null
-      setSnapshot(emptySnapshot())
-      return undefined
-    }
-    const player = new SignPlayer(avatar.root)
-    playerRef.current = player
-    const unsubscribe = player.subscribe((type) => {
-      if (type === 'tick') {
-        const now = performance.now()
-        if (now - lastTick.current < TICK_INTERVAL_MS) return
-        lastTick.current = now
-      }
-      setSnapshot(readSnapshot(player))
-    })
-    setSnapshot(readSnapshot(player))
-    return () => {
-      unsubscribe()
-      player.dispose()
-      if (playerRef.current === player) playerRef.current = null
-    }
-  }, [avatar])
+  // Dispose the mixer when the avatar (and therefore the store) is replaced.
+  useEffect(() => () => store.player?.dispose(), [store]);
 
   // Load the sequence whenever the translation or avatar changes.
   useEffect(() => {
-    const player = playerRef.current
-    if (!player || !avatar) return
-    const sequence = items.map((item) => ({ ...item, clip: avatar.getClip(item) }))
-    player.setSequence(sequence)
-  }, [avatar, items])
+    if (!store.player || !avatar) return;
+    const sequence = items.map((item) => ({ ...item, clip: avatar.getClip(item) }));
+    store.player.setSequence(sequence);
+  }, [store, avatar, items]);
 
-  const update = useCallback((delta) => playerRef.current?.update(delta), [])
+  const update = useCallback((delta) => store.player?.update(delta), [store]);
 
-  const controls = {
-    play: () => playerRef.current?.play(),
-    pause: () => playerRef.current?.pause(),
-    resume: () => playerRef.current?.resume(),
-    replay: () => playerRef.current?.replay(),
-    stop: () => playerRef.current?.stop(),
-    next: () => playerRef.current?.next(),
-    previous: () => playerRef.current?.previous(),
-    jumpTo: (i) => playerRef.current?.jumpTo(i),
-    setSpeed: (s) => playerRef.current?.setSpeed(s),
-  }
+  const controls = useMemo(
+    () => ({
+      play: () => store.player?.play(),
+      pause: () => store.player?.pause(),
+      resume: () => store.player?.resume(),
+      replay: () => store.player?.replay(),
+      stop: () => store.player?.stop(),
+      next: () => store.player?.next(),
+      previous: () => store.player?.previous(),
+      jumpTo: (i) => store.player?.jumpTo(i),
+      setSpeed: (s) => store.player?.setSpeed(s),
+    }),
+    [store],
+  );
 
-  return { state: snapshot, controls, update }
-}
-
-function emptySnapshot() {
-  return {
-    status: PlayerStatus.IDLE,
-    index: 0,
-    count: 0,
-    speed: 1,
-    elapsed: 0,
-    total: 0,
-    progress: 0,
-    current: null,
-    items: [],
-  }
+  return { state, controls, update };
 }
 
 function readSnapshot(player) {
@@ -89,5 +103,5 @@ function readSnapshot(player) {
     progress: player.progress,
     current: player.current,
     items: player.items,
-  }
+  };
 }

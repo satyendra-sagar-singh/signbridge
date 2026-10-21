@@ -1,8 +1,6 @@
-import React from 'react'
-
 /** Explains the translation: gloss string, per-sign descriptions, notes. */
 export function TranslationResult({ result, sourceText }) {
-  if (!result) return null
+  if (!result) return null;
   return (
     <section className="result" aria-label="Translation result">
       <div className="result-head">
@@ -11,7 +9,9 @@ export function TranslationResult({ result, sourceText }) {
       </div>
       <p className="gloss-string" aria-label="ISL gloss">
         {result.items.map((it) => (
-          <span key={it.id} className={`gloss kind-${it.kind}`}>{it.kind === 'fingerspell' ? `fs-${it.gloss}` : it.gloss}</span>
+          <span key={it.id} className={`gloss kind-${it.kind}`}>
+            {it.kind === 'fingerspell' ? `fs-${it.gloss}` : it.gloss}
+          </span>
         ))}
       </p>
       {result.rewrites?.length > 0 && (
@@ -28,7 +28,11 @@ export function TranslationResult({ result, sourceText }) {
         <p className="rewrites" aria-label="Bad words handled">
           <span className="muted small">Bad words:</span>
           {result.profanity.map((m, i) => (
-            <span key={i} className="rewrite-chip is-profanity" title={`“${m.word}” is signed as ${m.to.toUpperCase()}`}>
+            <span
+              key={i}
+              className="rewrite-chip is-profanity"
+              title={`“${m.word}” is signed as ${m.to.toUpperCase()}`}
+            >
               {m.word} → {m.to.toUpperCase()}
             </span>
           ))}
@@ -37,7 +41,9 @@ export function TranslationResult({ result, sourceText }) {
       {result.notes
         .filter((n) => !n.startsWith('Understood') && !n.startsWith('Bad words'))
         .map((n, i) => (
-          <p key={i} className="note">{n}</p>
+          <p key={i} className="note">
+            {n}
+          </p>
         ))}
       <details className="result-details">
         <summary>How each sign is made</summary>
@@ -46,21 +52,23 @@ export function TranslationResult({ result, sourceText }) {
             <li key={it.id}>
               <strong>{it.label}</strong>
               {it.description && <span> — {it.description}</span>}
-              {it.expression && it.expression !== 'neutral' && <em className="expr"> · expression: {it.expression}</em>}
+              {it.expression && it.expression !== 'neutral' && (
+                <em className="expr"> · expression: {it.expression}</em>
+              )}
             </li>
           ))}
         </ul>
       </details>
     </section>
-  )
+  );
 }
 
 function dedupe(items) {
-  const seen = new Set()
+  const seen = new Set();
   return items.filter((it) => {
-    const key = `${it.kind}:${it.gloss}`
-    if (seen.has(key)) return false
-    seen.add(key)
-    return true
-  })
+    const key = `${it.kind}:${it.gloss}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }

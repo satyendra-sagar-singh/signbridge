@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest an improvement, a new sign, or a new capability
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Vocabulary (new signs, words, slang or Hinglish)
+        - Translation rules (grammar, ordering, question handling)
+        - Avatar and animation
+        - Playback and viewer UI
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to say or do that SignBridge does not support today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How would you like it to work? For a new sign, describe the ISL handshape, location and movement, and any reference you have.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Workarounds you have tried, such as rephrasing, or editing `src/data/islVocabulary.json` yourself.

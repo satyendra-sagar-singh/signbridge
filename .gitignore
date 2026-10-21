@@ -1,4 +1,14 @@
-node_modules
-dist
-.vite
+node_modules/
+dist/
+coverage/
 *.log
+*.zip
+.DS_Store
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+.vite/
+public/models/*.glb
+public/models/*.gltf
