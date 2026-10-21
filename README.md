@@ -7,7 +7,7 @@
 Text to Indian Sign Language in the browser. Type a sentence and a 3D avatar performs it in ISL — the text is turned into an ordered sequence of sign glosses by a small, readable rule engine, each gloss becomes a real `THREE.AnimationClip`, and an `AnimationMixer` plays them back with proper transport controls. No API keys, no server, no accounts: a static build runs anywhere.
 
 - 🧏 **Text → ISL glosses** — validation, clause splitting, longest-phrase matching, filler removal, WH-word reordering and a `QUESTION` non-manual marker
-- 📚 **169 signs** — greetings, people, daily verbs, places, feelings, time, numbers, discourse words, and swear words with their own signs, generated from location + handshape templates
+- 📚 **169 signs** — greetings, people, daily verbs, places, feelings, time, numbers and discourse words, generated from location + handshape templates
 - 💬 **Understands how people type** — texting abbreviations, slang and Hinglish (`wassup bro`, `thx`, `mujhe paani chahiye`), with every rewrite shown to the user
 - 🎬 **Real playback** — play, pause, resume, replay, stop, previous/next sign, 0.5×–1.25× speed, progress and a clickable sequence timeline, all acting on the actual animation actions
 - 🧍 **Placeholder avatar included** — a procedural cartoon mannequin with articulated fingers, jointed legs and a face that smiles, frowns and blinks; drop a rigged GLB into `public/models/` to replace it
@@ -36,7 +36,7 @@ Type a sentence, or click an example, and press **Translate**. The avatar starts
 | `mujhe paani chahiye`             | ME WATER NEED                              |
 | `call 108`                        | PHONE 1 0 8                                |
 
-Under the translation you get the gloss string, which slang was rewritten ("Understood: wassup → how are you"), which swear words were signed, and a collapsible description of how each sign is made.
+Under the translation you get the gloss string, which slang was rewritten ("Understood: wassup → how are you"), and a collapsible description of how each sign is made.
 
 ## How it works
 
@@ -101,10 +101,6 @@ Entries can also be hand-written straight into the JSON:
 - numbers: 0–10 are single signs; larger numbers are signed digit by digit.
 
 Add a rule by appending `[regex, replacement]` to `RULES`; order matters.
-
-## Bad words
-
-Nothing is censored or softened. Swear words and insults have their own signs (FUCK, SHIT, BITCH, BASTARD, DAMN, IDIOT, SHUT-UP, BHENCHOD, MADARCHOD, CHUTIYA, GANDU, KAMINA, SAALA, …) performed with an angry expression. `src/translation/profanity.js` only normalises masked and variant spellings (`f*ck`, `sh1t`, `wtf`, `bc`, `bkl`, `bsdk`) so the right sign is matched, and each match is shown under the translation as "f*ck → FUCK".
 
 ## Translation rules
 
