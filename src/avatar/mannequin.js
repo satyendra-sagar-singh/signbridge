@@ -123,7 +123,7 @@ function buildHand(side, skin, skinDark, nail) {
       nail,
     ),
   )
-  hand.scale.setScalar(1.3) // slightly oversized so signing stays legible
+  hand.scale.setScalar(1.0)
   return hand
 }
 
