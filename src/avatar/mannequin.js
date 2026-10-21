@@ -22,6 +22,9 @@ const COLORS = {
   shorts: 0xf9e13b,
   sock: 0xf7f7f7,
   shoe: 0xf2a72a,
+  shoeDark: 0xd98d1c,
+  sole: 0xf6f2e9,
+  lace: 0xfafafa,
   hair: 0x161616,
   eyeWhite: 0xfafafa,
   iris: 0x4a2c1c,
@@ -146,13 +149,41 @@ function buildArm(side, skin, skinDark, nail, shirt) {
   return shoulder
 }
 
-function buildLeg(x, skin, shorts, sock, shoe) {
-  const leg = new Group()
-  leg.add(mesh(new CylinderGeometry(0.09, 0.095, 0.13, 20), shorts, [x, -0.1, 0])) // shorts leg
-  leg.add(mesh(new CapsuleGeometry(0.052, 0.18, 4, 14), skin, [x, -0.25, 0]))
-  leg.add(mesh(new CapsuleGeometry(0.056, 0.05, 4, 14), sock, [x, -0.38, 0]))
-  leg.add(mesh(new SphereGeometry(1, 18, 14), shoe, [x, -0.455, 0.035], [0.072, 0.045, 0.12]))
-  return leg
+/**
+ * One leg as a joint chain: <side>UpLeg (hip) → <side>Leg (knee) → <side>Foot (ankle) → <side>ToeBase.
+ * Rest pose is straight; the names follow Mixamo so clips can drive them later.
+ */
+function buildLeg(side, { skin, shorts, sock, shoe, shoeDark, sole, lace }) {
+  const sign = side === 'Left' ? 1 : -1
+  const upLeg = joint(`mixamorig${side}UpLeg`, [sign * 0.085, -0.02, 0])
+  upLeg.add(mesh(new CylinderGeometry(0.088, 0.094, 0.13, 20), shorts, [0, -0.08, 0])) // shorts leg
+  upLeg.add(mesh(new SphereGeometry(0.056, 16, 12), skin, [0, -0.05, 0])) // hip blend under the shorts
+  upLeg.add(mesh(new CapsuleGeometry(0.054, 0.1, 4, 14), skin, [0, -0.12, 0])) // thigh
+
+  const knee = joint(`mixamorig${side}Leg`, [0, -0.19, 0])
+  knee.add(mesh(new SphereGeometry(0.052, 18, 14), skin, [0, 0, 0], [1, 1.05, 1])) // kneecap
+  knee.add(mesh(new CylinderGeometry(0.048, 0.04, 0.17, 16), skin, [0, -0.1, 0])) // shin, tapering to the ankle
+  knee.add(mesh(new CapsuleGeometry(0.044, 0.05, 4, 14), sock, [0, -0.2, 0])) // sock
+  knee.add(mesh(new SphereGeometry(0.036, 14, 10), sock, [0, -0.235, 0])) // ankle
+
+  const foot = joint(`mixamorig${side}Foot`, [0, -0.24, 0])
+  // Sneaker: sole, upper, toe cap, heel counter, tongue and laces
+  foot.add(mesh(new RoundedBoxGeometry(0.095, 0.03, 0.17, 3, 0.012), sole, [0, -0.052, 0.025]))
+  foot.add(mesh(new SphereGeometry(1, 24, 16), shoe, [0, -0.024, 0.02], [0.048, 0.042, 0.084])) // upper
+  foot.add(mesh(new SphereGeometry(1, 20, 14), shoe, [0, -0.036, 0.065], [0.046, 0.03, 0.05])) // toe box (merges into the upper)
+  foot.add(mesh(new SphereGeometry(1, 16, 12), shoeDark, [0, -0.022, -0.035], [0.042, 0.04, 0.032])) // heel counter
+  foot.add(mesh(new SphereGeometry(1, 14, 10), shoeDark, [0, 0.006, 0.03], [0.026, 0.02, 0.03])) // tongue
+  for (const [i, z] of [0.03, 0.045, 0.06].entries()) {
+    const laceBar = mesh(new CylinderGeometry(0.003, 0.003, 0.05 - i * 0.004, 6), lace, [0, 0.012 - i * 0.006, z])
+    laceBar.rotation.z = Math.PI / 2
+    foot.add(laceBar)
+  }
+  const toes = joint(`mixamorig${side}ToeBase`, [0, -0.05, 0.08])
+  foot.add(toes)
+
+  knee.add(foot)
+  upLeg.add(knee)
+  return upLeg
 }
 
 /** Facial expression targets: smile in [-1, 1], open in [0, 1]. */
@@ -283,6 +314,9 @@ export function createMannequin() {
   const shorts = mat(COLORS.shorts)
   const sock = mat(COLORS.sock)
   const shoe = mat(COLORS.shoe)
+  const shoeDark = mat(COLORS.shoeDark)
+  const sole = mat(COLORS.sole)
+  const lace = mat(COLORS.lace)
   const nail = mat(COLORS.nail)
 
   const root = new Group()
@@ -290,8 +324,9 @@ export function createMannequin() {
 
   const hips = joint('mixamorigHips', [0, 0.52, 0])
   hips.add(mesh(new SphereGeometry(1, 24, 16), shorts, [0, -0.02, 0], [0.21, 0.13, 0.14])) // shorts
-  hips.add(buildLeg(-0.085, skin, shorts, sock, shoe))
-  hips.add(buildLeg(0.085, skin, shorts, sock, shoe))
+  const legMats = { skin, shorts, sock, shoe, shoeDark, sole, lace }
+  hips.add(buildLeg('Left', legMats))
+  hips.add(buildLeg('Right', legMats))
 
   const spine = joint('mixamorigSpine', [0, 0.06, 0])
   spine.add(mesh(new CapsuleGeometry(0.165, 0.1, 6, 24), shirt, [0, 0.16, 0], [1, 1, 0.72])) // tee

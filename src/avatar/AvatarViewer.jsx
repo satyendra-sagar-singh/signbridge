@@ -226,9 +226,9 @@ export function AvatarViewer({ onAvatarReady, update, playerState, items, modelU
         <Canvas
           shadows
           dpr={[1, 2]}
-          camera={{ position: [0.5, 1.05, 2.75], fov: 35, near: 0.1, far: 50 }}
+          camera={{ position: [0.5, 1.0, 2.85], fov: 35, near: 0.1, far: 50 }}
           gl={{ antialias: true, alpha: true }}
-          onCreated={({ camera }) => camera.lookAt(0, 0.82, 0)}
+          onCreated={({ camera }) => camera.lookAt(0, 0.76, 0)}
         >
           <ambientLight intensity={0.7} />
           <hemisphereLight args={[0xffffff, 0xd9e2ff, 0.5]} />
@@ -251,7 +251,7 @@ export function AvatarViewer({ onAvatarReady, update, playerState, items, modelU
           />
           <OrbitControls
             ref={controlsRef}
-            target={[0, 0.82, 0]}
+            target={[0, 0.76, 0]}
             enablePan
             screenSpacePanning
             panSpeed={0.8}
