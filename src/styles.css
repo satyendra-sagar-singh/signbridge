@@ -786,7 +786,10 @@ button {
 /* ---------- Mobile (desktop layout untouched above 720px) ---------- */
 @media (max-width: 720px) {
   .hero {
-    padding: 22px 0 12px;
+    padding: 20px 0 18px;
+  }
+  .workspace {
+    padding-top: 14px; /* breathing room between the heading and the stage card */
   }
   .hero .lead {
     display: none; /* keep the stage above the fold */
