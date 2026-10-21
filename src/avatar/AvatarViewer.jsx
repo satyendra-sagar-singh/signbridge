@@ -1,6 +1,6 @@
 import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { ContactShadows, OrbitControls, useGLTF } from '@react-three/drei'
+import { ContactShadows, Grid, OrbitControls, useGLTF } from '@react-three/drei'
 import { createMannequin } from './mannequin.js'
 import { captureRestPose } from './clipBuilder.js'
 import { createClipResolver } from './clipSource.js'
@@ -154,7 +154,32 @@ export function AvatarViewer({ onAvatarReady, update, playerState, items, modelU
     else el.requestFullscreen?.().catch(() => {})
   }
 
-  const resetView = () => controlsRef.current?.reset()
+  const [autoRotate, setAutoRotate] = useState(false)
+
+  const resetView = () => {
+    controlsRef.current?.reset()
+    setAutoRotate(false)
+  }
+
+  /** Orbit the camera to a preset side, keeping the current distance. */
+  const viewFrom = (angleDeg) => {
+    const controls = controlsRef.current
+    if (!controls) return
+    const cam = controls.object
+    const target = controls.target
+    const r = cam.position.distanceTo(target)
+    const a = (angleDeg * Math.PI) / 180
+    cam.position.set(target.x + Math.sin(a) * r * 0.97, target.y + r * 0.12, target.z + Math.cos(a) * r * 0.97)
+    controls.update()
+    setAutoRotate(false)
+  }
+
+  // Arrow keys pan the view while the stage has focus (not while typing elsewhere).
+  useEffect(() => {
+    const controls = controlsRef.current
+    const el = wrapperRef.current
+    if (controls && el) controls.listenToKeyEvents(el)
+  }, [avatarType])
 
   if (!webgl || canvasError) {
     return <AvatarFallback reason={!webgl ? 'webgl' : 'error'} error={canvasError} items={items} playerState={playerState} />
@@ -165,7 +190,7 @@ export function AvatarViewer({ onAvatarReady, update, playerState, items, modelU
 
   return (
     <>
-    <div ref={wrapperRef} className={`avatar-viewer ${fullscreen ? 'is-fullscreen' : ''}`}>
+    <div ref={wrapperRef} className={`avatar-viewer ${fullscreen ? 'is-fullscreen' : ''}`} tabIndex={0} aria-label="3D avatar stage: drag to rotate, right-drag to move, scroll to zoom">
       <div className="avatar-badges" aria-live="polite">
         {avatarType === 'loading' && <span className="badge badge-muted">Loading avatar…</span>}
         {avatarType === 'mannequin' && (
@@ -184,10 +209,17 @@ export function AvatarViewer({ onAvatarReady, update, playerState, items, modelU
       </div>
 
       <div className="avatar-tools">
+        <button type="button" className={`icon-btn ${autoRotate ? 'is-active' : ''}`} onClick={() => setAutoRotate((v) => !v)} title="Auto-rotate (turntable)" aria-pressed={autoRotate} aria-label="Toggle auto-rotate">⟳</button>
         <button type="button" className="icon-btn" onClick={resetView} title="Reset view" aria-label="Reset camera view">⟲</button>
         <button type="button" className="icon-btn" onClick={toggleFullscreen} title={fullscreen ? 'Exit full screen' : 'Full screen'} aria-label={fullscreen ? 'Exit full screen' : 'View full screen'}>
           {fullscreen ? '🡼' : '⛶'}
         </button>
+      </div>
+
+      <div className="view-presets" role="group" aria-label="Camera angle">
+        {[['Front', 0], ['Left', 90], ['Back', 180], ['Right', -90]].map(([label, deg]) => (
+          <button key={label} type="button" className="chip chip-small" onClick={() => viewFrom(deg)}>{label}</button>
+        ))}
       </div>
 
       <CanvasErrorBoundary onError={setCanvasError}>
@@ -204,21 +236,42 @@ export function AvatarViewer({ onAvatarReady, update, playerState, items, modelU
           <directionalLight position={[-2, 2, -1]} intensity={0.4} />
           <AvatarModel onReady={handleReady} onModelError={handleModelError} modelUrl={modelUrl} expression={activeExpression} />
           <ContactShadows position={[0, 0.001, 0]} opacity={0.45} scale={3} blur={2.2} far={2} />
+          <Grid
+            position={[0, -0.002, 0]}
+            args={[6, 6]}
+            cellSize={0.25}
+            cellThickness={0.6}
+            cellColor="#9aa7d4"
+            sectionSize={1}
+            sectionThickness={1}
+            sectionColor="#7c8bd0"
+            fadeDistance={6}
+            fadeStrength={1.5}
+            infiniteGrid
+          />
           <OrbitControls
             ref={controlsRef}
             target={[0, 0.82, 0]}
-            enablePan={false}
-            minDistance={1}
-            maxDistance={4.5}
-            minPolarAngle={0.4}
-            maxPolarAngle={Math.PI * 0.62}
+            enablePan
+            screenSpacePanning
+            panSpeed={0.8}
+            keyPanSpeed={12}
+            enableDamping
+            dampingFactor={0.08}
+            rotateSpeed={0.8}
+            autoRotate={autoRotate}
+            autoRotateSpeed={2.5}
+            minDistance={0.8}
+            maxDistance={6}
+            minPolarAngle={0.15}
+            maxPolarAngle={Math.PI * 0.85}
             makeDefault
           />
           <PlayerDriver update={update} />
         </Canvas>
       </CanvasErrorBoundary>
 
-      <p className="avatar-hint">Drag to rotate · scroll or pinch to zoom</p>
+      <p className="avatar-hint">Drag to rotate · right-drag or two fingers to move · scroll or pinch to zoom · arrow keys to pan</p>
     </div>
     </>
   )

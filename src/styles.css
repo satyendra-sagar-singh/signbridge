@@ -221,3 +221,11 @@ button { font-family: inherit; }
 .result { border-top: 1px solid var(--border); margin-top: 18px; padding-top: 16px; }
 .timeline { border-top: 1px solid var(--border); margin-top: 16px; padding-top: 14px; }
 .timeline-empty p { font-size: 0.9rem; }
+
+/* ---------- 3D stage controls ---------- */
+.avatar-viewer:focus-visible { outline: 3px solid color-mix(in srgb, var(--primary) 45%, transparent); outline-offset: 2px; }
+.view-presets { position: absolute; left: 10px; bottom: 30px; z-index: 2; display: flex; gap: 4px; }
+.view-presets .chip { background: color-mix(in srgb, var(--surface) 85%, transparent); backdrop-filter: blur(6px); }
+.icon-btn.is-active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.avatar-hint { font-size: 0.72rem; }
+@media (max-width: 600px) { .avatar-hint { display: none; } .view-presets { bottom: 10px; } }
