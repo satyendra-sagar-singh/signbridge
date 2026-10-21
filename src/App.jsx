@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Header } from './components/Header.jsx'
 import { TranslatePanel } from './components/TranslatePanel.jsx'
 import { PlaybackControls } from './components/PlaybackControls.jsx'
 import { Timeline } from './components/Timeline.jsx'
 import { TranslationResult } from './components/TranslationResult.jsx'
-import { About, Footer, HowItWorks } from './components/InfoSections.jsx'
 import { AvatarViewer } from './avatar/AvatarViewer.jsx'
 import { useSignPlayer } from './hooks/useSignPlayer.js'
 import { translate } from './translation/translate.js'
@@ -61,25 +60,20 @@ export default function App() {
     }
   }, [pendingAutoplay, state.status]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const viewerState = useMemo(() => state, [state])
-
   return (
     <>
       <a href="#main" className="skip-link">Skip to content</a>
       <Header />
       <main id="main">
-        <section id="home" className="hero">
+        <section className="hero">
           <div className="container">
             <h1>Convert Text into Indian Sign Language</h1>
-            <p className="lead">
-              Type a sentence and SignBridge translates it into ISL signs, performed by an animated 3D avatar.
-              Everything runs in your browser — no account or API key needed.
-            </p>
+            <p className="lead">Type a sentence and watch it signed in ISL by a 3D avatar. Runs entirely in your browser.</p>
           </div>
         </section>
 
         <section className="container workspace" aria-label="Translator">
-          <div className="workspace-left">
+          <div className="card workspace-left">
             <TranslatePanel
               text={text}
               onChange={handleChange}
@@ -92,16 +86,17 @@ export default function App() {
             <TranslationResult result={result} sourceText={translatedText} />
           </div>
           <div className="workspace-right">
-            <AvatarViewer onAvatarReady={handleAvatarReady} update={update} playerState={viewerState} items={items} />
-            <PlaybackControls state={state} controls={controls} />
-            <Timeline state={state} controls={controls} />
+            <AvatarViewer onAvatarReady={handleAvatarReady} update={update} playerState={state} items={items} />
+            <div className="card">
+              <PlaybackControls state={state} controls={controls} />
+              <Timeline state={state} controls={controls} />
+            </div>
           </div>
         </section>
-
-        <HowItWorks />
-        <About />
       </main>
-      <Footer />
+      <footer className="site-footer">
+        <div className="container">SignBridge · Text to Indian Sign Language</div>
+      </footer>
     </>
   )
 }

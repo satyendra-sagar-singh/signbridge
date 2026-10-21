@@ -1,17 +1,10 @@
-import React, { useState } from 'react'
-
-const LINKS = [
-  { href: '#home', label: 'Home' },
-  { href: '#how-it-works', label: 'How It Works' },
-  { href: '#about', label: 'About' },
-]
+import React from 'react'
 
 export function Header() {
-  const [open, setOpen] = useState(false)
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <a href="#home" className="brand" onClick={() => setOpen(false)}>
+        <a href="#main" className="brand">
           <span className="brand-logo" aria-hidden="true">
             <svg viewBox="0 0 32 32" width="32" height="32" fill="none">
               <rect width="32" height="32" rx="9" fill="url(#g)" />
@@ -29,23 +22,6 @@ export function Header() {
             <span className="brand-sub">Text to Indian Sign Language</span>
           </span>
         </a>
-
-        <nav className={`site-nav ${open ? 'is-open' : ''}`} aria-label="Main navigation">
-          {LINKS.map((l) => (
-            <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
-          ))}
-        </nav>
-
-        <button
-          type="button"
-          className="nav-toggle"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          onClick={() => setOpen((o) => !o)}
-        >
-          <span /><span /><span />
-        </button>
       </div>
     </header>
   )

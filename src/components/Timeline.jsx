@@ -6,15 +6,15 @@ export function Timeline({ state, controls }) {
   const { items, index, status, total } = state
   if (!items.length) {
     return (
-      <div className="card timeline timeline-empty">
-        <p>The sequence of signs will appear here after you translate some text.</p>
+      <div className="timeline timeline-empty">
+        <p>The sign sequence will appear here after you translate.</p>
       </div>
     )
   }
   const showActive = status !== PlayerStatus.READY && status !== PlayerStatus.STOPPED
 
   return (
-    <div className="card timeline">
+    <div className="timeline">
       <div className="timeline-head">
         <h3>Sign sequence</h3>
         <span className="muted">{items.length} items · {total.toFixed(1)}s at 1x</span>
@@ -44,7 +44,6 @@ export function Timeline({ state, controls }) {
           )
         })}
       </ol>
-      <p className="muted small">Click any sign to jump to it. Fingerspelled letters are shown in amber; the question marker in purple.</p>
     </div>
   )
 }

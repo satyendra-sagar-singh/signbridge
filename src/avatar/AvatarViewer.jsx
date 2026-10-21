@@ -169,8 +169,8 @@ export function AvatarViewer({ onAvatarReady, update, playerState, items, modelU
       <div className="avatar-badges" aria-live="polite">
         {avatarType === 'loading' && <span className="badge badge-muted">Loading avatar…</span>}
         {avatarType === 'mannequin' && (
-          <span className="badge badge-warn" title="No avatar GLB found at /public/models/avatar.glb">
-            Placeholder mannequin — poses are approximations, not verified ISL
+          <span className="badge badge-warn" title={modelError ? 'No avatar GLB at public/models/avatar.glb — using the built-in placeholder. Poses are approximations, not verified ISL.' : 'Poses are approximations, not verified ISL'}>
+            Placeholder avatar
           </span>
         )}
         {avatarType === 'glb' && <span className="badge badge-ok">3D avatar loaded</span>}
@@ -220,11 +220,6 @@ export function AvatarViewer({ onAvatarReady, update, playerState, items, modelU
 
       <p className="avatar-hint">Drag to rotate · scroll or pinch to zoom</p>
     </div>
-    {modelError && avatarType === 'mannequin' && (
-      <p className="avatar-note">
-        No avatar model found at <code>public/models/avatar.glb</code>. Using the placeholder mannequin — see README for how to add a rigged avatar.
-      </p>
-    )}
     </>
   )
 }

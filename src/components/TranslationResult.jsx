@@ -4,7 +4,7 @@ import React from 'react'
 export function TranslationResult({ result, sourceText }) {
   if (!result) return null
   return (
-    <section className="card result" aria-label="Translation result">
+    <section className="result" aria-label="Translation result">
       <div className="result-head">
         <h3>Translation</h3>
         <span className="muted">from “{sourceText.trim()}”</span>

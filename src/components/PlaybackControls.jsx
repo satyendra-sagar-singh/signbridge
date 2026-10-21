@@ -24,7 +24,7 @@ export function PlaybackControls({ state, controls }) {
   const active = playing || paused
 
   return (
-    <div className="card playback">
+    <div className="playback">
       <div className="playback-status" role="status" aria-live="polite">
         <span className={`status-dot status-${status}`} aria-hidden="true" />
         <span className="status-text">{STATUS_LABEL[status]}</span>

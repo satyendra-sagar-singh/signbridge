@@ -17,7 +17,7 @@ export function TranslatePanel({ text, onChange, onTranslate, onClear, error, fi
   }
 
   return (
-    <form className="card translate-panel" onSubmit={handleSubmit} noValidate>
+    <form className="translate-panel" onSubmit={handleSubmit} noValidate>
       <label htmlFor="isl-input" className="field-label">Your text</label>
       <textarea
         id="isl-input"
@@ -52,7 +52,6 @@ export function TranslatePanel({ text, onChange, onTranslate, onClear, error, fi
         <button type="button" className="btn btn-ghost" onClick={onClear} disabled={!text}>
           Clear
         </button>
-        <span className="kbd-hint">Ctrl/⌘ + Enter to translate</span>
       </div>
 
       <div className="examples">
