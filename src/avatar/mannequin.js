@@ -11,7 +11,7 @@
 //   Finger X+ : curl toward the palm   Head X+ / Y     : nod down / turn
 //   Brows X-  : raise eyebrows
 
-import { CapsuleGeometry, CylinderGeometry, Group, Mesh, MeshToonMaterial, QuadraticBezierCurve3, SphereGeometry, TubeGeometry, Vector3 } from 'three'
+import { CapsuleGeometry, CylinderGeometry, Group, Mesh, MeshToonMaterial, QuadraticBezierCurve3, SphereGeometry, TorusGeometry, TubeGeometry, Vector3 } from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 
 const COLORS = {
@@ -195,10 +195,18 @@ function buildHead(skin, skinDark) {
   // Hair: flat black cap with a soft fringe line
   head.add(mesh(new SphereGeometry(R + 0.012, 40, 20, 0, Math.PI * 2, 0, Math.PI * 0.27), hair, [0, R, -0.005], [1.02, 0.97, 0.95]))
   head.add(mesh(new SphereGeometry(1, 20, 12), hair, [0, 0.5, 0.2], [0.2, 0.03, 0.09]))
-  // Ears: outer shell + inner hollow
-  for (const x of [-0.3, 0.3]) {
-    head.add(mesh(new SphereGeometry(0.045, 16, 12), skin, [x, 0.27, 0.01], [0.45, 1, 0.8]))
-    head.add(mesh(new SphereGeometry(0.03, 14, 10), skinDark, [x * 1.02, 0.265, 0.015], [0.3, 0.8, 0.6]))
+  // Ears: helix rim, concha hollow and lobe, standing off the side of the skull
+  for (const side of [-1, 1]) {
+    const ear = new Group()
+    ear.position.set(side * 0.3, 0.3, -0.02)
+    ear.rotation.set(0, side * 0.45, side * -0.1) // angled slightly forward and tilted
+    const helix = mesh(new TorusGeometry(0.036, 0.011, 10, 24), skin, [side * 0.022, 0.004, 0], [1, 1.3, 1])
+    helix.rotation.y = Math.PI / 2
+    ear.add(helix)
+    ear.add(mesh(new SphereGeometry(1, 16, 12), skin, [side * 0.012, 0, 0], [0.018, 0.052, 0.038])) // back plate
+    ear.add(mesh(new SphereGeometry(1, 14, 10), skinDark, [side * 0.024, -0.002, 0.005], [0.007, 0.032, 0.022])) // concha
+    ear.add(mesh(new SphereGeometry(1, 14, 10), skin, [side * 0.022, -0.048, 0.008], [0.014, 0.017, 0.016])) // lobe
+    head.add(ear)
   }
 
   // Eyes: eyeball, iris, pupil, highlight, upper/lower lids (lids rotate to blink)
