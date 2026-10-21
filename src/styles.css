@@ -840,9 +840,11 @@ button {
     padding: 4px 9px;
   }
   .view-presets {
-    left: 8px;
-    bottom: 8px;
-    gap: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+    gap: 4px;
+    justify-content: center;
   }
   .view-presets .chip {
     min-height: 34px;
