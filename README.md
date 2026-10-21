@@ -85,6 +85,16 @@ Entries with `"kind": "marker"` (e.g. `QUESTION`) are non-manual markers inserte
 
 Add a rule by appending `[regex, replacement]` to `RULES`; order matters (phrases before single words).
 
+## Bad words
+
+`src/translation/profanity.js` detects English and Hinglish profanity (including `f*ck` / `sh1t` style spellings) and applies the policy chosen in the UI:
+
+- **Censor** (default) – the word becomes the `CENSORED` marker sign (avatar covers its mouth) and shows as ■■■.
+- **Soften** – nearest neutral meaning: *wtf* → what, *shit* → bad, *bastard* → bad person; pure intensifiers (*bloody*, *freaking*) are dropped.
+- **Spell out** – the word is fingerspelled literally, for when the reader needs to know exactly what was said.
+
+Mild words (*damn*, *sucks*, *idiot*, *pagal*, *shut up*) are always softened to real signs (BAD, STUPID, QUIET). Every match is listed under the translation.
+
 ## Translation rules (MVP)
 
 - English fillers (`a, the, is, are, to, do, …`) are dropped.

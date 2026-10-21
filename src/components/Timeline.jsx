@@ -37,7 +37,7 @@ export function Timeline({ state, controls }) {
                 aria-current={isActive ? 'step' : undefined}
               >
                 <span className="tl-index">{i + 1}</span>
-                <span className="tl-label">{it.kind === 'fingerspell' ? it.gloss : it.gloss}</span>
+                <span className="tl-label">{it.gloss === 'CENSORED' ? '■■■' : it.gloss}</span>
                 {it.clip?.userData?.empty && <span className="tl-flag" title="No animation clip on this rig">!</span>}
               </button>
             </li>

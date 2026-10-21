@@ -333,6 +333,18 @@ NEW = [
              (0.75, merge(hand("Right", "FRONT_LOW", "CLAW", d=(0, 5, -20)), hand("Left", "FRONT_LOW", "CLAW", d=(0, 5, -26)))), (0.95, both("FRONT_LOW", "CLAW", d=(0, 5, -20))))),
     E("PICTURE", ["picture", "pictures", "photo", "photos", "pic", "pics", "selfie", "camera", "tasveer", "photu"], "C-hand at the eye moves down onto the left palm, like placing a photo.", SMILE,
       frames((0.4, merge(PALM_BASE, hand("Right", "EYE", "C"))), (0.9, merge(PALM_BASE, hand("Right", "BASE", "C"))), (1.15, merge(PALM_BASE, hand("Right", "BASE", "C"))))),
+    E("DO", ["doing", "kar", "karo", "karna", "karta", "karti", "karte", "kar raha", "kar rahi", "kar rahe", "kiya", "kiye"], "Both fists, palms down, swing side to side in front of the body.", "neutral",
+      frames((0.35, both("FRONT_LOW", "FIST", d=(0, 5, -15))), (0.65, both("FRONT_LOW", "FIST", d=(0, -8, -15))), (0.95, both("FRONT_LOW", "FIST", d=(0, 5, -15))), (1.2, both("FRONT_LOW", "FIST", d=(0, -8, -15))))),
+    E("STUPID", ["stupid", "silly", "foolish", "dumb", "crazy", "mad person"], "Fist knocks against the forehead twice.", FROWN,
+      tap("FOREHEAD", "FIST", extra=BROW_DOWN)),
+    E("HATE", ["hate", "hates", "hated", "dislike", "nafrat", "disgusting", "yuck", "ew", "gross"], "Both hands flick open away from the body with a disgusted face.", FROWN,
+      frames((0.4, merge(both("CHEST_HIGH", "PINCH", d=(0, 5, -20)), BROW_DOWN)), (0.85, merge(both("FRONT_FAR", d=(-5, 15, 0)), BROW_DOWN)), (1.1, merge(both("FRONT_FAR", d=(-5, 15, 0)), BROW_DOWN)))),
+    E("QUIET", ["quiet", "silence", "silent", "hush", "shh", "shush", "chup", "shaant"], "Index finger held to the lips.", "neutral",
+      frames((0.45, hand("Right", "MOUTH", "POINT", d=(0, 0, 5))), (1.1, hand("Right", "MOUTH", "POINT", d=(0, 0, 5))))),
+    E("NONSENSE", ["nonsense", "rubbish", "bakwaas", "bakwas", "faltu", "useless", "garbage", "trash"], "Open hand waves away from the side of the head.", FROWN,
+      frames((0.4, merge(hand("Right", "TEMPLE", "CLAW"), BROW_DOWN)), (0.8, merge(hand("Right", "SIDE", d=(-20, 0, 0)), BROW_DOWN)), (1.05, merge(hand("Right", "SIDE", d=(-20, 0, 0)), BROW_DOWN)))),
+    E("CENSORED", ["censoredword"], "Marker for a censored swear word: the hand covers the mouth and the eyes glance away.", FROWN,
+      frames((0.3, merge(hand("Right", "MOUTH", d=(0, 0, 8)), BROW_DOWN, {"Head": [5, 15, 0]})), (0.9, merge(hand("Right", "MOUTH", d=(0, 0, 8)), BROW_DOWN, {"Head": [5, 15, 0]}))), kind="marker"),
 ]
 
 # numbers 0–10 (handshapes held in front; 6–10 add the left hand)

@@ -9,6 +9,7 @@
 
 import vocabulary from '../data/islVocabulary.json'
 import { normaliseSlang } from './slang.js'
+import { applyProfanityPolicy, CENSOR_TOKEN } from './profanity.js'
 
 export const MAX_INPUT_LENGTH = 300
 
@@ -74,13 +75,15 @@ export function validateInput(text) {
   return null
 }
 
-function normalise(sentence) {
+function normalise(sentence, options) {
   let s = sentence.toLowerCase().replace(/[’‘]/g, "'")
   for (const [re, rep] of CONTRACTIONS) s = s.replace(re, rep)
-  const slang = normaliseSlang(s)
+  // Profanity first (asterisk/leet spellings), then slang on the cleaned text.
+  const profanity = applyProfanityPolicy(s, options.profanity)
+  const slang = normaliseSlang(profanity.text)
   s = slang.text
   const tokens = s.replace(/[^a-z0-9'\s-]/g, ' ').replace(/['-]/g, '').split(/\s+/).filter(Boolean)
-  return { tokens, rewrites: slang.rewrites, text: s }
+  return { tokens, rewrites: slang.rewrites, profanity: profanity.matches, text: s }
 }
 
 function matchPhrase(tokens, pos) {
@@ -97,7 +100,7 @@ function matchPhrase(tokens, pos) {
 }
 
 function translateSentence(sentence, options) {
-  const { tokens, rewrites, text } = normalise(sentence)
+  const { tokens, rewrites, profanity, text } = normalise(sentence, options)
   const isQuestion = /\?\s*$/.test(sentence) || QUESTION_START.test(text)
   const items = []
   const unsupported = []
@@ -107,7 +110,7 @@ function translateSentence(sentence, options) {
     if (match) {
       items.push({
         gloss: match.entry.gloss,
-        kind: 'sign',
+        kind: match.entry.kind === 'marker' ? 'marker' : 'sign',
         source: tokens.slice(i, i + match.length).join(' '),
       })
       i += match.length
@@ -145,7 +148,7 @@ function translateSentence(sentence, options) {
   if (isQuestion && ordered.length) {
     ordered.push({ gloss: 'QUESTION', kind: 'marker', source: '?' })
   }
-  return { items: ordered, unsupported, rewrites }
+  return { items: ordered, unsupported: unsupported.filter((w) => w !== CENSOR_TOKEN), rewrites, profanity }
 }
 
 /**
@@ -153,9 +156,9 @@ function translateSentence(sentence, options) {
  * @returns {{ok:boolean, error?:string, items:Array, unsupported:string[], notes:string[], glossString:string}}
  */
 export function translate(text, options = {}) {
-  const opts = { fingerspell: true, ...options }
+  const opts = { fingerspell: true, profanity: 'censor', ...options }
   const error = validateInput(text)
-  if (error) return { ok: false, error, items: [], unsupported: [], notes: [], rewrites: [], glossString: '' }
+  if (error) return { ok: false, error, items: [], unsupported: [], notes: [], rewrites: [], profanity: [], glossString: '' }
 
   const sentences = text
     .split(/(?<=[.!?,;])\s+|\n+/) // clauses are ordered independently
@@ -164,16 +167,28 @@ export function translate(text, options = {}) {
 
   const items = []
   const unsupported = []
+  const notes = []
   const rewrites = []
+  const profanity = []
   for (const sentence of sentences) {
     const r = translateSentence(sentence, opts)
     items.push(...r.items)
     unsupported.push(...r.unsupported)
     rewrites.push(...r.rewrites)
+    profanity.push(...r.profanity)
+  }
+  if (profanity.length) {
+    const censored = profanity.filter((m) => m.action === 'censored').length
+    const softened = profanity.filter((m) => m.action === 'softened' || m.action === 'dropped').length
+    const spelled = profanity.filter((m) => m.action === 'spelled').length
+    const parts = []
+    if (censored) parts.push(`${censored} censored`)
+    if (softened) parts.push(`${softened} softened`)
+    if (spelled) parts.push(`${spelled} spelled out`)
+    notes.push(`Bad words: ${parts.join(', ')}.`)
   }
 
   const uniqueUnsupported = [...new Set(unsupported)]
-  const notes = []
   if (rewrites.length) {
     notes.push(`Understood ${rewrites.map((r) => `“${r.from}” as “${r.to}”`).join(', ')}.`)
   }
@@ -192,6 +207,7 @@ export function translate(text, options = {}) {
       unsupported: uniqueUnsupported,
       notes,
       rewrites,
+      profanity,
       glossString: '',
     }
   }
@@ -201,7 +217,7 @@ export function translate(text, options = {}) {
     return {
       id: `${idx}-${it.gloss}`,
       ...it,
-      label: it.kind === 'fingerspell' ? `${it.gloss} (fingerspell "${it.source}")` : entry?.kind === 'number' ? `${entry.value}` : it.gloss,
+      label: it.kind === 'fingerspell' ? `${it.gloss} (fingerspell "${it.source}")` : entry?.kind === 'number' ? `${entry.value}` : it.gloss === 'CENSORED' ? '■■■' : it.gloss,
       description: entry?.description || (it.kind === 'fingerspell' ? `Fingerspelled letter ${it.gloss}` : ''),
       expression: entry?.expression || 'neutral',
     }
@@ -213,6 +229,7 @@ export function translate(text, options = {}) {
     unsupported: uniqueUnsupported,
     notes,
     rewrites,
+    profanity,
     glossString: enriched.map((e) => (e.kind === 'fingerspell' ? `fs-${e.gloss}` : e.gloss)).join(' '),
   }
 }

@@ -11,7 +11,7 @@ export function TranslationResult({ result, sourceText }) {
       </div>
       <p className="gloss-string" aria-label="ISL gloss">
         {result.items.map((it) => (
-          <span key={it.id} className={`gloss kind-${it.kind}`}>{it.kind === 'fingerspell' ? `fs-${it.gloss}` : it.gloss}</span>
+          <span key={it.id} className={`gloss kind-${it.kind} ${it.gloss === 'CENSORED' ? 'is-censored' : ''}`}>{it.kind === 'fingerspell' ? `fs-${it.gloss}` : it.gloss === 'CENSORED' ? '■■■' : it.gloss}</span>
         ))}
       </p>
       {result.rewrites?.length > 0 && (
@@ -24,8 +24,19 @@ export function TranslationResult({ result, sourceText }) {
           ))}
         </p>
       )}
+      {result.profanity?.length > 0 && (
+        <p className="rewrites" aria-label="Bad words handled">
+          <span className="muted small">Bad words:</span>
+          {result.profanity.map((m, i) => (
+            <span key={i} className="rewrite-chip is-profanity" title={`“${m.word}” was ${m.action}`}>
+              {m.action === 'censored' ? '■■■' : m.action === 'spelled' ? m.word : <><s>{m.word}</s> → {m.replacement}</>}
+              <em> · {m.action}</em>
+            </span>
+          ))}
+        </p>
+      )}
       {result.notes
-        .filter((n) => !n.startsWith('Understood'))
+        .filter((n) => !n.startsWith('Understood') && !n.startsWith('Bad words'))
         .map((n, i) => (
           <p key={i} className="note">{n}</p>
         ))}

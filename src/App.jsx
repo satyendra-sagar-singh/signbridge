@@ -16,6 +16,7 @@ export default function App() {
   const [result, setResult] = useState(null)
   const [translatedText, setTranslatedText] = useState('')
   const [fingerspell, setFingerspell] = useState(true)
+  const [profanity, setProfanity] = useState('censor')
   const [avatar, setAvatar] = useState(null)
 
   const items = result?.items ?? EMPTY_ITEMS
@@ -24,7 +25,7 @@ export default function App() {
   const handleAvatarReady = useCallback((info) => setAvatar(info), [])
 
   const runTranslate = useCallback(() => {
-    const r = translate(text, { fingerspell })
+    const r = translate(text, { fingerspell, profanity })
     if (!r.ok) {
       setError(r.error)
       setResult(null)
@@ -33,7 +34,7 @@ export default function App() {
     setError(null)
     setResult(r)
     setTranslatedText(text)
-  }, [text, fingerspell])
+  }, [text, fingerspell, profanity])
 
   const handleClear = () => {
     setText('')
@@ -82,6 +83,8 @@ export default function App() {
               error={error}
               fingerspell={fingerspell}
               onToggleFingerspell={setFingerspell}
+              profanity={profanity}
+              onChangeProfanity={setProfanity}
             />
             <TranslationResult result={result} sourceText={translatedText} />
           </div>
