@@ -6266,7 +6266,6 @@
         "quickly",
         "asap",
         "jaldi",
-        "bhaago",
         "rush"
       ],
       "description": "Both fists pump alternately like running.",
@@ -14336,8 +14335,7 @@
         "incredible",
         "unbelievable",
         "whoa",
-        "woah",
-        "damn"
+        "woah"
       ],
       "description": "Open hand shakes loosely in front with a wide-open mouth.",
       "expression": "question",
@@ -17156,7 +17154,6 @@
         "stupid",
         "silly",
         "foolish",
-        "dumb",
         "crazy",
         "mad person"
       ],
@@ -17424,7 +17421,6 @@
         "hush",
         "shh",
         "shush",
-        "chup",
         "shaant"
       ],
       "description": "Index finger held to the lips.",
@@ -17498,9 +17494,6 @@
       "words": [
         "nonsense",
         "rubbish",
-        "bakwaas",
-        "bakwas",
-        "faltu",
         "useless",
         "garbage",
         "trash"
@@ -17771,6 +17764,2755 @@
             ],
             "LeftHandThumb1": [
               50,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "FUCK",
+      "words": [
+        "fuck",
+        "fucking",
+        "fucked",
+        "fucker",
+        "fuckers",
+        "fuckin",
+        "fucks",
+        "fuck off",
+        "eff"
+      ],
+      "description": "Middle finger raised and thrust toward the listener.",
+      "expression": "frown",
+      "clipName": "FUCK",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -25
+            ],
+            "RightForeArm": [
+              -120,
+              0,
+              30
+            ],
+            "RightHand": [
+              -60,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandRing1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandPinky1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.7,
+          "pose": {
+            "RightArm": [
+              -95,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightHand": [
+              -80,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandRing1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandPinky1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              6,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.1,
+          "pose": {
+            "RightArm": [
+              -95,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightHand": [
+              -80,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandRing1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandPinky1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              6,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "MOTHERFUCKER",
+      "words": [
+        "motherfucker",
+        "motherfuckers",
+        "motherfucking"
+      ],
+      "description": "Middle finger raised, then both fists thrown forward.",
+      "expression": "frown",
+      "clipName": "MOTHERFUCKER",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -50,
+              0,
+              0
+            ],
+            "RightHand": [
+              -70,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandRing1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandPinky1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.8,
+          "pose": {
+            "RightArm": [
+              -90,
+              0,
+              -5
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "LeftArm": [
+              -90,
+              0,
+              5
+            ],
+            "LeftForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "LeftFingers": [
+              95,
+              0,
+              0
+            ],
+            "LeftHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              8,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.1,
+          "pose": {
+            "RightArm": [
+              -90,
+              0,
+              -5
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "LeftArm": [
+              -90,
+              0,
+              5
+            ],
+            "LeftForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "LeftFingers": [
+              95,
+              0,
+              0
+            ],
+            "LeftHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              8,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "SHIT",
+      "words": [
+        "shit",
+        "shitty",
+        "shite",
+        "tatti",
+        "piss"
+      ],
+      "description": "Fist with the thumb tucked in jerks sharply downward.",
+      "expression": "frown",
+      "clipName": "SHIT",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -50,
+              0,
+              0
+            ],
+            "RightHand": [
+              -20,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.65,
+          "pose": {
+            "RightArm": [
+              -40,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -40,
+              0,
+              0
+            ],
+            "RightHand": [
+              40,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.95,
+          "pose": {
+            "RightArm": [
+              -40,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -40,
+              0,
+              0
+            ],
+            "RightHand": [
+              40,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "BULLSHIT",
+      "words": [
+        "bullshit",
+        "bakchod",
+        "bakchodi"
+      ],
+      "description": "Horns (index and pinky) at the forehead, then the fist jerks down.",
+      "expression": "frown",
+      "clipName": "BULLSHIT",
+      "keyframes": [
+        {
+          "t": 0.4,
+          "pose": {
+            "RightArm": [
+              -110,
+              0,
+              -35
+            ],
+            "RightForeArm": [
+              -120,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandMiddle1": [
+              90,
+              0,
+              0
+            ],
+            "RightHandRing1": [
+              90,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.85,
+          "pose": {
+            "RightArm": [
+              -50,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -40,
+              0,
+              0
+            ],
+            "RightHand": [
+              40,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.1,
+          "pose": {
+            "RightArm": [
+              -50,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -40,
+              0,
+              0
+            ],
+            "RightHand": [
+              40,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "BITCH",
+      "words": [
+        "bitch",
+        "bitches",
+        "bitchy"
+      ],
+      "description": "Flat hand slaps outward from the chin twice.",
+      "expression": "frown",
+      "clipName": "BITCH",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -75,
+              0,
+              -10
+            ],
+            "RightForeArm": [
+              -130,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.6,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -25
+            ],
+            "RightForeArm": [
+              -50,
+              0,
+              0
+            ],
+            "RightHand": [
+              40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.85,
+          "pose": {
+            "RightArm": [
+              -75,
+              0,
+              -10
+            ],
+            "RightForeArm": [
+              -130,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.1,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -25
+            ],
+            "RightForeArm": [
+              -50,
+              0,
+              0
+            ],
+            "RightHand": [
+              40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "ASSHOLE",
+      "words": [
+        "asshole",
+        "assholes",
+        "ass",
+        "arse",
+        "gandu",
+        "gaand"
+      ],
+      "description": "O-hand shaken toward the listener.",
+      "expression": "frown",
+      "clipName": "ASSHOLE",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "RightFingers": [
+              60,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              30,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.6,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -7
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "RightFingers": [
+              60,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              30,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.85,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -23
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "RightFingers": [
+              60,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              30,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.1,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "RightFingers": [
+              60,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              30,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "BASTARD",
+      "words": [
+        "bastard",
+        "bastards",
+        "harami",
+        "haramkhor",
+        "haramzada"
+      ],
+      "description": "Fist knocks the forehead, then is thrown forward at the listener.",
+      "expression": "frown",
+      "clipName": "BASTARD",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -110,
+              0,
+              -35
+            ],
+            "RightForeArm": [
+              -120,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.8,
+          "pose": {
+            "RightArm": [
+              -95,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              6,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.05,
+          "pose": {
+            "RightArm": [
+              -95,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              6,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "DICK",
+      "words": [
+        "dick",
+        "dicks",
+        "cock",
+        "prick",
+        "dickhead",
+        "lund",
+        "lauda"
+      ],
+      "description": "Fist pumps up and down at the waist.",
+      "expression": "frown",
+      "clipName": "DICK",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -45,
+              0,
+              -20
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              20
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.6,
+          "pose": {
+            "RightArm": [
+              -60,
+              0,
+              -20
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              20
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.85,
+          "pose": {
+            "RightArm": [
+              -45,
+              0,
+              -20
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              20
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.1,
+          "pose": {
+            "RightArm": [
+              -60,
+              0,
+              -20
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              20
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "CUNT",
+      "words": [
+        "cunt",
+        "cunts",
+        "chut"
+      ],
+      "description": "Claw hand thrown sharply down and away.",
+      "expression": "frown",
+      "clipName": "CUNT",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -25
+            ],
+            "RightForeArm": [
+              -120,
+              0,
+              30
+            ],
+            "RightFingers": [
+              55,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.75,
+          "pose": {
+            "RightArm": [
+              -50,
+              0,
+              -40
+            ],
+            "RightForeArm": [
+              -40,
+              0,
+              0
+            ],
+            "RightFingers": [
+              55,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.0,
+          "pose": {
+            "RightArm": [
+              -50,
+              0,
+              -40
+            ],
+            "RightForeArm": [
+              -40,
+              0,
+              0
+            ],
+            "RightFingers": [
+              55,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "WHORE",
+      "words": [
+        "whore",
+        "whores",
+        "slut",
+        "sluts",
+        "hoe",
+        "randi"
+      ],
+      "description": "Back of the flat hand brushes forward across the cheek twice.",
+      "expression": "frown",
+      "clipName": "WHORE",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -85,
+              0,
+              -22
+            ],
+            "RightForeArm": [
+              -135,
+              0,
+              0
+            ],
+            "RightHand": [
+              30,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.6,
+          "pose": {
+            "RightArm": [
+              -85,
+              0,
+              -37
+            ],
+            "RightForeArm": [
+              -125,
+              0,
+              0
+            ],
+            "RightHand": [
+              30,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.85,
+          "pose": {
+            "RightArm": [
+              -85,
+              0,
+              -22
+            ],
+            "RightForeArm": [
+              -135,
+              0,
+              0
+            ],
+            "RightHand": [
+              30,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.1,
+          "pose": {
+            "RightArm": [
+              -85,
+              0,
+              -37
+            ],
+            "RightForeArm": [
+              -125,
+              0,
+              0
+            ],
+            "RightHand": [
+              30,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "DAMN",
+      "words": [
+        "damn",
+        "dammit",
+        "goddamn",
+        "bloody",
+        "freaking",
+        "hell"
+      ],
+      "description": "Fist slams down into the open left palm.",
+      "expression": "frown",
+      "clipName": "DAMN",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "LeftArm": [
+              -60,
+              0,
+              15
+            ],
+            "LeftForeArm": [
+              -75,
+              0,
+              0
+            ],
+            "RightArm": [
+              -85,
+              0,
+              -25
+            ],
+            "RightForeArm": [
+              -120,
+              0,
+              30
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.65,
+          "pose": {
+            "LeftArm": [
+              -60,
+              0,
+              15
+            ],
+            "LeftForeArm": [
+              -75,
+              0,
+              0
+            ],
+            "RightArm": [
+              -60,
+              0,
+              -25
+            ],
+            "RightForeArm": [
+              -85,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              6,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.0,
+          "pose": {
+            "LeftArm": [
+              -60,
+              0,
+              15
+            ],
+            "LeftForeArm": [
+              -75,
+              0,
+              0
+            ],
+            "RightArm": [
+              -60,
+              0,
+              -25
+            ],
+            "RightForeArm": [
+              -85,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              6,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "CRAP",
+      "words": [
+        "crap",
+        "crappy",
+        "sucks",
+        "ghatiya",
+        "bakwaas"
+      ],
+      "description": "Claw hand shaken downward with a grimace.",
+      "expression": "frown",
+      "clipName": "CRAP",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -50,
+              0,
+              0
+            ],
+            "RightFingers": [
+              55,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.6,
+          "pose": {
+            "RightArm": [
+              -50,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -30,
+              0,
+              0
+            ],
+            "RightFingers": [
+              55,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.85,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -50,
+              0,
+              0
+            ],
+            "RightFingers": [
+              55,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.1,
+          "pose": {
+            "RightArm": [
+              -50,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -30,
+              0,
+              0
+            ],
+            "RightFingers": [
+              55,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "IDIOT",
+      "words": [
+        "idiot",
+        "idiots",
+        "moron",
+        "jerk",
+        "fool",
+        "loser",
+        "dumb",
+        "dumbass",
+        "pagal",
+        "ullu",
+        "bewakoof",
+        "buddhu",
+        "nalayak"
+      ],
+      "description": "Index finger circles at the temple, then points at the listener.",
+      "expression": "frown",
+      "clipName": "IDIOT",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -110,
+              0,
+              -42
+            ],
+            "RightForeArm": [
+              -120,
+              0,
+              0
+            ],
+            "RightFingers": [
+              90,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              0,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.6,
+          "pose": {
+            "RightArm": [
+              -110,
+              0,
+              -50
+            ],
+            "RightForeArm": [
+              -114,
+              0,
+              0
+            ],
+            "RightFingers": [
+              90,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              0,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.95,
+          "pose": {
+            "RightArm": [
+              -90,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightFingers": [
+              90,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              0,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              6,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.2,
+          "pose": {
+            "RightArm": [
+              -90,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightFingers": [
+              90,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              0,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              6,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "SHUT-UP",
+      "words": [
+        "shut up",
+        "shaddup"
+      ],
+      "description": "Open hand snaps closed in front of the mouth.",
+      "expression": "frown",
+      "clipName": "SHUT_UP",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -10
+            ],
+            "RightForeArm": [
+              -125,
+              0,
+              5
+            ],
+            "RightFingers": [
+              45,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              10,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.6,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -10
+            ],
+            "RightForeArm": [
+              -125,
+              0,
+              5
+            ],
+            "RightFingers": [
+              50,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.85,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -10
+            ],
+            "RightForeArm": [
+              -125,
+              0,
+              5
+            ],
+            "RightFingers": [
+              45,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              10,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.1,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -10
+            ],
+            "RightForeArm": [
+              -125,
+              0,
+              5
+            ],
+            "RightFingers": [
+              50,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "GET-LOST",
+      "words": [
+        "get lost",
+        "piss off",
+        "get out",
+        "bhaag",
+        "hat"
+      ],
+      "description": "Back of the hand flicks the listener away, twice.",
+      "expression": "frown",
+      "clipName": "GET_LOST",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -25
+            ],
+            "RightForeArm": [
+              -50,
+              0,
+              0
+            ],
+            "RightHand": [
+              -30,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.6,
+          "pose": {
+            "RightArm": [
+              -85,
+              0,
+              -40
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightHand": [
+              20,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.85,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -25
+            ],
+            "RightForeArm": [
+              -50,
+              0,
+              0
+            ],
+            "RightHand": [
+              -30,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.1,
+          "pose": {
+            "RightArm": [
+              -85,
+              0,
+              -40
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightHand": [
+              20,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "BHENCHOD",
+      "words": [
+        "bhenchod",
+        "behenchod"
+      ],
+      "description": "Back of the fingers flick out sharply from under the chin.",
+      "expression": "frown",
+      "clipName": "BHENCHOD",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -75,
+              0,
+              -10
+            ],
+            "RightForeArm": [
+              -122,
+              0,
+              0
+            ],
+            "RightHand": [
+              20,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.7,
+          "pose": {
+            "RightArm": [
+              -80,
+              0,
+              -25
+            ],
+            "RightForeArm": [
+              -50,
+              0,
+              0
+            ],
+            "RightHand": [
+              -30,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              8,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.0,
+          "pose": {
+            "RightArm": [
+              -80,
+              0,
+              -25
+            ],
+            "RightForeArm": [
+              -50,
+              0,
+              0
+            ],
+            "RightHand": [
+              -30,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              8,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "MADARCHOD",
+      "words": [
+        "madarchod"
+      ],
+      "description": "Both open hands thrust forward from the chest with the head jutting forward.",
+      "expression": "frown",
+      "clipName": "MADARCHOD",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -25
+            ],
+            "RightForeArm": [
+              -130,
+              0,
+              30
+            ],
+            "LeftArm": [
+              -70,
+              0,
+              25
+            ],
+            "LeftForeArm": [
+              -130,
+              0,
+              -30
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.75,
+          "pose": {
+            "RightArm": [
+              -90,
+              0,
+              0
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "LeftArm": [
+              -90,
+              0,
+              0
+            ],
+            "LeftForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.05,
+          "pose": {
+            "RightArm": [
+              -90,
+              0,
+              0
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "LeftArm": [
+              -90,
+              0,
+              0
+            ],
+            "LeftForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "BHOSDIKE",
+      "words": [
+        "bhosdike",
+        "bhosdi"
+      ],
+      "description": "Both fists shake toward the listener.",
+      "expression": "frown",
+      "clipName": "BHOSDIKE",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -10
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "LeftArm": [
+              -70,
+              0,
+              10
+            ],
+            "LeftForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "LeftFingers": [
+              95,
+              0,
+              0
+            ],
+            "LeftHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.55,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -3
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "LeftArm": [
+              -70,
+              0,
+              3
+            ],
+            "LeftForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "LeftFingers": [
+              95,
+              0,
+              0
+            ],
+            "LeftHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.75,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -10
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "LeftArm": [
+              -70,
+              0,
+              10
+            ],
+            "LeftForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "LeftFingers": [
+              95,
+              0,
+              0
+            ],
+            "LeftHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.95,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -3
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "RightFingers": [
+              95,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "LeftArm": [
+              -70,
+              0,
+              3
+            ],
+            "LeftForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "LeftFingers": [
+              95,
+              0,
+              0
+            ],
+            "LeftHandThumb1": [
+              50,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "CHUTIYA",
+      "words": [
+        "chutiya",
+        "chutiye",
+        "chutia"
+      ],
+      "description": "Open hand waves in a circle beside the head, then flicks at the listener.",
+      "expression": "frown",
+      "clipName": "CHUTIYA",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -110,
+              0,
+              -52
+            ],
+            "RightForeArm": [
+              -120,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.6,
+          "pose": {
+            "RightArm": [
+              -100,
+              0,
+              -62
+            ],
+            "RightForeArm": [
+              -110,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.95,
+          "pose": {
+            "RightArm": [
+              -90,
+              0,
+              -30
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightHand": [
+              20,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              6,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.2,
+          "pose": {
+            "RightArm": [
+              -90,
+              0,
+              -30
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightHand": [
+              20,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              6,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "KAMINA",
+      "words": [
+        "kamina",
+        "kamine",
+        "kamini",
+        "kutta",
+        "kutte",
+        "kutti"
+      ],
+      "description": "Index finger jabs forward at the listener twice.",
+      "expression": "frown",
+      "clipName": "KAMINA",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "RightFingers": [
+              90,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              0,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.6,
+          "pose": {
+            "RightArm": [
+              -90,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightFingers": [
+              90,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              0,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              6,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.85,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -60,
+              0,
+              0
+            ],
+            "RightFingers": [
+              90,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              0,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.1,
+          "pose": {
+            "RightArm": [
+              -90,
+              0,
+              -15
+            ],
+            "RightForeArm": [
+              -20,
+              0,
+              0
+            ],
+            "RightFingers": [
+              90,
+              0,
+              0
+            ],
+            "RightHandIndex1": [
+              0,
+              0,
+              0
+            ],
+            "RightHandThumb1": [
+              40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ],
+            "Head": [
+              6,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "gloss": "SAALA",
+      "words": [
+        "saala",
+        "saale",
+        "saali",
+        "sala"
+      ],
+      "description": "Hand waves the listener off dismissively at the side.",
+      "expression": "frown",
+      "clipName": "SAALA",
+      "keyframes": [
+        {
+          "t": 0.35,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -50
+            ],
+            "RightForeArm": [
+              -40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.6,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -65
+            ],
+            "RightForeArm": [
+              -40,
+              0,
+              0
+            ],
+            "RightHand": [
+              0,
+              0,
+              -30
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 0.85,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -50
+            ],
+            "RightForeArm": [
+              -40,
+              0,
+              0
+            ],
+            "Brows": [
+              12,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "t": 1.1,
+          "pose": {
+            "RightArm": [
+              -70,
+              0,
+              -65
+            ],
+            "RightForeArm": [
+              -40,
+              0,
+              0
+            ],
+            "RightHand": [
+              0,
+              0,
+              -30
+            ],
+            "Brows": [
+              12,
               0,
               0
             ]

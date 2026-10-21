@@ -78,24 +78,25 @@ describe('translate', () => {
     expect(r.items[0]).toMatchObject({ gloss: 'NUM-10', label: '10' })
   })
 
-  it('spells out swear words by default, without censoring, and reports them', () => {
-    const r = translate('what the f*ck, this is shit')
-    expect(glosses(r)).toEqual(['F', 'U', 'C', 'K', 'WHAT', 'QUESTION', 'S', 'H', 'I', 'T'])
-    expect(r.profanity.map((m) => m.action)).toEqual(['spelled', 'spelled'])
-    expect(r.notes.join(' ')).toMatch(/Bad words: 2 spelled out/)
-    expect(r.notes.join(' ')).not.toMatch(/No sign in the vocabulary/)
-    expect(r.items.find((i) => i.gloss === 'CENSORED')).toBeUndefined()
+  it('signs swear words with their own signs, no censoring, and reports them', () => {
+    const r = translate('what the f*ck, this is sh1t')
+    expect(glosses(r)).toEqual(['FUCK', 'WHAT', 'QUESTION', 'SHIT'])
+    expect(r.profanity).toEqual([{ word: 'f*ck', to: 'fuck' }, { word: 'sh1t', to: 'shit' }])
+    expect(r.notes.join(' ')).toMatch(/Bad words signed: f\*ck, sh1t/)
+    expect(r.unsupported).toEqual([])
+    expect(r.items[0].expression).toBe('frown')
   })
 
-  it('softens swear words when asked', () => {
-    expect(glosses(translate('wtf is this shit', { profanity: 'soften' }))).toEqual(['BAD', 'WHAT', 'QUESTION'])
-    expect(glosses(translate('shut up you idiot', { profanity: 'soften' }))).toEqual(['QUIET', 'YOU', 'STUPID'])
+  it('maps abbreviations and insults to signs', () => {
+    expect(glosses(translate('wtf is this'))).toEqual(['FUCK', 'WHAT', 'QUESTION'])
+    expect(glosses(translate('shut up you idiot'))).toEqual(['SHUT-UP', 'YOU', 'IDIOT'])
+    expect(glosses(translate('this damn phone sucks'))).toEqual(['DAMN', 'PHONE', 'CRAP'])
   })
 
-  it('always maps mild words to real signs and handles Hinglish insults', () => {
-    expect(glosses(translate('this damn phone sucks'))).toEqual(['BAD', 'PHONE', 'BAD'])
-    expect(glosses(translate('tu pagal hai'))).toEqual(['YOU', 'STUPID'])
-    expect(glosses(translate('bhenchod kya kar raha hai?'))).toEqual(['B', 'H', 'E', 'N', 'C', 'H', 'O', 'D', 'DO', 'WHAT', 'QUESTION'])
+  it('signs Hinglish swear words and variants', () => {
+    expect(glosses(translate('tu pagal hai'))).toEqual(['YOU', 'IDIOT'])
+    expect(glosses(translate('bc kya kar raha hai?'))).toEqual(['BHENCHOD', 'DO', 'WHAT', 'QUESTION'])
+    expect(glosses(translate('saale chutiya'))).toEqual(['SAALA', 'CHUTIYA'])
   })
 
   it('returns an error for invalid input', () => {

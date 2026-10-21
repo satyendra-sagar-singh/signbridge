@@ -53,6 +53,7 @@ HS = {
     "C": {"Fingers": [45, 0, 0], "HandThumb1": [10, 0, 0]},
     "BENT": {"Fingers": [40, 0, 0]},
     "T": {"Fingers": [90, 0, 0], "HandThumb1": [10, 0, 0]},
+    "MIDDLE": {"HandIndex1": [90, 0, 0], "HandRing1": [90, 0, 0], "HandPinky1": [90, 0, 0], "HandThumb1": [50, 0, 0]},
 }
 
 
@@ -294,7 +295,7 @@ NEW = [
       frames((0.4, hand("Right", "FOREHEAD", "POINT")), (0.9, hand("Right", "FRONT", "FIST", d=(-15, -10, 0))), (1.15, hand("Right", "FRONT", "FIST", d=(-15, -10, 0))))),
     E("FUNNY", ["funny", "laugh", "laughing", "lol", "lmao", "rofl", "haha", "hahaha", "hilarious", "joke", "joking", "kidding", "mazak", "hasna", "hasi"], "Index and middle fingers brush down the nose twice with a laugh.", SMILE,
       tap("NOSE", "V", extra={"Head": [-5, 0, 0]})),
-    E("WOW", ["wow", "omg", "amazing", "awesome", "cool", "dope", "lit", "superb", "fantastic", "wonderful", "mast", "zabardast", "incredible", "unbelievable", "whoa", "woah", "damn"], "Open hand shakes loosely in front with a wide-open mouth.", Q,
+    E("WOW", ["wow", "omg", "amazing", "awesome", "cool", "dope", "lit", "superb", "fantastic", "wonderful", "mast", "zabardast", "incredible", "unbelievable", "whoa", "woah"], "Open hand shakes loosely in front with a wide-open mouth.", Q,
       frames((0.35, merge(hand("Right", "FRONT", wrist=[0, 0, -25], d=(0, 0, -10)), BROW_UP)), (0.55, merge(hand("Right", "FRONT", wrist=[0, 0, 25], d=(0, 0, -10)), BROW_UP)),
              (0.75, merge(hand("Right", "FRONT", wrist=[0, 0, -25], d=(0, 0, -10)), BROW_UP)), (0.95, merge(hand("Right", "FRONT", wrist=[0, 0, 25], d=(0, 0, -10)), BROW_UP)))),
     E("RELAX", ["relax", "chill", "chill out", "calm", "calm down", "take it easy", "easy", "aaram", "shant", "cool down"], "Both flat hands press slowly downward, palms down.", SMILE,
@@ -343,6 +344,49 @@ NEW = [
       frames((0.45, hand("Right", "MOUTH", "POINT", d=(0, 0, 5))), (1.1, hand("Right", "MOUTH", "POINT", d=(0, 0, 5))))),
     E("NONSENSE", ["nonsense", "rubbish", "bakwaas", "bakwas", "faltu", "useless", "garbage", "trash"], "Open hand waves away from the side of the head.", FROWN,
       frames((0.4, merge(hand("Right", "TEMPLE", "CLAW"), BROW_DOWN)), (0.8, merge(hand("Right", "SIDE", d=(-20, 0, 0)), BROW_DOWN)), (1.05, merge(hand("Right", "SIDE", d=(-20, 0, 0)), BROW_DOWN)))),
+    # ---- profanity & insults (placeholder gestures, angry expression) ----
+    E("FUCK", ["fuck", "fucking", "fucked", "fucker", "fuckers", "fuckin", "fucks", "fuck off", "eff"], "Middle finger raised and thrust toward the listener.", FROWN,
+      frames((0.35, merge(hand("Right", "CHEST_HIGH", "MIDDLE", wrist=[-60, 0, 0]), BROW_DOWN)), (0.7, merge(hand("Right", "FRONT_FAR", "MIDDLE", wrist=[-80, 0, 0], d=(-10, 0, 0)), BROW_DOWN, {"Head": [6, 0, 0]})), (1.1, merge(hand("Right", "FRONT_FAR", "MIDDLE", wrist=[-80, 0, 0], d=(-10, 0, 0)), BROW_DOWN, {"Head": [6, 0, 0]})))),
+    E("MOTHERFUCKER", ["motherfucker", "motherfuckers", "motherfucking"], "Middle finger raised, then both fists thrown forward.", FROWN,
+      frames((0.35, merge(hand("Right", "FRONT", "MIDDLE", wrist=[-70, 0, 0]), BROW_DOWN)), (0.8, merge(both("FRONT_FAR", "FIST", d=(-5, 10, 0)), BROW_DOWN, {"Head": [8, 0, 0]})), (1.1, merge(both("FRONT_FAR", "FIST", d=(-5, 10, 0)), BROW_DOWN, {"Head": [8, 0, 0]})))),
+    E("SHIT", ["shit", "shitty", "shite", "tatti", "piss"], "Fist with the thumb tucked in jerks sharply downward.", FROWN,
+      frames((0.35, merge(hand("Right", "FRONT", "FIST", wrist=[-20, 0, 0]), BROW_DOWN)), (0.65, merge(hand("Right", "FRONT_LOW", "FIST", wrist=[40, 0, 0], d=(10, 0, 0)), BROW_DOWN)), (0.95, merge(hand("Right", "FRONT_LOW", "FIST", wrist=[40, 0, 0], d=(10, 0, 0)), BROW_DOWN)))),
+    E("BULLSHIT", ["bullshit", "bakchod", "bakchodi"], "Horns (index and pinky) at the forehead, then the fist jerks down.", FROWN,
+      frames((0.4, merge(hand("Right", "FOREHEAD", "Y"), BROW_DOWN)), (0.85, merge(hand("Right", "FRONT_LOW", "FIST", wrist=[40, 0, 0]), BROW_DOWN)), (1.1, merge(hand("Right", "FRONT_LOW", "FIST", wrist=[40, 0, 0]), BROW_DOWN)))),
+    E("BITCH", ["bitch", "bitches", "bitchy"], "Flat hand slaps outward from the chin twice.", FROWN,
+      frames((0.35, merge(hand("Right", "CHIN"), BROW_DOWN)), (0.6, merge(hand("Right", "FRONT", wrist=[40, 0, 0], d=(0, -10, 0)), BROW_DOWN)), (0.85, merge(hand("Right", "CHIN"), BROW_DOWN)), (1.1, merge(hand("Right", "FRONT", wrist=[40, 0, 0], d=(0, -10, 0)), BROW_DOWN)))),
+    E("ASSHOLE", ["asshole", "assholes", "ass", "arse", "gandu", "gaand"], "O-hand shaken toward the listener.", FROWN,
+      frames((0.35, merge(hand("Right", "FRONT", "O", d=(0, 0, -10)), BROW_DOWN)), (0.6, merge(hand("Right", "FRONT", "O", d=(0, 8, -10)), BROW_DOWN)), (0.85, merge(hand("Right", "FRONT", "O", d=(0, -8, -10)), BROW_DOWN)), (1.1, merge(hand("Right", "FRONT", "O", d=(0, 0, -10)), BROW_DOWN)))),
+    E("BASTARD", ["bastard", "bastards", "harami", "haramkhor", "haramzada"], "Fist knocks the forehead, then is thrown forward at the listener.", FROWN,
+      frames((0.35, merge(hand("Right", "FOREHEAD", "FIST"), BROW_DOWN)), (0.8, merge(hand("Right", "FRONT_FAR", "FIST", d=(-10, 0, 0)), BROW_DOWN, {"Head": [6, 0, 0]})), (1.05, merge(hand("Right", "FRONT_FAR", "FIST", d=(-10, 0, 0)), BROW_DOWN, {"Head": [6, 0, 0]})))),
+    E("DICK", ["dick", "dicks", "cock", "prick", "dickhead", "lund", "lauda"], "Fist pumps up and down at the waist.", FROWN,
+      frames((0.35, merge(hand("Right", "WAIST", "FIST", d=(-10, 0, 0)), BROW_DOWN)), (0.6, merge(hand("Right", "WAIST", "FIST", d=(-25, 0, 0)), BROW_DOWN)), (0.85, merge(hand("Right", "WAIST", "FIST", d=(-10, 0, 0)), BROW_DOWN)), (1.1, merge(hand("Right", "WAIST", "FIST", d=(-25, 0, 0)), BROW_DOWN)))),
+    E("CUNT", ["cunt", "cunts", "chut"], "Claw hand thrown sharply down and away.", FROWN,
+      frames((0.35, merge(hand("Right", "CHEST_HIGH", "CLAW"), BROW_DOWN)), (0.75, merge(hand("Right", "FRONT_LOW", "CLAW", d=(0, -25, 0)), BROW_DOWN)), (1.0, merge(hand("Right", "FRONT_LOW", "CLAW", d=(0, -25, 0)), BROW_DOWN)))),
+    E("WHORE", ["whore", "whores", "slut", "sluts", "hoe", "randi"], "Back of the flat hand brushes forward across the cheek twice.", FROWN,
+      frames((0.35, merge(hand("Right", "CHEEK", wrist=[30, 0, 0]), BROW_DOWN)), (0.6, merge(hand("Right", "CHEEK", wrist=[30, 0, 0], d=(0, -15, 10)), BROW_DOWN)), (0.85, merge(hand("Right", "CHEEK", wrist=[30, 0, 0]), BROW_DOWN)), (1.1, merge(hand("Right", "CHEEK", wrist=[30, 0, 0], d=(0, -15, 10)), BROW_DOWN)))),
+    E("DAMN", ["damn", "dammit", "goddamn", "bloody", "freaking", "hell"], "Fist slams down into the open left palm.", FROWN,
+      frames((0.35, merge(PALM_BASE, hand("Right", "CHEST_HIGH", "FIST", d=(-15, 0, 0)), BROW_DOWN)), (0.65, merge(PALM_BASE, hand("Right", "BASE", "FIST"), BROW_DOWN, {"Head": [6, 0, 0]})), (1.0, merge(PALM_BASE, hand("Right", "BASE", "FIST"), BROW_DOWN, {"Head": [6, 0, 0]})))),
+    E("CRAP", ["crap", "crappy", "sucks", "ghatiya", "bakwaas"], "Claw hand shaken downward with a grimace.", FROWN,
+      frames((0.35, merge(hand("Right", "FRONT", "CLAW"), BROW_DOWN)), (0.6, merge(hand("Right", "FRONT_LOW", "CLAW", d=(0, 0, 10)), BROW_DOWN)), (0.85, merge(hand("Right", "FRONT", "CLAW"), BROW_DOWN)), (1.1, merge(hand("Right", "FRONT_LOW", "CLAW", d=(0, 0, 10)), BROW_DOWN)))),
+    E("IDIOT", ["idiot", "idiots", "moron", "jerk", "fool", "loser", "dumb", "dumbass", "pagal", "ullu", "bewakoof", "buddhu", "nalayak"], "Index finger circles at the temple, then points at the listener.", FROWN,
+      frames((0.35, merge(hand("Right", "TEMPLE", "POINT"), BROW_DOWN)), (0.6, merge(hand("Right", "TEMPLE", "POINT", d=(0, -8, 6)), BROW_DOWN)), (0.95, merge(hand("Right", "FRONT_FAR", "POINT", d=(-5, 0, 0)), BROW_DOWN, {"Head": [6, 0, 0]})), (1.2, merge(hand("Right", "FRONT_FAR", "POINT", d=(-5, 0, 0)), BROW_DOWN, {"Head": [6, 0, 0]})))),
+    E("SHUT-UP", ["shut up", "shaddup"], "Open hand snaps closed in front of the mouth.", FROWN,
+      frames((0.35, merge(hand("Right", "MOUTH", "C", d=(0, 0, 10)), BROW_DOWN)), (0.6, merge(hand("Right", "MOUTH", "PINCH", d=(0, 0, 10)), BROW_DOWN)), (0.85, merge(hand("Right", "MOUTH", "C", d=(0, 0, 10)), BROW_DOWN)), (1.1, merge(hand("Right", "MOUTH", "PINCH", d=(0, 0, 10)), BROW_DOWN)))),
+    E("GET-LOST", ["get lost", "piss off", "get out", "bhaag", "hat"], "Back of the hand flicks the listener away, twice.", FROWN,
+      frames((0.35, merge(hand("Right", "FRONT", wrist=[-30, 0, 0], d=(0, -10, 0)), BROW_DOWN)), (0.6, merge(hand("Right", "FRONT_FAR", wrist=[20, 0, 0], d=(0, -25, 0)), BROW_DOWN)), (0.85, merge(hand("Right", "FRONT", wrist=[-30, 0, 0], d=(0, -10, 0)), BROW_DOWN)), (1.1, merge(hand("Right", "FRONT_FAR", wrist=[20, 0, 0], d=(0, -25, 0)), BROW_DOWN)))),
+    E("BHENCHOD", ["bhenchod", "behenchod"], "Back of the fingers flick out sharply from under the chin.", FROWN,
+      frames((0.35, merge(hand("Right", "CHIN", wrist=[20, 0, 0], d=(0, 0, 8)), BROW_DOWN)), (0.7, merge(hand("Right", "FRONT", wrist=[-30, 0, 0], d=(-10, -10, 0)), BROW_DOWN, {"Head": [8, 0, 0]})), (1.0, merge(hand("Right", "FRONT", wrist=[-30, 0, 0], d=(-10, -10, 0)), BROW_DOWN, {"Head": [8, 0, 0]})))),
+    E("MADARCHOD", ["madarchod"], "Both open hands thrust forward from the chest with the head jutting forward.", FROWN,
+      frames((0.35, merge(both("CHEST_HIGH", d=(0, 0, -10)), BROW_DOWN)), (0.75, merge(both("FRONT_FAR", d=(-5, 15, 0)), BROW_DOWN, {"Head": [12, 0, 0]})), (1.05, merge(both("FRONT_FAR", d=(-5, 15, 0)), BROW_DOWN, {"Head": [12, 0, 0]})))),
+    E("BHOSDIKE", ["bhosdike", "bhosdi"], "Both fists shake toward the listener.", FROWN,
+      frames((0.35, merge(both("FRONT", "FIST", d=(0, 5, -10)), BROW_DOWN)), (0.55, merge(both("FRONT", "FIST", d=(0, 12, -10)), BROW_DOWN)), (0.75, merge(both("FRONT", "FIST", d=(0, 5, -10)), BROW_DOWN)), (0.95, merge(both("FRONT", "FIST", d=(0, 12, -10)), BROW_DOWN)))),
+    E("CHUTIYA", ["chutiya", "chutiye", "chutia"], "Open hand waves in a circle beside the head, then flicks at the listener.", FROWN,
+      frames((0.35, merge(hand("Right", "TEMPLE", d=(0, -10, 0)), BROW_DOWN)), (0.6, merge(hand("Right", "TEMPLE", d=(10, -20, 10)), BROW_DOWN)), (0.95, merge(hand("Right", "FRONT_FAR", wrist=[20, 0, 0], d=(-5, -15, 0)), BROW_DOWN, {"Head": [6, 0, 0]})), (1.2, merge(hand("Right", "FRONT_FAR", wrist=[20, 0, 0], d=(-5, -15, 0)), BROW_DOWN, {"Head": [6, 0, 0]})))),
+    E("KAMINA", ["kamina", "kamine", "kamini", "kutta", "kutte", "kutti"], "Index finger jabs forward at the listener twice.", FROWN,
+      frames((0.35, merge(hand("Right", "FRONT", "POINT", d=(0, 0, -10)), BROW_DOWN)), (0.6, merge(hand("Right", "FRONT_FAR", "POINT", d=(-5, 0, 0)), BROW_DOWN, {"Head": [6, 0, 0]})), (0.85, merge(hand("Right", "FRONT", "POINT", d=(0, 0, -10)), BROW_DOWN)), (1.1, merge(hand("Right", "FRONT_FAR", "POINT", d=(-5, 0, 0)), BROW_DOWN, {"Head": [6, 0, 0]})))),
+    E("SAALA", ["saala", "saale", "saali", "sala"], "Hand waves the listener off dismissively at the side.", FROWN,
+      frames((0.35, merge(hand("Right", "SIDE", d=(-10, 0, 0)), BROW_DOWN)), (0.6, merge(hand("Right", "SIDE", wrist=[0, 0, -30], d=(-10, -15, 0)), BROW_DOWN)), (0.85, merge(hand("Right", "SIDE", d=(-10, 0, 0)), BROW_DOWN)), (1.1, merge(hand("Right", "SIDE", wrist=[0, 0, -30], d=(-10, -15, 0)), BROW_DOWN)))),
 ]
 
 # numbers 0–10 (handshapes held in front; 6–10 add the left hand)
@@ -370,6 +414,10 @@ if "STOP" in existing:
 for entry in NEW:
     existing[entry["gloss"]] = entry
 existing.pop("CENSORED", None)
+# words now owned by the profanity signs
+for gloss, drop in [("NONSENSE", {"bakwaas", "bakwas", "faltu"}), ("STUPID", {"dumb"}), ("QUIET", {"chup"}), ("RUN", {"bhaago"})]:
+    if gloss in existing:
+        existing[gloss]["words"] = [w for w in existing[gloss]["words"] if w not in drop]
 marker = existing.pop("QUESTION")
 signs = list(existing.values()) + [marker]
 data["signs"] = signs

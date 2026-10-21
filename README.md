@@ -87,12 +87,7 @@ Add a rule by appending `[regex, replacement]` to `RULES`; order matters (phrase
 
 ## Bad words
 
-Nothing is censored. `src/translation/profanity.js` recognises English and Hinglish swear words (including `f*ck` / `sh1t` spellings) and, by the policy chosen in the UI:
-
-- **Spell out** (default) – the word is fingerspelled letter by letter, exactly as said.
-- **Soften** – nearest neutral meaning: *wtf* → what, *shit* → bad, *bastard* → bad person; pure intensifiers (*bloody*, *freaking*) are dropped.
-
-Mild words (*damn*, *sucks*, *idiot*, *pagal*, *shut up*) map to their real signs (BAD, STUPID, QUIET). Every match is listed under the translation.
+Nothing is censored or softened: swear words and insults have their own signs (FUCK, SHIT, BITCH, BASTARD, DAMN, IDIOT, SHUT-UP, BHENCHOD, MADARCHOD, CHUTIYA, GANDU/ASSHOLE, KAMINA, SAALA, …) with an angry expression. `src/translation/profanity.js` only normalises masked and variant spellings (`f*ck`, `sh1t`, `wtf`, `bc`, `bkl`, `bsdk`) onto the canonical word so the right sign is matched; each match is shown under the translation as “f*ck → FUCK”. Like every other sign on the placeholder mannequin, these gestures are approximations, not verified ISL.
 
 ## Translation rules (MVP)
 

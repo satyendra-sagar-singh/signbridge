@@ -3,7 +3,7 @@ import { MAX_INPUT_LENGTH } from '../translation/translate.js'
 
 export const EXAMPLE_PHRASES = ['Hello.', 'Thank you.', 'I need help.', 'How are you?', 'I need water.']
 
-export function TranslatePanel({ text, onChange, onTranslate, onClear, error, fingerspell, onToggleFingerspell, profanity, onChangeProfanity }) {
+export function TranslatePanel({ text, onChange, onTranslate, onClear, error, fingerspell, onToggleFingerspell }) {
   const remaining = MAX_INPUT_LENGTH - text.length
   const over = remaining < 0
 
@@ -36,19 +36,10 @@ export function TranslatePanel({ text, onChange, onTranslate, onClear, error, fi
         <span id="char-counter" className={`char-counter ${over ? 'is-over' : ''}`}>
           {text.length} / {MAX_INPUT_LENGTH} characters
         </span>
-        <span className="input-options">
-          <label className="toggle">
-            <input type="checkbox" checked={fingerspell} onChange={(e) => onToggleFingerspell(e.target.checked)} />
-            Fingerspell unknown words
-          </label>
-          <label className="toggle">
-            Bad words
-            <select className="select-small" value={profanity} onChange={(e) => onChangeProfanity(e.target.value)} aria-label="How to handle swear words">
-              <option value="spell">Spell out</option>
-              <option value="soften">Soften</option>
-            </select>
-          </label>
-        </span>
+        <label className="toggle">
+          <input type="checkbox" checked={fingerspell} onChange={(e) => onToggleFingerspell(e.target.checked)} />
+          Fingerspell unknown words
+        </label>
       </div>
       {error && (
         <p id="input-error" className="error-msg" role="alert">{error}</p>

@@ -28,9 +28,8 @@ export function TranslationResult({ result, sourceText }) {
         <p className="rewrites" aria-label="Bad words handled">
           <span className="muted small">Bad words:</span>
           {result.profanity.map((m, i) => (
-            <span key={i} className="rewrite-chip is-profanity" title={`“${m.word}” was ${m.action}`}>
-              {m.action === 'spelled' ? m.word : <><s>{m.word}</s> → {m.replacement}</>}
-              <em> · {m.action}</em>
+            <span key={i} className="rewrite-chip is-profanity" title={`“${m.word}” is signed as ${m.to.toUpperCase()}`}>
+              {m.word} → {m.to.toUpperCase()}
             </span>
           ))}
         </p>

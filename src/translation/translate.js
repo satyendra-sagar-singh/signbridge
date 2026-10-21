@@ -9,7 +9,7 @@
 
 import vocabulary from '../data/islVocabulary.json'
 import { normaliseSlang } from './slang.js'
-import { applyProfanityPolicy } from './profanity.js'
+import { normaliseProfanity } from './profanity.js'
 
 export const MAX_INPUT_LENGTH = 300
 
@@ -75,11 +75,11 @@ export function validateInput(text) {
   return null
 }
 
-function normalise(sentence, options) {
+function normalise(sentence) {
   let s = sentence.toLowerCase().replace(/[’‘]/g, "'")
   for (const [re, rep] of CONTRACTIONS) s = s.replace(re, rep)
   // Profanity first (asterisk/leet spellings), then slang on the cleaned text.
-  const profanity = applyProfanityPolicy(s, options.profanity)
+  const profanity = normaliseProfanity(s)
   const slang = normaliseSlang(profanity.text)
   s = slang.text
   const tokens = s.replace(/[^a-z0-9'\s-]/g, ' ').replace(/['-]/g, '').split(/\s+/).filter(Boolean)
@@ -100,7 +100,7 @@ function matchPhrase(tokens, pos) {
 }
 
 function translateSentence(sentence, options) {
-  const { tokens, rewrites, profanity, text } = normalise(sentence, options)
+  const { tokens, rewrites, profanity, text } = normalise(sentence)
   const isQuestion = /\?\s*$/.test(sentence) || QUESTION_START.test(text)
   const items = []
   const unsupported = []
@@ -156,7 +156,7 @@ function translateSentence(sentence, options) {
  * @returns {{ok:boolean, error?:string, items:Array, unsupported:string[], notes:string[], glossString:string}}
  */
 export function translate(text, options = {}) {
-  const opts = { fingerspell: true, profanity: 'spell', ...options }
+  const opts = { fingerspell: true, ...options }
   const error = validateInput(text)
   if (error) return { ok: false, error, items: [], unsupported: [], notes: [], rewrites: [], profanity: [], glossString: '' }
 
@@ -178,16 +178,10 @@ export function translate(text, options = {}) {
     profanity.push(...r.profanity)
   }
   if (profanity.length) {
-    const softened = profanity.filter((m) => m.action === 'softened' || m.action === 'dropped').length
-    const spelled = profanity.filter((m) => m.action === 'spelled').length
-    const parts = []
-    if (softened) parts.push(`${softened} softened`)
-    if (spelled) parts.push(`${spelled} spelled out`)
-    notes.push(`Bad words: ${parts.join(', ')}.`)
+    notes.push(`Bad words signed: ${profanity.map((m) => m.word).join(', ')}.`)
   }
 
-  const spelledProfanity = new Set(profanity.filter((m) => m.action === 'spelled').map((m) => m.replacement))
-  const uniqueUnsupported = [...new Set(unsupported)].filter((w) => !spelledProfanity.has(w))
+  const uniqueUnsupported = [...new Set(unsupported)]
   if (rewrites.length) {
     notes.push(`Understood ${rewrites.map((r) => `“${r.from}” as “${r.to}”`).join(', ')}.`)
   }
